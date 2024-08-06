@@ -8,6 +8,7 @@
 
 **Fetal and Neonatal Development Imaging (FEDI)** toolbox is a comprehensive, free, open-source toolbox that provides a suite of command-line tools dedicated to the processing and analysis of fetal and neonatal MRI data.
 
+
 ![FEDI_Dreaming](https://github.com/FEDIToolbox/FEDI/assets/20087558/754a9d42-858f-4445-b25c-98354903f34a)
 
 
@@ -17,9 +18,13 @@
 - Outlier deteciton for dMRI
 - Motion Correction for dMRI
 - Complete pipeline for fetal dMRI
+- Many other features coming soon
 
 
 ## Installation
+To install the FEDI toolbox, clone the repository and add the necessary paths to your `.bashrc` file:
+
+
 ```bash
 git https://github.com/FEDIToolbox/FEDI.git
 cd FEDI
