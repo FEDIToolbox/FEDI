@@ -121,5 +121,9 @@ mrconvert "${SEG_TMP_DIR}/union_mask_TE${NUMBER_ECHOTIME}.mif" "$MASK" -force -q
 
 mrcalc "$DMRI" "$MASK" -multiply "$DMRISK" -force -quiet
 
+<<<<<<< HEAD:FEDI/pipelines/HAITCH/src/segment_fetalbrain.sh
 rm ${SEG_TMP_DIR}/* -f
 rmdir -v ${SEG_TMP_DIR}
+=======
+rm ${SEG_TMP_DIR} -fr
+>>>>>>> 933b4dc (Add files via upload):FEDI/HAITCH/src/segment_fetalbrain.sh
