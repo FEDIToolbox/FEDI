@@ -1,3 +1,5 @@
+Sampling Scheme
+======================
 Pre-processing
 ======================
 Brain Segmentation
