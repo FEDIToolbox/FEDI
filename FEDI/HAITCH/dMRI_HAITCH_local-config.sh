@@ -29,12 +29,13 @@ usage() {
     echo "  -s SESSION      Session identifier i.e, s1, s2"
     echo "  -m MODALITY     MODALITY i.e, dwi, dwiME, dwi_hardi"
     echo "  -r RUNNUMBER    RUNNUMBER i.e, run_21"
+    echo "  -g REGSTRAT  Registration strategy i.e, flirt, ants, manual"
     echo "  -o CONFIG_FILE  Output file name"
     exit 1
 }
 
 # Parse command-line options
-while getopts "d:p:i:m:r:o:s:" opt; do
+while getopts "d:p:i:m:r:o:s:g:" opt; do
     case $opt in
         d)
             PROJDIR="$OPTARG"
@@ -58,6 +59,9 @@ while getopts "d:p:i:m:r:o:s:" opt; do
         s)
             SESSION="$OPTARG"
             ;;
+	g)
+	    REGSTRAT="$OPTARG"
+	    ;;
         \?)
             echo "Invalid option: -$OPTARG" >&2
             usage
@@ -120,6 +124,7 @@ export OUTPATH="\${PROJDIR}/protocols"
 export INPATHSUB="\${INPATH}/${SUBJECTID}/${SESSION}/${MODALITY}/${RUNNUMBER}"
 export OUTPATHSUB="\${OUTPATH}/${PROTOCOL}/${SUBJECTID}/${SESSION}/${MODALITY}_${RUNNUMBER}"
 
+export REGSTRAT="${REGSTRAT}"
 
 export BVALS="\${INPATHSUB}/${FULLSUBJECTID}.bvals"
 export BVECS="\${INPATHSUB}/${FULLSUBJECTID}.bvecs"
