@@ -1,4 +1,4 @@
-Contributors
+Development Team
 ======================
 
 **Project Originator and Lead Developer:**
@@ -7,8 +7,6 @@ Contributors
   - Boston Children's Hospital - Harvard Medical School
   
   Haykel Snoussi is the visionary behind FEDI, having conceived the idea, leading the development, managing the GitHub repository, and structuring the entire project.
-
-Haykel Snoussi conceived and structured FEDI, leading development, managing the GitHub repository, and overseeing the ReadTheDocs page.
 
 
 **Contributors:**
