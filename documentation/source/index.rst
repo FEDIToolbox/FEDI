@@ -45,7 +45,7 @@ Table of Contents
 
 .. toctree::
    :maxdepth: 1
-   :caption: Sampling Scheme
+   :caption: Sampling Schemes
 
    sampling_scheme/starts
 
