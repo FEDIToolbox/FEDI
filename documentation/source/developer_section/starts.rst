@@ -4,20 +4,19 @@ Contributors
 **Project Originator and Lead Developer:**
 
 - **Haykel Snoussi, PhD**
-  - Department of Radiology, Boston Children's Hospital
+  - Boston Children's Hospital
   - Harvard Medical School
   
-  Haykel Snoussi is the visionary behind FEDI, having conceived the idea, structured the entire project, and developed the majority of its components. He also manages the FEDI GitHub repository and the ReadTheDocs webpage, ensuring the ongoing development and maintenance of the toolbox.
+  Haykel Snoussi is the visionary behind FEDI, having conceived the idea, leading the development, managing the GitHub repository, and structuring the entire project.
+
+Haykel Snoussi conceived and structured FEDI, leading development, managing the GitHub repository, and overseeing the ReadTheDocs page.
+
 
 **Contributors:**
 
-The following contributors have supported the FEDI project by integrating specific methods and command-line tools from their research into the FEDI toolbox:
-
 - **Ali Gholipour**
-  - Department of Radiology, Boston Children's Hospital
-  - Harvard Medical School
+  - Boston Children's Hospital - Harvard Medical School
   - Department of Radiological Sciences, University of California
 
 - **Clemente Velasco-Annis**
-  - Department of Radiology, Boston Children's Hospital
-
+  - Boston Children's Hospital
