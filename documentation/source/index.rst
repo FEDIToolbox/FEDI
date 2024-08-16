@@ -53,7 +53,7 @@ Table of Contents
    :maxdepth: 1
    :caption: Diffusion MRI
 
-   dmri_preprocessing/starts
+   diffusion_mri/starts
 
 .. toctree::
    :maxdepth: 1
