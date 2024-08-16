@@ -59,13 +59,8 @@ Table of Contents
    :maxdepth: 1
    :caption: Workflows
 
-   distortion_correction/starts
+   workflows/starts
 
-.. toctree::
-   :maxdepth: 1
-   :caption: Outlier Detection
-
-   outlier_detection/starts
 
 .. toctree::
    :maxdepth: 1
