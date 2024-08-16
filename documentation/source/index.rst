@@ -47,7 +47,7 @@ Table of Contents
    :maxdepth: 1
    :caption: Getting Started
 
-   sampling_scheme/starts
+   getting_started/starts
 
 .. toctree::
    :maxdepth: 1
