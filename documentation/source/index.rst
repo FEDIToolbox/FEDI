@@ -64,9 +64,9 @@ Table of Contents
 
 .. toctree::
    :maxdepth: 1
-   :caption: Developers
+   :caption: Developer Section
 
-   motion_correction/starts
+   developer_section/starts
 
 
 
