@@ -1,17 +1,20 @@
 Development Team
 ======================
 
-**Project Originator and Lead Developer:**
+**Project Founder and Lead Developer:**
 
 - **Haykel Snoussi, PhD**  
-  - Boston Children's Hospital - Harvard Medical School
-  
-  Haykel Snoussi conceived and structured FEDI, leading its development, and overseeing the entire project.
+  Boston Children's Hospital - Harvard Medical School
 
-**Contributors:**
+**Contributors:**  
+(Detailed list available [here](https://github.com/FEDIToolbox/FEDI/graphs/contributors))
 
 - **Ali Gholipour**  
-  - Boston Children's Hospital - Harvard Medical School and University of California
+  Boston Children's Hospital - Harvard Medical School  
+  University of California
 
 - **Clemente Velasco-Annis**  
-  - Boston Children's Hospital
+  Boston Children's Hospital
+
+
+
