@@ -45,19 +45,19 @@ Table of Contents
 
 .. toctree::
    :maxdepth: 1
-   :caption: Sampling Schemes
+   :caption: Getting Started
 
    sampling_scheme/starts
 
 .. toctree::
    :maxdepth: 1
-   :caption: DMRI Preprocessing
+   :caption: Diffusion MRI
 
    dmri_preprocessing/starts
 
 .. toctree::
    :maxdepth: 1
-   :caption: Distortion Correction
+   :caption: Workflows
 
    distortion_correction/starts
 
@@ -69,7 +69,7 @@ Table of Contents
 
 .. toctree::
    :maxdepth: 1
-   :caption: Motion Correction
+   :caption: Developers
 
    motion_correction/starts
 
