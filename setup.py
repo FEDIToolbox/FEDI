@@ -1,16 +1,24 @@
-from setuptools import setup
+
+
+from setuptools import setup, find_packages
 
 setup(
-    name='FEDI',
+    name='fedi',
     version='0.1',
-    packages=['FEDI'],
+    packages=find_packages(include=['FEDI', 'FEDI.*']),
     install_requires=[
-        # List your dependencies here
+        'numpy',
+        'scipy',
+        'nibabel',
+        'matplotlib',
+        'dipy',
+        'cvxpy',
+        # Add other dependencies here
     ],
     entry_points={
         'console_scripts': [
+            'fedi_dmri_outliers=FEDI.scripts.fedi_dmri_outliers:main',
             'fedi_dmri_snr=FEDI.scripts.fedi_dmri_snr:main',
-            'another_tool=FEDI.scripts.another_tool:main',
         ],
     },
 )
