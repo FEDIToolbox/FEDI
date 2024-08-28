@@ -45,33 +45,29 @@ Table of Contents
 
 .. toctree::
    :maxdepth: 1
-   :caption: Sampling Scheme
+   :caption: Getting Started
 
-   sampling_scheme/starts
-
-.. toctree::
-   :maxdepth: 1
-   :caption: DMRI Preprocessing
-
-   dmri_preprocessing/starts
+   getting_started/starts
 
 .. toctree::
    :maxdepth: 1
-   :caption: Distortion Correction
+   :caption: Diffusion MRI
 
-   distortion_correction/starts
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Outlier Detection
-
-   outlier_detection/starts
+   diffusion_mri/starts
 
 .. toctree::
    :maxdepth: 1
-   :caption: Motion Correction
+   :caption: Workflows
 
-   motion_correction/starts
+   workflows/starts
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Developer Section
+
+   developer_section/starts
+   developer_section/starts2
 
 
 
