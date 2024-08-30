@@ -15,9 +15,9 @@
 
 
 ## Key Features
-- Outlier deteciton for dMRI
+- Outlier detection for dMRI
 - Motion Correction for dMRI
-- Complete pipeline for fetal dMRI
+- A complete pipeline for fetal dMRI
 - Many other features coming soon
 
 
@@ -26,9 +26,14 @@ To install the FEDI toolbox, clone the repository and add the necessary paths to
 
 
 ```bash
-git https://github.com/FEDIToolbox/FEDI.git
-cd FEDI
+git clone https://github.com/FEDIToolbox/FEDI.git
+cd FEDI/FEDI/scripts
+FEDI_SCRIPTS=$(pwd)
+echo 'export PATH="${FEDI_SCRIPTS}:$PATH"' >> ~/.bashrc
+source ~/.bashrc
 ```
+Additional installation methods will be available soon.
+
 
 ## Dependencies
 Recommended to use Anaconda Python distribution.
