@@ -1,0 +1,11 @@
+Metadata-Version: 2.1
+Name: fedi
+Version: 0.2.9
+Author: Your Name
+Author-email: your.email@example.com
+License: MIT
+Requires-Python: >=3.7
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+
+Read the Docs

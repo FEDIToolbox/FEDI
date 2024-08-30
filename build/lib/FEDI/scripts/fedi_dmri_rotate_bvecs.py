@@ -24,7 +24,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser(
         description=(
             "\033[1mDESCRIPTION:\033[0m \n\n    "
-            "Rotate the bvec accordingly with a list of ANTs transformation matrices.\n"
+            "Rotate the bvec accordingly with a list of ANTs traansformation matrices.\n"
         ),
         epilog=(
             "\033[1mREFERENCES:\033[0m\n  "

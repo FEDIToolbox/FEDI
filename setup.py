@@ -1,10 +1,8 @@
-
-
 from setuptools import setup, find_packages
 
 setup(
     name='fedi',
-    version='0.1',
+    version='0.2.9',
     packages=find_packages(include=['FEDI', 'FEDI.*']),
     install_requires=[
         'numpy',
@@ -22,4 +20,18 @@ setup(
             'fedi_dmri_snr=FEDI.scripts.fedi_dmri_snr:main',
         ],
     },
+    python_requires='>=3.7',  # Adjust according to your requirements
+    package_data={
+        'FEDI': [
+            'Sampling_Scheme/*.dvs',  # Include non-Python files
+            'models/*.py',  # Include any other files you need
+            'pipelines/HAITCH/*.py',  # Include files in subdirectories
+        ],
+    },
+    test_suite='tests',
+    license='MIT',
+    author='Your Name',
+    author_email='your.email@example.com',
+    long_description=open('documentation/README.rst').read(),
+    long_description_content_type='text/x-rst',
 )

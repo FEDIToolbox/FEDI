@@ -1,4 +1,4 @@
-include README.md
+include documentation/*.rst
 include LICENSE
 include requirements.txt
-recursive-include bin *
+include setup.py
