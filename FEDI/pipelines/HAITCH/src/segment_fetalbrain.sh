@@ -67,7 +67,7 @@ SEGMENTATION_METHOD="DAVOOD"
 
 # Both scripts segment all 3D volumes in the input path
 if [[ ${SEGMENTATION_METHOD}  == "DAVOOD" ]]; then
-    
+
     DVD_SRC=/local/software/dmri_segmentation_3d
     python ${DVD_SRC}/dMRI_volume_segmentation.py ${SEG_TMP_DIR} \
                                                   ${DVD_SRC}/model_checkpoint \
@@ -76,7 +76,7 @@ if [[ ${SEGMENTATION_METHOD}  == "DAVOOD" ]]; then
 
 elif [[ ${SEGMENTATION_METHOD}  == "RAZEIH" ]]; then
     # Estimate Fetal-Bet field
-    cp /local/software/fetal-bet/AttUNet.pth $OUTPATHSUB/extra/.
+    cp ${SRC}/fetal-bet/AttUNet.pth $OUTPATHSUB/extra/.
     docker run -v $OUTPATHSUB/extra:/path/in/container faghihpirayesh/fetal-bet \
     --data_path /path/in/container/segmentation \
     --save_path /path/in/container/FetalBet \
@@ -84,7 +84,7 @@ elif [[ ${SEGMENTATION_METHOD}  == "RAZEIH" ]]; then
 
     rm $OUTPATHSUB/extra/AttUNet.pth
     # rename output files
-    
+
 fi
 
 
