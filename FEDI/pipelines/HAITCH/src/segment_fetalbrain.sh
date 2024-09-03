@@ -42,8 +42,8 @@ while [[ "$#" -gt 0 ]]; do
     shift
 done
 
-rm ${SEG_TMP_DIR} -fr
-mkdir -p ${SEG_TMP_DIR}
+rm ${SEG_TMP_DIR}/* -f
+mkdir -pv ${SEG_TMP_DIR}
 
 echo -e "\n|---> Fetal Brain extraction II---"
 NUMBER_ECHOTIME=1
@@ -121,4 +121,5 @@ mrconvert "${SEG_TMP_DIR}/union_mask_TE${NUMBER_ECHOTIME}.mif" "$MASK" -force -q
 
 mrcalc "$DMRI" "$MASK" -multiply "$DMRISK" -force -quiet
 
-rm ${SEG_TMP_DIR} -fr
+rm ${SEG_TMP_DIR}/* -f
+rmdir -v ${SEG_TMP_DIR}
