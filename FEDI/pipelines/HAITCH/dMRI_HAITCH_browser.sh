@@ -74,7 +74,7 @@ PROTOCOL="FEDI"
 PROJDIR=`readlink -f $1`
 
 INPATH="${PROJDIR}/data" # path of data
-DMRISCRIPTS="${PROJDIR}/scripts/fedi" # path of scripts
+DMRISCRIPTS="${PROJDIR}/pipelines/HAITCH" # path of scripts
 OUTPATH="${PROJDIR}/protocols" # path of output
 
 # Set Defaults for optionals
@@ -135,7 +135,7 @@ for RUNDIR in $ALLRUNS ; do
 					CONFIG_FILE="${OUTPATHSUB}/${PROTOCOL}_local-config_${FULLSUBJECTID}.sh"
 
 					# Create config file
-					bash ${DMRISCRIPTS}/dMRI_local-config.sh -d "$PROJDIR" -p "$PROTOCOL" -i "$SUBJECTID" -s "$SESSION" -m $MODALITY -r "$RUNNUMBER" -g "$REGSTRAT" -o "$CONFIG_FILE"
+					bash ${DMRISCRIPTS}/dMRI_HAITCH_local-config.sh -d "$PROJDIR" -p "$PROTOCOL" -i "$SUBJECTID" -s "$SESSION" -m $MODALITY -r "$RUNNUMBER" -g "$REGSTRAT" -o "$CONFIG_FILE"
 
 					# Processing data
 					bash ${DMRISCRIPTS}/dMRI_HAITCH.sh "${CONFIG_FILE}"
