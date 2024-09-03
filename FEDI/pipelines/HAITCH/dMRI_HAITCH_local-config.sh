@@ -115,8 +115,8 @@ export FULLSUBJECTID="${SUBJECTID}_${SESSION}_${MODALITY}_${RUNNUMBER}"
 
 export PROJDIR="${PROJDIR}"
 
-export SRC="\${PROJDIR}/scripts/fedi/src"
-export REFS="\${PROJDIR}/scripts/fedi/refs"
+export SRC="\${PROJDIR}/pipelines/HAITCH/src"
+export REFS="\${PROJDIR}/pipelines/HAITCH/refs"
 export TMPDIR="\${PROJDIR}/tmp"
 export INPATH="\${PROJDIR}/data"
 export OUTPATH="\${PROJDIR}/protocols"
