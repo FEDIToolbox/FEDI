@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='fedi',
-    version='0.2.9',
+    version='0.1.0',
     packages=find_packages(include=['FEDI', 'FEDI.*']),
     install_requires=[
         'numpy',
