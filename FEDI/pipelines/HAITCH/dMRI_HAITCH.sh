@@ -1972,27 +1972,3 @@ if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP10_TSOR_RESP_FOD_TRACTOG"]}  == "TODO" ]] 
 else
     echo "Step $STEPX locked or not set to TODO. Moving on."
 fi
-
-((STEPX++))
-echo "---------------------------------------------------------------------------------"
-# STEP 11: STEP11_JALILDATA_PREPARATION
-if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP11_JALILDATA_PREPARATION"]}  == "TODO" ]] ; then
-
-    JALIL_FOLDER=${OUTPATHSUB}/FOR_JALIL/${SUBJECTID}_${DWISESSION}
-    mkdir -p ${JALIL_FOLDER}
-
-    if [[ -f "${TENFOD_TRACT_DIR}/dhollander_tracts.tck" ]] ; then
-      cp "${TENFOD_TRACT_DIR}/dhollander_tracts.tck" ${JALIL_FOLDER}/.
-    elif [[ -f "${TENFOD_TRACT_DIR}/tractography.tck" ]] ; then
-      cp "${TENFOD_TRACT_DIR}/tractography.tck" ${JALIL_FOLDER}/.
-	  else
-		  echo "No tractography output found"
-    fi
-
-    cp "${TENFOD_TRACT_DIR}/tensor.nii.gz" ${JALIL_FOLDER}/.
-    cp "${TENFOD_TRACT_DIR}/fac.nii"  ${JALIL_FOLDER}/.
-    mrconvert "${PRPROCESSING_DIR}/spred_xfm_sk.mif" -stride -1,2,3,4 -export_grad_fsl ${JALIL_FOLDER}/bvecs ${JALIL_FOLDER}/bvals "${JALIL_FOLDER}/spred.nii.gz" -force
-
-else
-    echo "Step $STEPX locked or not set to TODO. Moving on."
-fi
