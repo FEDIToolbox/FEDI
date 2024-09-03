@@ -29,12 +29,13 @@ usage() {
     echo "  -s SESSION      Session identifier i.e, s1, s2"
     echo "  -m MODALITY     MODALITY i.e, dwi, dwiME, dwi_hardi"
     echo "  -r RUNNUMBER    RUNNUMBER i.e, run_21"
+    echo "  -g REGSTRAT  Registration strategy i.e, flirt, ants, manual"
     echo "  -o CONFIG_FILE  Output file name"
     exit 1
 }
 
 # Parse command-line options
-while getopts "d:p:i:m:r:o:s:" opt; do
+while getopts "d:p:i:m:r:o:s:g:" opt; do
     case $opt in
         d)
             PROJDIR="$OPTARG"
@@ -58,6 +59,9 @@ while getopts "d:p:i:m:r:o:s:" opt; do
         s)
             SESSION="$OPTARG"
             ;;
+        g)
+	          REGSTRAT="$OPTARG"
+	          ;;
         \?)
             echo "Invalid option: -$OPTARG" >&2
             usage
@@ -98,21 +102,21 @@ cat > "${CONFIG_FILE}" <<EOL
 
 
 
-# Set project-specific variables 
+# Set project-specific variables
 export PROJNAME="BCH" # Name of project dHCP or BCH
 
-export SUBJECTID="${SUBJECTID}" 
+export SUBJECTID="${SUBJECTID}"
 export DWIMODALITY="${MODALITY}"
 export DWISESSION="${SESSION}"
-export RUNNUM="${RUNNUMBER}" 
+export RUNNUM="${RUNNUMBER}"
 export MCMETHOD="${PROTOCOL}"
 
 export FULLSUBJECTID="${SUBJECTID}_${SESSION}_${MODALITY}_${RUNNUMBER}"
 
 export PROJDIR="${PROJDIR}"
 
-export SRC="\${PROJDIR}/scripts/fedi/src"
-export REFS="\${PROJDIR}/scripts/fedi/refs"
+export SRC="\${PROJDIR}/pipelines/HAITCH/src"
+export REFS="\${PROJDIR}/pipelines/HAITCH/refs"
 export TMPDIR="\${PROJDIR}/tmp"
 export INPATH="\${PROJDIR}/data"
 export OUTPATH="\${PROJDIR}/protocols"
@@ -120,7 +124,7 @@ export OUTPATH="\${PROJDIR}/protocols"
 export INPATHSUB="\${INPATH}/${SUBJECTID}/${SESSION}/${MODALITY}/${RUNNUMBER}"
 export OUTPATHSUB="\${OUTPATH}/${PROTOCOL}/${SUBJECTID}/${SESSION}/${MODALITY}_${RUNNUMBER}"
 
-
+export REGSTRAT="${REGSTRAT}"
 export BVALS="\${INPATHSUB}/${FULLSUBJECTID}.bvals"
 export BVECS="\${INPATHSUB}/${FULLSUBJECTID}.bvecs"
 export BVALSTE="\${INPATHSUB}/${FULLSUBJECTID}_TE.bvals"
@@ -130,6 +134,8 @@ export GRAD4CLSTE="\${INPATHSUB}/${FULLSUBJECTID}_grad_mrtrix_TE.txt"
 export GRAD5CLS="\${INPATHSUB}/${FULLSUBJECTID}_grad5cls_mrtrix.txt"
 export INDX="\${INPATHSUB}/${FULLSUBJECTID}_index_mrtrix.txt"
 export JSONF="\${INPATHSUB}/${FULLSUBJECTID}_info.json"
+
+export T2W_DATA
 
 export ACQPARAM="\${REFS}/acqp_Ali_scans.txt"
 
@@ -150,18 +156,3 @@ chmod +x "${CONFIG_FILE}"
 
 # Print a message indicating the configuration file has been created
 #echo "Configuration file created: ${CONFIG_FILE}"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
