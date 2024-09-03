@@ -37,7 +37,7 @@ fi
 
 
 # # # Display Toolbox name
-${SRC}/display_name.sh
+sh ${SRC}/display_name.sh
 sleep 3
 
 echo "host: $(hostname), date: $(date)"
