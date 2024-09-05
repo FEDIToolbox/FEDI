@@ -21,7 +21,7 @@ CONFIG_FILE=""
 
 # Function to display usage information
 usage() {
-    echo "Usage: $0 -d PROJDIR -p PROTOCOL -i SUBJECTID -m MODALITY -r RUNNUMBER -o CONFIG_FILE -s SESSION"
+    echo "Usage: $0 -d PROJDIR -p PROTOCOL -i SUBJECTID -m MODALITY -r RUNNUMBER -o CONFIG_FILE -l 0,1 -s SESSION"
     echo "Options:"
     echo "  -d PROJDIR      PROJDIR i.e, /local/projects/suny, without / at the end"
     echo "  -p PROTOCOL     Protocol i.e, haykel, SHARD, SVRTK"
@@ -29,13 +29,14 @@ usage() {
     echo "  -s SESSION      Session identifier i.e, s1, s2"
     echo "  -m MODALITY     MODALITY i.e, dwi, dwiME, dwi_hardi"
     echo "  -r RUNNUMBER    RUNNUMBER i.e, run_21"
-    echo "  -g REGSTRAT  Registration strategy i.e, flirt, ants, manual"
+    echo "  -g REGSTRAT	    Registration strategy i.e, flirt, ants, manual"
+    echo "  -l OPTION       Ignore locks? 0=NO; 1=YES"
     echo "  -o CONFIG_FILE  Output file name"
     exit 1
 }
 
 # Parse command-line options
-while getopts "d:p:i:m:r:o:s:g:" opt; do
+while getopts "d:p:i:m:r:o:s:g:l:" opt; do
     case $opt in
         d)
             PROJDIR="$OPTARG"
@@ -60,8 +61,11 @@ while getopts "d:p:i:m:r:o:s:g:" opt; do
             SESSION="$OPTARG"
             ;;
         g)
-	          REGSTRAT="$OPTARG"
-	          ;;
+	    REGSTRAT="$OPTARG"
+	    ;;
+	l)
+	    NOLOCKS="$OPTARG"
+	    ;;
         \?)
             echo "Invalid option: -$OPTARG" >&2
             usage
@@ -125,6 +129,7 @@ export INPATHSUB="\${INPATH}/${SUBJECTID}/${SESSION}/${MODALITY}/${RUNNUMBER}"
 export OUTPATHSUB="\${OUTPATH}/${PROTOCOL}/${SUBJECTID}/${SESSION}/${MODALITY}_${RUNNUMBER}"
 
 export REGSTRAT="${REGSTRAT}"
+export NOLOCKS="${NOLOCKS}"
 export BVALS="\${INPATHSUB}/${FULLSUBJECTID}.bvals"
 export BVECS="\${INPATHSUB}/${FULLSUBJECTID}.bvecs"
 export BVALSTE="\${INPATHSUB}/${FULLSUBJECTID}_TE.bvals"
