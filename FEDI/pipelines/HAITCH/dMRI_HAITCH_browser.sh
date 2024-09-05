@@ -17,6 +17,11 @@ cat << EOF
     USAGE: sh ${0##*/} [project directory]
     This script starts the FEDI pipeline. Supply the project directory.
     data, protocols, and scripts directories specified in script.
+
+    -i LIST.txt	Specify an input text list of input data folder run paths (data/sub-x/sx/dwi/runx)
+    --reg STRAT	Specify registration strategy (flirt, manual, ants; default=flirt)
+    -l		Ignore any existing locks		
+
 EOF
 }
 
@@ -47,6 +52,9 @@ while :; do
 	   	die 'error: invalid registration strategy'
 	   fi
 	   ;;
+	-l|--ignore-locks)
+	    let NOLOCKS=1
+	    ;;
         --) # end of optionals
             shift
             break
@@ -80,6 +88,7 @@ OUTPATH="${PROJDIR}/protocols" # path of output
 # Set Defaults for optionals
 if [[ ! -n $REGSTRAT ]] ; then REGSTRAT="flirt" ; fi
 export REGSTRAT
+if [[ ! $NOLOCKS = 1 ]] ; then let $NOLOCKS = 0 ; fi
 
 export T2W_DATA="/fileserver/alborz/clem/fediANTsreg/share/setup"
 
@@ -108,7 +117,7 @@ for RUNDIR in $ALLRUNS ; do
 
 		case $MODALITY in
 			dwi|dwiHARDI|dwiME) # dwi|dwiHARDI|dwiME (only processing diffusion)
-				if [ -e $RUNDIR/lock ] ; then
+				if [[ -e $RUNDIR/lock && ! $NOLOCKS = 1 ]] ; then
 
 				  echo "====================================================="
 				  echo "@ $SUBJECTID $RUNDIR Locked (lock in data folder)"
@@ -135,7 +144,7 @@ for RUNDIR in $ALLRUNS ; do
 					CONFIG_FILE="${OUTPATHSUB}/${PROTOCOL}_local-config_${FULLSUBJECTID}.sh"
 
 					# Create config file
-					bash ${DMRISCRIPTS}/dMRI_HAITCH_local-config.sh -d "$PROJDIR" -p "$PROTOCOL" -i "$SUBJECTID" -s "$SESSION" -m $MODALITY -r "$RUNNUMBER" -g "$REGSTRAT" -o "$CONFIG_FILE"
+					bash ${DMRISCRIPTS}/dMRI_HAITCH_local-config.sh -d "$PROJDIR" -p "$PROTOCOL" -i "$SUBJECTID" -s "$SESSION" -m $MODALITY -r "$RUNNUMBER" -g "$REGSTRAT" -l "$NOLOCKS" -o "$CONFIG_FILE"
 
 					# Processing data
 					bash ${DMRISCRIPTS}/dMRI_HAITCH.sh "${CONFIG_FILE}"

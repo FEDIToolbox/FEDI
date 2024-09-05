@@ -24,7 +24,7 @@ if [ -z "$CONFIG_FILE" ]; then
 fi
 
 # # Setup file directories and Lock for processing
-if [ -e ${OUTPATHSUB}/lock ] ; then
+if [[ -e ${OUTPATHSUB}/lock && ! $NOLOCKS = 1 ]] ; then
         echo "----------------------------------"
         echo "@ ${SUBJECTID} OUTPATHSUB Locked"
         echo "@ ${OUTPATHSUB}/lock"
@@ -56,8 +56,8 @@ declare -A FEDI_DMRI_PIPELINE_STEPS=(
   [STEP6_SLICECORRECTDISTORTION]="DONE"
   [STEP7_B1FIELDBIAS_CORRECTION]="DONE"
   [STEP8_3DSHORE_RECONSTRUCTION]="DONE"
-  [STEP9_REGISTRATION_T2W_ATLAS]="DONE"
-  [STEP10_TSOR_RESP_FOD_TRACTOG]="TODO"
+  [STEP9_REGISTRATION_T2W_ATLAS]="TODO"
+  [STEP10_TSOR_RESP_FOD_TRACTOG]="DONE"
 
 )
 
@@ -294,7 +294,7 @@ echo "----------------------------------"
 let STEPX=1
 echo "---------------------------------------------------------------------------------"
 # STEP 1: STEP1_DWI_DENOISE_USING_GSVS
-if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP1_DWI_DENOISE_USING_GSVS"]} == "TODO" ]] && [[ ! -e ${LOCKED_STEPS_DIR}/lock_STEP1_DWI_DENOISE_USING_GSVS ]] ; then
+if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP1_DWI_DENOISE_USING_GSVS"]} == "TODO" ]] && [[ ! -e ${LOCKED_STEPS_DIR}/lock_STEP1_DWI_DENOISE_USING_GSVS || ! $NOLOCKS = 1 ]] ; then
 
     touch ${LOCKED_STEPS_DIR}/lock_STEP1_DWI_DENOISE_USING_GSVS
 
@@ -310,7 +310,7 @@ if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP1_DWI_DENOISE_USING_GSVS"]} == "TODO" ]] &
 
     else
 
-        echo -e "\n 1.|--->  dMRI noise level estimation and denoising using GSVS  ---"
+        echo -e "\n ${STEPX}.|--->  dMRI noise level estimation and denoising using GSVS  ---"
         # Exp2 option : the improved estimator GSVS introduced in Cordero-Grande et al. (2019).
         mrconvert $INPUT -set_property comments "FEDI Pipeline" $INPUT -force
         dwidenoise -noise ${PRPROCESSING_DIR}/fullnoisemap.mif -estimator Exp2 $INPUT ${PRPROCESSING_DIR}/dwide.mif -nthreads $MRTRIX_NTHREADS -force
@@ -326,12 +326,12 @@ fi
 ((STEPX++))
 echo "---------------------------------------------------------------------------------"
 # STEP 2: STEP2_MRDEGIBBS_RINGING_ARTI
-if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP2_MRDEGIBBS_RINGING_ARTI"]}  == "TODO" ]] && [[ ! -e ${LOCKED_STEPS_DIR}/lock_STEP2_MRDEGIBBS_RINGING_ARTI ]] ; then
+if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP2_MRDEGIBBS_RINGING_ARTI"]}  == "TODO" ]] && [[ ! -e ${LOCKED_STEPS_DIR}/lock_STEP2_MRDEGIBBS_RINGING_ARTI || ! $NOLOCKS = 1 ]] ; then
 
     touch ${LOCKED_STEPS_DIR}/lock_STEP2_MRDEGIBBS_RINGING_ARTI
 
     # Kellner et al., 2016
-    echo -e "\n 2.|--->  Remove Gibbs Ringing Artifacts  ---"
+    echo -e "\n ${STEPX}.|--->  Remove Gibbs Ringing Artifacts  ---"
     if [[ ${PROJNAME} == "BCH" ]]; then
         ${SRC}/create_grad5cls_index.py $GRAD4CLS $GRAD5CLS $INDX
     fi
@@ -344,14 +344,14 @@ fi
 ((STEPX++))
 echo "---------------------------------------------------------------------------------"
 # STEP 3: STEP3_RICIAN_BIAS_CORRECTION
-if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP3_RICIAN_BIAS_CORRECTION"]}  == "TODO" ]] && [[ ! -e ${LOCKED_STEPS_DIR}/lock_STEP3_RICIAN_BIAS_CORRECTION ]] ; then
+if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP3_RICIAN_BIAS_CORRECTION"]}  == "TODO" ]] && [[ ! -e ${LOCKED_STEPS_DIR}/lock_STEP3_RICIAN_BIAS_CORRECTION || ! $NOLOCKS = 1 ]] ; then
 
     touch ${LOCKED_STEPS_DIR}/lock_STEP3_RICIAN_BIAS_CORRECTION
 
     RICIAN_WAY="LOWSNR"
 
     # Ades-Aron et al., 2019
-    echo -e "\n 3.|--->  Rician Bias Correction   ---"
+    echo -e "\n ${STEPX}.|--->  Rician Bias Correction   ---"
 
     if [[ ${RICIAN_WAY} == "LOWSNR" ]]; then
 
@@ -384,11 +384,11 @@ fi
 ((STEPX++))
 echo "---------------------------------------------------------------------------------"
 # STEP 4: STEP4_FETAL_BRAIN_EXTRACTION
-if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP4_FETAL_BRAIN_EXTRACTION"]}  == "TODO" ]] && [[ ! -e ${LOCKED_STEPS_DIR}/lock_STEP4_FETAL_BRAIN_EXTRACTION ]] ; then
+if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP4_FETAL_BRAIN_EXTRACTION"]}  == "TODO" ]] && [[ ! -e ${LOCKED_STEPS_DIR}/lock_STEP4_FETAL_BRAIN_EXTRACTION || ! $NOLOCKS = 1  ]] ; then
 
     touch ${LOCKED_STEPS_DIR}/lock_STEP4_FETAL_BRAIN_EXTRACTION
 
-    echo -e "\n|---> Brain extraction ---"
+    echo -e "\n${STEPX}.|---> Brain extraction ---"
 
     SPLIT_INTO_ODDEVEN="NO"
     if [[ $SPLIT_INTO_ODDEVEN == "YES" ]]; then
@@ -453,11 +453,11 @@ fi
 ((STEPX++))
 echo "---------------------------------------------------------------------------------"
 # STEP 5: STEP5_SPLIT_CROP_SKDATA_MASK
-if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP5_SPLIT_CROP_SKDATA_MASK"]}  == "TODO" ]]  && [[ ! -e ${LOCKED_STEPS_DIR}/lock_STEP5_SPLIT_CROP_SKDATA_MASK ]] ; then
+if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP5_SPLIT_CROP_SKDATA_MASK"]}  == "TODO" ]]  && [[ ! -e ${LOCKED_STEPS_DIR}/lock_STEP5_SPLIT_CROP_SKDATA_MASK || ! $NOLOCKS = 1 ]] ; then
 
     touch ${LOCKED_STEPS_DIR}/lock_STEP5_SPLIT_CROP_SKDATA_MASK
 
-    echo "5.|---> Split, crop and skull strip data ---"
+    echo "${STEPX}.|---> Split, crop and skull strip data ---"
 
     echo "---------------------"
     echo "1. Create Union_mask"
@@ -1403,7 +1403,7 @@ if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP6_SLICECORRECTDISTORTION"]} == "TODO" ]] &
             done
         done
     fi
-elif [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP6_SLICECORRECTDISTORTION"]} == "TODO" ]] && [[ $NUMBER_ECHOTIME -eq 1 ]] && [[ ! -e ${DISTORTIONCO_DIR}/lock ]]; then
+elif [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP6_SLICECORRECTDISTORTION"]} == "TODO" ]] && [[ $NUMBER_ECHOTIME -eq 1 ]] && [[ ! -e ${DISTORTIONCO_DIR}/lock || ! $NOLOCKS = 1 ]]; then
 
     touch ${DISTORTIONCO_DIR}/lock
     echo -e "\nNo 2nd TE is available ==> No Distortion Correction will be done."
@@ -1420,11 +1420,11 @@ fi
 ((STEPX++))
 echo "---------------------------------------------------------------------------------"
 # STEP 7: STEP7_B1FIELDBIAS_CORRECTION
-if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP7_B1FIELDBIAS_CORRECTION"]}  == "TODO" ]] && [[ ! -e ${LOCKED_STEPS_DIR}/lock_STEP7_B1FIELDBIAS_CORRECTION ]]; then
+if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP7_B1FIELDBIAS_CORRECTION"]}  == "TODO" ]] && [[ ! -e ${LOCKED_STEPS_DIR}/lock_STEP7_B1FIELDBIAS_CORRECTION || ! $NOLOCKS = 1 ]]; then
 
 
     touch ${LOCKED_STEPS_DIR}/lock_STEP7_B1FIELDBIAS_CORRECTION
-    echo -e "\n |--->  B1 Field Bias Correction   ---"
+    echo -e "\n${STEPX}.|--->  B1 Field Bias Correction   ---"
 
     B1CORRECTIONWAY="Using_B0"
 
@@ -1544,9 +1544,9 @@ fi
 ((STEPX++))
 echo "---------------------------------------------------------------------------------"
 # STEP 8: STEP8_3DSHORE_RECONSTRUCTION
-if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP8_3DSHORE_RECONSTRUCTION"]}  == "TODO" ]] && [[ ! -e ${LOCKED_STEPS_DIR}/lock_STEP8_3DSHORE_RECONSTRUCTION ]]; then
+if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP8_3DSHORE_RECONSTRUCTION"]}  == "TODO" ]] && [[ ! -e ${LOCKED_STEPS_DIR}/lock_STEP8_3DSHORE_RECONSTRUCTION || ! $NOLOCKS = 1 ]]; then
 
-    echo -e "\n 8.|--->  3D SHORE RECONSTRUCTION   ---"
+    echo -e "\n ${STEPX}.|--->  3D SHORE RECONSTRUCTION   ---"
     touch ${LOCKED_STEPS_DIR}/lock_STEP8_3DSHORE_RECONSTRUCTION
 
     ########### mrconvert dwicrop.mif -axes 0,2,1,3 dwicropOK.mif -force
@@ -1740,9 +1740,9 @@ fi
 ((STEPX++))
 echo "---------------------------------------------------------------------------------"
 # STEP 9: STEP9_REGISTRATION_T2W_ATLAS
-if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP9_REGISTRATION_T2W_ATLAS"]}  == "TODO" ]] && [[ -e ${MOTIONCORREC_DIR}/spred5.nii.gz ]] && [[ ! -e ${LOCKED_STEPS_DIR}/lock_STEP9_REGISTRATION_T2W_ATLAS ]]; then
+if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP9_REGISTRATION_T2W_ATLAS"]}  == "TODO" ]] && [[ -e ${MOTIONCORREC_DIR}/spred5.nii.gz ]] && [[ ! -e ${LOCKED_STEPS_DIR}/lock_STEP9_REGISTRATION_T2W_ATLAS || $NOLOCKS = 1 ]]; then
 
-    echo "Step $STEPX: Registration to T2W and Atlas"
+    echo " ${STEPX}.|---> Registration to T2W and Atlas"
     touch ${LOCKED_STEPS_DIR}/lock_STEP9_REGISTRATION_T2W_ATLAS
 
     # bvals and bvecs for different TE
@@ -1841,7 +1841,8 @@ if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP9_REGISTRATION_T2W_ATLAS"]}  == "TODO" ]] 
         # Haykel, March 28th, 2024: I recommend to add a registeration step "${PRPROCESSING_DIR}/spred_xfm.mif" to ${T2W_ATLAS_SPACE}
 
 
-        ${SRC}/segment_fetalbrain.sh --dmri ${PRPROCESSING_DIR}/spred_xfm.mif \
+	echo "Segment fetal brain script"
+        bash ${SRC}/segment_fetalbrain.sh --dmri ${PRPROCESSING_DIR}/spred_xfm.mif \
          --seg_tmp_dir ${TENFOD_TRACT_DIR}/seg_tmp \
          --dmriskpervolume ${PRPROCESSING_DIR}/spred_xfm_sk_pervolume.mif \
          --dmrisk ${PRPROCESSING_DIR}/spred_xfm_sk.mif \
@@ -1859,9 +1860,9 @@ fi
 ((STEPX++))
 echo "---------------------------------------------------------------------------------"
 # STEP 10: STEP10_TSOR_RESP_FOD_TRACTOG
-if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP10_TSOR_RESP_FOD_TRACTOG"]}  == "TODO" ]] && [[ -e "${PRPROCESSING_DIR}/spred_xfm_sk.mif"  ]]  && [[ ! -e ${LOCKED_STEPS_DIR}/lock_STEP10_TENSORFOD_TRACTOGRAPHY ]] ; then
+if [[ ${FEDI_DMRI_PIPELINE_STEPS["STEP10_TSOR_RESP_FOD_TRACTOG"]}  == "TODO" ]] && [[ -e "${PRPROCESSING_DIR}/spred_xfm_sk.mif"  ]]  && [[ ! -e ${LOCKED_STEPS_DIR}/lock_STEP10_TENSORFOD_TRACTOGRAPHY || ! $NOLOCKS = 1 ]] ; then
 
-        echo Step ${STEPX}: Tensor FOD Tractography
+        echo "${STEPX}.|---> Tensor FOD Tractography"
         touch ${LOCKED_STEPS_DIR}/lock_STEP10_TENSORFOD_TRACTOGRAPHY
         dwi2tensor \
             -mask "${PRPROCESSING_DIR}/spred_xfm_mask.nii.gz" \

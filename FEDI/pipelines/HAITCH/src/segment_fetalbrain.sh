@@ -28,9 +28,9 @@ while [[ "$#" -gt 0 ]]; do
             shift
             ;;
         --seg_tmp_dir)
-			SEG_TMP_DIR="$2"
-			shift
-			;;
+	    SEG_TMP_DIR="$2"
+	    shift
+	    ;;
         --help)
             usage
             ;;
