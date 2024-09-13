@@ -12,6 +12,6 @@ Development Team
 **Contributors:**  
 (Detailed list available `here <https://github.com/FEDIToolbox/FEDI/graphs/contributors/>`__)
 
-- **Clemente Velasco-Annis, PhD** - Boston Children's Hospital
+- **Clemente Velasco-Annis** - Boston Children's Hospital
 
 
