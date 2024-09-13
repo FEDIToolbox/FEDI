@@ -1,7 +1,7 @@
 Development Team
 ================
 
-**Principal Investigator (PI) and Project Funder:**
+**Project Supervisor and Funder:**
 
 - **Ali Gholipour, PhD** - University of California Irvine - Harvard Medical School  
 
