@@ -13,6 +13,7 @@
 
 
 
+## Note : **FEDI** is under active development, constantly expanding its functionalities.
 
 ## Key Features
 - Outlier detection for dMRI
@@ -20,8 +21,16 @@
 - A complete pipeline for fetal dMRI
 - Many other features coming soon
 
+## Installation: Option 1
+To install the FEDI toolbox, open a terminal and type:
 
-## Installation
+
+```bash
+pip install fedi
+```
+
+
+## Installation : Option 2
 To install the FEDI toolbox, clone the repository and add the necessary paths to your `.bashrc` file:
 
 
@@ -32,7 +41,6 @@ FEDI_SCRIPTS=$(pwd)
 echo 'export PATH="${FEDI_SCRIPTS}:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
-Additional installation methods will be available soon.
 
 
 ## Dependencies
@@ -44,5 +52,10 @@ Recommended to use Anaconda Python distribution.
 - [ANTs](https://github.com/ANTsX/ANTs).
 - Numpy, Scipy, Nibabel, Matplotlib
 
+## Documentation
+The full documentation is available at [FEDI](https://fedi.readthedocs.io).
+
+For additional details, please visit the [main repository](https://github.com/FEDIToolbox/FEDI).
+
 ## Contact
-For questions, issues, or suggestions, please open an issue on GitHub.
+For questions, issues, or suggestions, please open an [issue](https://github.com/FEDIToolbox/FEDI/issues).
