@@ -13,7 +13,7 @@
 
 
 
-## Note : **FEDI** is under active development, constantly expanding its functionalities.
+## Note : **FEDI** is under active development.
 
 ## Key Features
 - Outlier detection for dMRI
