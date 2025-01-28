@@ -18,6 +18,7 @@
 ## Key Features
 - Outlier detection for dMRI
 - Motion Correction for dMRI
+- Segmentation tools
 - A complete pipeline for fetal dMRI
 - Many other features coming soon
 

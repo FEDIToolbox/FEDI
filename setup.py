@@ -19,6 +19,7 @@ setup(
             'fedi_dmri_rotate_bvecs=FEDI.scripts.fedi_dmri_rotate_bvecs:main',
             'fedi_dmri_snr=FEDI.scripts.fedi_dmri_snr:main',
             'fedi_dmri_qweights=FEDI.scripts.fedi_dmri_qweights:main',
+            'fedi_apply_transform=FEDI.scripts.fedi_apply_transform:main',
         ],
     },
     python_requires='>=3.7',  # Adjust according to your requirements
