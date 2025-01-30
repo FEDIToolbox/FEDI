@@ -20,7 +20,8 @@ setup(
             'fedi_dmri_snr=FEDI.scripts.fedi_dmri_snr:main',
             'fedi_dmri_qweights=FEDI.scripts.fedi_dmri_qweights:main',
             'fedi_apply_transform=FEDI.scripts.fedi_apply_transform:main',
-            'fedi_dmri_reg=FEDI.scripts.fedi_dmri_reg:main'
+            'fedi_dmri_reg=FEDI.scripts.fedi_dmri_reg:main',
+            'fedi_dmri_recon=FEDI.scripts.fedi_dmri_recon:main'
         ],
     },
     python_requires='>=3.7',  # Adjust according to your requirements
@@ -33,8 +34,8 @@ setup(
     },
     test_suite='tests',
     license='MIT',
-    author='Your Name',
-    author_email='your.email@example.com',
+    author='Haykel Snoussi',
+    author_email='dr.haykel.snoussi@gmail.com',
     long_description=open('documentation/README.rst').read(),
     long_description_content_type='text/x-rst',
 )
