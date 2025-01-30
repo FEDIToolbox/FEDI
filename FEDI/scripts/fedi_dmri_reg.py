@@ -29,7 +29,7 @@ def main():
     parser = argparse.ArgumentParser(
         description=(
             "\033[1mDESCRIPTION:\033[0m \n\n    "
-            "Register Diffusion-Weighted data, volume to volume."
+            "Perform volume-by-volume registration of 4D diffusion MRI data using ANTs."
         ),
         epilog=(
             "\033[1mREFERENCES:\033[0m\n  "
@@ -40,21 +40,21 @@ def main():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
 
-    # Mandatory arguments
-    parser.add_argument("--rdmri", required=True, help="Path to the raw dMRI file.")
-    parser.add_argument("--spred", required=True, help="Path to the SHORE-predicted data file.")
-    parser.add_argument("--workingpath", required=True, help="Directory for intermediate and output files.")
-    parser.add_argument("--rdmrireg", required=True, help="Filename for the registered dMRI output.")
+    parser.add_argument("--input_dmri", required=True, help="Path to the 4D input diffusion MRI file.")
+    parser.add_argument("--target_dmri", required=True, help="Path to the 4D target diffusion MRI file.")
+    parser.add_argument("--output_dir", required=True, help="Directory for intermediate and output files.")
+    parser.add_argument("--output_dmri", required=True, help="Filename for the registered diffusion MRI output.")
+
 
     args = parser.parse_args()
 
     # Validate input arguments
     if not os.path.isfile(args.rdmri):
         raise FileNotFoundError(f"Input file {args.rdmri} does not exist.")
-    if not os.path.isfile(args.spred):
-        raise FileNotFoundError(f"Input file {args.spred} does not exist.")
+    if not os.path.isfile(args.target_dmri):
+        raise FileNotFoundError(f"Input file {args.target_dmri} does not exist.")
 
-    os.makedirs(args.workingpath, exist_ok=True)
+    os.makedirs(args.output_dir, exist_ok=True)
 
     # Extract the number of volumes
     result = subprocess.run(["mrinfo", "-size", args.rdmri, "-quiet"], capture_output=True, text=True)
@@ -67,15 +67,15 @@ def main():
     # Split 4D volume into 3D volumes
     warped_volumes = []
     for v_idx in range(n_volumes):
-        raw_volume_path = os.path.join(args.workingpath, f"working_v{v_idx}.nii.gz")
-        spred_volume_path = os.path.join(args.workingpath, f"spred_v{v_idx}.nii.gz")
+        raw_volume_path = os.path.join(args.output_dir, f"input_dmri_v{v_idx}.nii.gz")
+        spred_volume_path = os.path.join(args.output_dir, f"target_dmri_v{v_idx}.nii.gz")
 
         run_command(["mrconvert", "-coord", "3", str(v_idx), args.rdmri, raw_volume_path, "-force", "-quiet"])
-        run_command(["mrconvert", "-coord", "3", str(v_idx), args.spred, spred_volume_path, "-force", "-quiet"])
+        run_command(["mrconvert", "-coord", "3", str(v_idx), args.target_dmri, spred_volume_path, "-force", "-quiet"])
 
         # Perform antsRegistration
-        transform_prefix = os.path.join(args.workingpath, f"Transform_v{v_idx}_")
-        warped_volume_path = os.path.join(args.workingpath, f"working_v{v_idx}_warped.nii.gz")
+        transform_prefix = os.path.join(args.output_dir, f"Transform_v{v_idx}_")
+        warped_volume_path = os.path.join(args.output_dir, f"input_dmri_v{v_idx}_warped.nii.gz")
 
         ants_command = [
             "antsRegistration",
@@ -99,8 +99,8 @@ def main():
         warped_volumes.append(warped_volume_path)
 
     # Concatenate registered volumes into a single 4D volume
-    run_command(["mrcat", "-axis", "3"] + warped_volumes + [args.rdmrireg, "-quiet"])
-    print(f"All registrations completed successfully. Registered dMRI saved to {args.rdmrireg}.")
+    run_command(["mrcat", "-axis", "3"] + warped_volumes + [args.output_dmri, "-quiet"])
+    print(f"Registration completed successfully. Registered dMRI saved to {args.output_dmri}.")
 
 if __name__ == "__main__":
     main()
