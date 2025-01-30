@@ -21,7 +21,8 @@ setup(
             'fedi_dmri_qweights=FEDI.scripts.fedi_dmri_qweights:main',
             'fedi_apply_transform=FEDI.scripts.fedi_apply_transform:main',
             'fedi_dmri_reg=FEDI.scripts.fedi_dmri_reg:main',
-            'fedi_dmri_recon=FEDI.scripts.fedi_dmri_recon:main'
+            'fedi_dmri_recon=FEDI.scripts.fedi_dmri_recon:main',
+            'fedi_dmri_moco=FEDI.scripts.fedi_dmri_moco:main'
         ],
     },
     python_requires='>=3.7',  # Adjust according to your requirements
