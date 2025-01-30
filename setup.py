@@ -20,6 +20,7 @@ setup(
             'fedi_dmri_snr=FEDI.scripts.fedi_dmri_snr:main',
             'fedi_dmri_qweights=FEDI.scripts.fedi_dmri_qweights:main',
             'fedi_apply_transform=FEDI.scripts.fedi_apply_transform:main',
+            'fedi_dmri_reg=FEDI.scripts.fedi_dmri_reg:main'
         ],
     },
     python_requires='>=3.7',  # Adjust according to your requirements
