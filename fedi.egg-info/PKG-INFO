@@ -1,8 +1,8 @@
 Metadata-Version: 2.1
 Name: fedi
-Version: 0.1.0
-Author: Your Name
-Author-email: your.email@example.com
+Version: 0.1.1
+Author: Haykel Snoussi
+Author-email: dr.haykel.snoussi@gmail.com
 License: MIT
 Requires-Python: >=3.7
 Description-Content-Type: text/x-rst

@@ -1,5 +1,9 @@
 [console_scripts]
+fedi_apply_transform = FEDI.scripts.fedi_apply_transform:main
+fedi_dmri_moco = FEDI.scripts.fedi_dmri_moco:main
 fedi_dmri_outliers = FEDI.scripts.fedi_dmri_outliers:main
 fedi_dmri_qweights = FEDI.scripts.fedi_dmri_qweights:main
+fedi_dmri_recon = FEDI.scripts.fedi_dmri_recon:main
+fedi_dmri_reg = FEDI.scripts.fedi_dmri_reg:main
 fedi_dmri_rotate_bvecs = FEDI.scripts.fedi_dmri_rotate_bvecs:main
 fedi_dmri_snr = FEDI.scripts.fedi_dmri_snr:main

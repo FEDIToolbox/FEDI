@@ -7,8 +7,12 @@ setup.py
 FEDI/__init__.py
 FEDI/pipelines/__init__.py
 FEDI/scripts/__init__.py
+FEDI/scripts/fedi_apply_transform.py
+FEDI/scripts/fedi_dmri_moco.py
 FEDI/scripts/fedi_dmri_outliers.py
 FEDI/scripts/fedi_dmri_qweights.py
+FEDI/scripts/fedi_dmri_recon.py
+FEDI/scripts/fedi_dmri_reg.py
 FEDI/scripts/fedi_dmri_rotate_bvecs.py
 FEDI/scripts/fedi_dmri_snr.py
 FEDI/utils/__init__.py
