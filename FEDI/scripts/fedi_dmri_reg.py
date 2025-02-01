@@ -83,14 +83,14 @@ def main():
             "--dimensionality", "3",
             "--initialize-transforms-per-stage", "0",
             "--interpolation", "BSpline",
-            "--output", f"[{transform_prefix}, {warped_volume_path}]",
+            "--output", transform_prefix, warped_volume_path,  
             "--transform", "Rigid[0.01]",
-            "--metric", f"GC[{spred_volume_path}, {raw_volume_path}, 1, 32, Regular, 0.25]",
-            "--convergence", "[2000x1000x500,1e-07,10]",
+            "--metric", "GC", spred_volume_path, raw_volume_path, "1", "32", "Regular", "0.25",
+            "--convergence", "2000x1000x500", "1e-07", "10",
             "--smoothing-sigmas", "1x1x1vox",
             "--shrink-factors", "4x2x1",
             "--use-histogram-matching", "1",
-            "--winsorize-image-intensities", "[0.01,0.99]"
+            "--winsorize-image-intensities", "0.01,0.99"
         ]
 
         print(f"Performing registration for volume {v_idx}.")

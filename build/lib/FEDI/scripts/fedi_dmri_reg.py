@@ -49,15 +49,15 @@ def main():
     args = parser.parse_args()
 
     # Validate input arguments
-    if not os.path.isfile(args.rdmri):
-        raise FileNotFoundError(f"Input file {args.rdmri} does not exist.")
+    if not os.path.isfile(args.input_dmri):
+        raise FileNotFoundError(f"Input file {args.input_dmri} does not exist.")
     if not os.path.isfile(args.target_dmri):
         raise FileNotFoundError(f"Input file {args.target_dmri} does not exist.")
 
     os.makedirs(args.output_dir, exist_ok=True)
 
     # Extract the number of volumes
-    result = subprocess.run(["mrinfo", "-size", args.rdmri, "-quiet"], capture_output=True, text=True)
+    result = subprocess.run(["mrinfo", "-size", args.input_dmri, "-quiet"], capture_output=True, text=True)
     if result.returncode != 0:
         raise RuntimeError("Error retrieving number of volumes.")
 
@@ -70,7 +70,7 @@ def main():
         raw_volume_path = os.path.join(args.output_dir, f"input_dmri_v{v_idx}.nii.gz")
         spred_volume_path = os.path.join(args.output_dir, f"target_dmri_v{v_idx}.nii.gz")
 
-        run_command(["mrconvert", "-coord", "3", str(v_idx), args.rdmri, raw_volume_path, "-force", "-quiet"])
+        run_command(["mrconvert", "-coord", "3", str(v_idx), args.input_dmri, raw_volume_path, "-force", "-quiet"])
         run_command(["mrconvert", "-coord", "3", str(v_idx), args.target_dmri, spred_volume_path, "-force", "-quiet"])
 
         # Perform antsRegistration
