@@ -8,12 +8,9 @@ Acknowledging this Work
 
 If you wish to include results generated using the *FEDI* package in a publication, please include a statement such as the following to acknowledge our work:
 
-    *Processing was performed using the FEDI package (`Snoussi et al., 2025
-    <https://doi.org/10.1162/imag_a_00490>`__).*
+    *Processing was performed using the FEDI package* (`Snoussi et al., 2025 <https://doi.org/10.1162/imag_a_00490>`__).
 
-    Haykel Snoussi, Davood Karimi, Onur Afacan, Mustafa Utkur, Ali Gholipour; 
-    HAITCH: A framework for distortion and motion correction in fetal multi-shell 
-    diffusion-weighted MRI. Imaging Neuroscience 2025.
+    Haykel Snoussi, Davood Karimi, Onur Afacan, Mustafa Utkur, Ali Gholipour; HAITCH: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI. Imaging Neuroscience 2025.
 
 .. NOTE::
 
