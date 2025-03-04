@@ -3,6 +3,7 @@ Introduction to Fetal and Neonatal MRI
 
 Fetal and neonatal magnetic resonance imaging (MRI) are advanced diagnostic tools for assessing prenatal and early postnatal development, particularly when ultrasound findings are inconclusive. These imaging modalities offer unparalleled soft-tissue contrast and high-resolution 3D volumetric insights, enabling precise evaluation of complex anatomical structures and pathologies.
 
+
 Fetal MRI
 ---------
 
@@ -19,7 +20,9 @@ Key Challenges
 - **Fetal MRI**: Motion artifacts from fetal movement, limited spatial resolution, and ethical considerations.
 - **Neonatal MRI**: Sensitivity to patient motion, lower tissue contrast in immature organs, and the need for specialized neonatal-sized coils.
 
-
 Role of the FEDI Toolbox
-==========================
-The FEDI toolbox streamlines the processing and analysis of fetal and neonatal MRI data, addressing challenges such as motion correction, segmentation, and brain tractography. FEDI supports researchers and clinicians in standardizing workflows, extracting quantitative biomarkers, and advancing precision medicine in perinatal care. This synergy between imaging innovation and computational tools is critical for improving early detection, intervention, and long-term outcomes in vulnerable populations.
+========================
+
+The FEDI toolbox streamlines the processing and analysis of fetal and neonatal MRI data, addressing challenges such as motion correction, segmentation, and brain tractography. FEDI supports researchers and clinicians in standardizing workflows, extracting quantitative biomarkers, and advancing precision medicine in perinatal care. 
+
+This synergy between imaging innovation and computational tools is critical for improving early detection, intervention, and long-term outcomes in vulnerable populations.
