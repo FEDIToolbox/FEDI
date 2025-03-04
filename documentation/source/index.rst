@@ -51,13 +51,13 @@ Table of Contents
 
 .. toctree::
    :maxdepth: 1
-   :caption: Diffusion MRI
+   :caption: FEDI Modules
 
-   diffusion_mri/starts
+   modules/starts
 
 .. toctree::
    :maxdepth: 1
-   :caption: Workflows
+   :caption: FEDI Workflows
 
    workflows/starts
 
