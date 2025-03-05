@@ -6,14 +6,18 @@ There are multiple ways to install the FEDI toolbox.
 Installation Methods
 --------------------
 
-### **Option 1: Install via pip (Recommended)**
+**Option 1: Install via pip (Recommended)**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 The easiest way to install FEDI is through `pip`. Open a terminal and run:
 
 .. code-block:: bash
 
    pip install fedi
 
-### **Option 2: Clone the Repository**
+**Option 2: Clone the Repository**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 To manually install the FEDI toolbox and primarily access its workflows, clone the repository and add the necessary paths to your `.bashrc` file:
 
 .. code-block:: bash
@@ -27,15 +31,19 @@ To manually install the FEDI toolbox and primarily access its workflows, clone t
 Workflows such as **HAITCH** are available in:  
 🔗 `FEDI Pipelines <https://github.com/FEDIToolbox/FEDI/tree/main/FEDI/pipelines>`__
 
-### **Option 3: Conda Environment (Coming Soon)**
+**Option 3: Conda Environment (Coming Soon)**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 We are currently working on providing an installation option via Conda for easier dependency management.
 
 Dependencies
 ------------
 
-FEDI supports **DICOM, NIfTI, and MIF** image formats and relies on several external dependencies for full functionality. We **strongly recommend** using the **Anaconda Python distribution** to manage dependencies efficiently.
+FEDI supports **DICOM, NIfTI, and MIF** image formats and relies on several external dependencies for full functionality.  
+We **strongly recommend** using the **Anaconda Python distribution** to manage dependencies efficiently.
 
-Required dependencies:
+**Required Dependencies:**
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - `DIPY <https://dipy.org/>`__
 - `CVXPY <http://www.cvxpy.org/>`__
