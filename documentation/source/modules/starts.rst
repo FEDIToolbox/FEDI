@@ -25,37 +25,37 @@ Diffusion MRI
 
 - **`fedi_dmri_moco`**: Corrects motion artifacts in diffusion MRI.  
 
-  .. literalinclude:: help_outputs/fedi_dmri_moco.rst
+  .. literalinclude:: help_outputs/fedi_dmri_moco.txt
      :language: bash
 
 - **`fedi_dmri_reg`**: Performs image registration on dMRI data.  
 
-  .. literalinclude:: help_outputs/fedi_dmri_reg.rst
+  .. literalinclude:: help_outputs/fedi_dmri_reg.txt
      :language: bash
 
 - **`fedi_dmri_recon`**: Computes diffusion signal reconstruction.  
 
-  .. literalinclude:: help_outputs/fedi_dmri_recon.rst
+  .. literalinclude:: help_outputs/fedi_dmri_recon.txt
      :language: bash
 
 - **`fedi_dmri_qweights`**: Applies data weighting for q-shell dMRI acquisitions.  
 
-  .. literalinclude:: help_outputs/fedi_dmri_qweights.rst
+  .. literalinclude:: help_outputs/fedi_dmri_qweights.txt
      :language: bash
 
 - **`fedi_dmri_rotate_bvecs`**: Rotates b-vectors to match transformations.  
 
-  .. literalinclude:: help_outputs/fedi_dmri_rotate_bvecs.rst
+  .. literalinclude:: help_outputs/fedi_dmri_rotate_bvecs.txt
      :language: bash
 
 - **`fedi_dmri_outliers`**: Identifies and removes outliers from dMRI datasets.  
 
-  .. literalinclude:: help_outputs/fedi_dmri_outliers.rst
+  .. literalinclude:: help_outputs/fedi_dmri_outliers.txt
      :language: bash
 
 - **`fedi_dmri_snr`**: Computes the signal-to-noise ratio (SNR) of dMRI data.  
 
-  .. literalinclude:: help_outputs/fedi_dmri_snr.rst
+  .. literalinclude:: help_outputs/fedi_dmri_snr.txt
      :language: bash
 
 ---
@@ -65,13 +65,12 @@ Miscellaneous
 
 - **`fedi_apply_transform`**: Applies affine or nonlinear transformations to MRI data.  
 
-  .. literalinclude:: help_outputs/fedi_apply_transform.rst
+  .. literalinclude:: help_outputs/fedi_apply_transform.txt
      :language: bash
 
 ---
-Segmentation and others
+
+Segmentation and Others
 -----------------------
 
 *(Coming Soon.)*
-
-
