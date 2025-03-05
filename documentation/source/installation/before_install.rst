@@ -28,8 +28,3 @@ License
 -------
 
 FEDI is free software distributed under the `LGPL-2.1 license <https://www.mrtrix.org/>`__. FEDI is provided in the hope that it will be useful, but **WITHOUT ANY WARRANTY**, including but not limited to the implied warranties of **MERCHANTABILITY** or **FITNESS FOR A PARTICULAR PURPOSE**.
-
-Installing FEDI
-===============
-
-FEDI currently supports DICOM, NIfTI, and MIF image formats. **FEDI** dependencies include `MRtrix3 <https://www.mrtrix.org/>`__, `DIPY <https://dipy.org/>`__, `ANTs <https://github.com/ANTsX/ANTs>`__, and `FSL <https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation>`__. Ensure these dependencies are properly installed before using FEDI.
