@@ -13,7 +13,13 @@
 
 
 
-## Note : **FEDI** is under active development.
+
+
+## ⚠️ Note: **FEDI** is under active development.
+
+
+
+
 
 ## Key Features
 - Outlier detection for dMRI
@@ -42,6 +48,15 @@ FEDI_SCRIPTS=$(pwd)
 echo 'export PATH="${FEDI_SCRIPTS}:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
+
+Workflows such as HAITCH are available in:
+
+```bash
+cd FEDI/FEDI/pipelines
+```
+
+## Installation : Option 3
+We are currently working on providing an installation option via Conda for easier dependency management.
 
 
 ## Dependencies
