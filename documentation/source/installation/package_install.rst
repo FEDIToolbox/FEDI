@@ -6,7 +6,7 @@ There are multiple ways to install the FEDI toolbox.
 Installation Methods
 --------------------
 
-**Option 1: Install via pip (Recommended)**
+**Option 1: Install via pip**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The easiest way to install FEDI is through `pip`. Open a terminal and run:
@@ -28,8 +28,11 @@ To manually install the FEDI toolbox and primarily access its workflows, clone t
    echo 'export PATH="${FEDI_SCRIPTS}:$PATH"' >> ~/.bashrc
    source ~/.bashrc
 
-Workflows such as **HAITCH** are available in:  
-🔗 `FEDI Pipelines <https://github.com/FEDIToolbox/FEDI/tree/main/FEDI/pipelines>`__
+🔗 `Workflows <https://github.com/FEDIToolbox/FEDI/tree/main/FEDI/pipelines>`__ such as HAITCH are available in:
+.. code-block:: bash
+
+   cd FEDI/FEDI/pipelines
+
 
 **Option 3: Conda Environment (Coming Soon)**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -50,10 +53,12 @@ We **strongly recommend** using the **Anaconda Python distribution** to manage d
 - `MRtrix3 <https://www.mrtrix.org/>`__
 - `FSL <https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation>`__
 - `ANTs <https://github.com/ANTsX/ANTs>`__
-- `NumPy <https://numpy.org/>`__, `SciPy <https://scipy.org/>`__, `NiBabel <https://nipy.org/nibabel/>`__, `Matplotlib <https://matplotlib.org/>`__
+- `NumPy <https://numpy.org/>`__
+- `SciPy <https://scipy.org/>`__
+- `NiBabel <https://nipy.org/nibabel/>`__
+- `Matplotlib <https://matplotlib.org/>`__
 
 Getting Help
 ------------
 
-For questions, issues, or suggestions, please open an issue on our GitHub repository:  
-🔗 `FEDI Issues <https://github.com/FEDIToolbox/FEDI/issues>`__
+For questions, issues, or suggestions, please open an issue on 🔗 `our GitHub repository <https://github.com/FEDIToolbox/FEDI/issues>`__.
