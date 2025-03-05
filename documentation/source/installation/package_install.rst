@@ -29,6 +29,7 @@ To manually install the FEDI toolbox and primarily access its workflows, clone t
    source ~/.bashrc
 
 🔗 `Workflows <https://github.com/FEDIToolbox/FEDI/tree/main/FEDI/pipelines>`__ such as HAITCH are available in:
+
 .. code-block:: bash
 
    cd FEDI/FEDI/pipelines
