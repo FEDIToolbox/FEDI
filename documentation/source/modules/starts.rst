@@ -37,15 +37,15 @@ Diffusion MRI
 
 - **`fedi_dmri_rotate_bvecs`**: Rotates b-vectors to match transformations.  
 
-  .. include:: ../ help_outputs/fedi_dmri_rotate_bvecs.txt
+  .. include:: ../help_outputs/fedi_dmri_rotate_bvecs.txt
 
 - **`fedi_dmri_outliers`**: Identifies and weights outliers (volume, slice, and voxel) in dMRI data.  
 
-  .. include:: ../ help_outputs/fedi_dmri_outliers.txt
+  .. include:: ../help_outputs/fedi_dmri_outliers.txt
 
 - **`fedi_dmri_snr`**: Computes the signal-to-noise ratio (SNR) of dMRI data.  
 
-  .. include:: ../ help_outputs/fedi_dmri_snr.txt
+  .. include:: ../help_outputs/fedi_dmri_snr.txt
 
 ---
 
@@ -54,7 +54,7 @@ Miscellaneous
 
 - **`fedi_apply_transform`**: Applies affine or nonlinear transformations to MRI data.  
 
-  .. include:: ../ help_outputs/fedi_apply_transform.txt
+  .. include:: ../help_outputs/fedi_apply_transform.txt
 
 ---
 
