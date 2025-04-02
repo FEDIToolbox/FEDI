@@ -6,7 +6,7 @@ fedi_dmri_outliers - Command Help
 .. code-block:: bash
 
 
-     Fetal and Neonatal Development Imaging - FEDI Toolbox - Testing
+     Fetal and Neonatal Development Imaging - FEDI Toolbox
 
 
 USAGE: 
