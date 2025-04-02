@@ -48,9 +48,8 @@ Diffusion MRI
 
 - **`fedi_dmri_rotate_bvecs`**: Rotates b-vectors to match transformations.  
 
-- **:ref:`fedi_dmri_outliers`**: Identifies and weights outliers (volume, slice, and voxel) in dMRI data.  
-
-- **:ref:`fedi_dmri_qweights`**: Computes the signal-to-noise ratio (SNR) of dMRI data.
+- :ref:`fedi_dmri_outliers`: Identifies and weights outliers (volume, slice, and voxel) in dMRI data.
+- :ref:`fedi_dmri_qweights`: Computes the signal-to-noise ratio (SNR) of dMRI data.
 
 
 
