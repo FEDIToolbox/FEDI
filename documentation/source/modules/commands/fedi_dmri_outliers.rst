@@ -1,3 +1,5 @@
+.. _fedi_dmri_outliers:
+
 fedi_dmri_outliers - Command Help
 =================================
 
