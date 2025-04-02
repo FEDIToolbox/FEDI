@@ -1,3 +1,5 @@
+.. _fedi_dmri_qweights:
+
 fedi_dmri_qweights - Command Help
 =================================
 
