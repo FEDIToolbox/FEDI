@@ -35,8 +35,22 @@ The tools are categorized below for easier navigation.
     :ref:`fedi_dmri_outliers`, "Weighting and outlier detection using: SOLID, GMM, SHORE-based, Angular, and Correlation with neighbors."
     :ref:`fedi_dmri_qweights`, "Process diffusion MRI scheme and generate Siemens scanner compatible output."
 
+---
 
+Diffusion MRI
+-------------
 
+- **`fedi_dmri_moco`**: Corrects motion artifacts in diffusion MRI.  
+
+- **`fedi_dmri_reg`**: Performs image registration on dMRI data.  
+
+- **`fedi_dmri_qweights`**: Converts dMRI scheme into a Siemens scanner-compatible format.  
+
+- **`fedi_dmri_rotate_bvecs`**: Rotates b-vectors to match transformations.  
+
+- **`fedi_dmri_outliers`**: Identifies and weights outliers (volume, slice, and voxel) in dMRI data.  
+
+- **`fedi_dmri_snr`**: Computes the signal-to-noise ratio (SNR) of dMRI data.
 
 
 
@@ -46,7 +60,7 @@ The tools are categorized below for easier navigation.
 
 ---
 
-Diffusion MRI
+Diffusion MRI2
 -------------
 
 - **`fedi_dmri_moco`**: Corrects motion artifacts in diffusion MRI.  
