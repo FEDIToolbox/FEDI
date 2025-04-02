@@ -1,62 +1,90 @@
 .. _fedi_dmri_outliers:
 
-fedi_dmri_outliers - Command Help
-=================================
+fedi_dmri_outliers
+==================
 
-**Usage:**
+Synopsis
+--------
 
-.. code-block:: bash
+Volume, slice and voxel weighting and outlier detection using multiple methods:  
+SOLID, Gaussian Mixture Model (GMM), SHORE-based, angular, and correlation with neighbors.
 
+Usage
+-----
 
-     Fetal and Neonatal Development Imaging - FEDI Toolbox - Testing
+::
 
+    fedi_dmri_outliers [-h] -d <file> -b <file> -a <file> -e <file> -o <file>
+                       [-s <file>] [-f <file>] [-m <file>] [-k <file>]
+                       [-t <list>] [-c <str>] [-l <str>] [-z <file>]
+                       [-n <file>] [-y <file>] [-g <file>] [-r <file>]
 
-USAGE: 
+Options
+-------
 
-    fedi_dmri_outliers [-h] -d <file> -b <file> -a <file> -e
-                                         <file> -o <file> [-s <file>]
-                                         [-f <file>] [-m <file>] [-k <file>]
-                                         [-t <list>] [-c <str>] [-l <str>]
-                                         [-z <file>] [-n <file>] [-y <file>]
-                                         [-g <file>] [-r <file>]
+**Help**
 
-DESCRIPTION: 
+-  **-h, --help**  
+   Show this help message and exit
 
-    Volume, slice and voxel weighting and outlier detection using many methods: SOLID, Gaussian Mixture Model (GMM), SHORE-based, Angular, and Correlation metrics with neighbors.
+**Mandatory**
 
-HELP:
-  -h, --help            show this help message and exit
+-  **-d, --dmri <file>**  
+   Path to dMRI file
 
-MANDATORY OPTIONS:
-  -d, --dmri <file>     Path to dMRI file
-  -b, --dmrigmm <file>  Path to dMRI file for GMM
-  -a, --bval <file>     Path to bval file
-  -e, --bvec <file>     Path to bvec file
-  -o, --outpath <file>  Output directory path
+-  **-b, --dmrigmm <file>**  
+   Path to dMRI file for GMM
 
-OPTIONAL OPTIONS:
-  -s, --spred <file>    Path to spred file
-  -f, --spredgmm <file>
-                        Path to spred file for GMM
-  -m, --mask <file>     Path to mask file, required for GMM weighting
-  -k, --maskgmm <file>  Path to mask file, required for GMM weighting
-  -t, --thresholds <list>
-                        Lower and upper modified Z-score thresholds as 'lower,upper'
-  -c, --zscoremetric <str>
-                        Modified Z-Score metric: var, mean, or iod
-  -l, --scalingmethod <str>
-                        Scaling method for slice weights: linear or sigmoid
-  -z, --fsliceweights_mzscore <file>
-                        Filename for sliceweights using modified Z-score
-  -n, --fsliceweights_angle_neighbors <file>
-                        Filename for sliceweights using angle with neighbors
-  -y, --fsliceweights_corre_neighbors <file>
-                        Filename for sliceweights using correlation with neighbors
-  -g, --fsliceweights_gmmodel <file>
-                        Filename for sliceweights using Gaussian mixture model (GMM)
-  -r, --fvoxelweights_shorebased <file>
-                        Filename.nii.gz (4D)  for voxelweights using shore-based residuals
+-  **-a, --bval <file>**  
+   Path to bval file
 
-REFERENCES:
-  Snoussi, H., Karimi, D., Afacan, O., Utkur, M. and Gholipour, A., 2024. Haitch: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI. arXiv preprint arXiv:2406.20042.
+-  **-e, --bvec <file>**  
+   Path to bvec file
 
+-  **-o, --outpath <file>**  
+   Output directory path
+
+**Optional**
+
+-  **-s, --spred <file>**  
+   Path to spred file
+
+-  **-f, --spredgmm <file>**  
+   Path to spred file for GMM
+
+-  **-m, --mask <file>**  
+   Path to mask file, required for GMM weighting
+
+-  **-k, --maskgmm <file>**  
+   Path to mask file, required for GMM weighting
+
+-  **-t, --thresholds <list>**  
+   Lower and upper modified Z-score thresholds as 'lower,upper'
+
+-  **-c, --zscoremetric <str>**  
+   Modified Z-score metric: `var`, `mean`, or `iod`
+
+-  **-l, --scalingmethod <str>**  
+   Scaling method for slice weights: `linear` or `sigmoid`
+
+-  **-z, --fsliceweights_mzscore <file>**  
+   Output filename for slice weights using modified Z-score
+
+-  **-n, --fsliceweights_angle_neighbors <file>**  
+   Output filename for slice weights using angular comparison with neighbors
+
+-  **-y, --fsliceweights_corre_neighbors <file>**  
+   Output filename for slice weights using correlation with neighbors
+
+-  **-g, --fsliceweights_gmmodel <file>**  
+   Output filename for slice weights using Gaussian Mixture Model (GMM)
+
+-  **-r, --fvoxelweights_shorebased <file>**  
+   Output 4D `.nii.gz` file of voxel weights using SHORE-based residuals
+
+References
+----------
+
+Snoussi, H., Karimi, D., Afacan, O., Utkur, M. and Gholipour, A., 2025.  
+*Haitch: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI.*  
+Imaging Neuroscience.
