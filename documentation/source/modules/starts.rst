@@ -18,6 +18,32 @@ To view help for a specific tool, use the ``--help`` option:
 
 The tools are categorized below for easier navigation.
 
+
+
+.. toctree::
+    :hidden:
+
+    commands/fedi_dmri_outliers.rst
+    commands/fedi_dmri_qweights.rst
+
+
+
+
+.. csv-table::
+    :header: "Command", "Synopsis"
+
+    :ref:`fedi_dmri_outliers`, "Weighting and outlier detection using: SOLID, GMM, SHORE-based, Angular, and Correlation with neighbors."
+    :ref:`fedi_dmri_qweights`, "Process diffusion MRI scheme and generate Siemens scanner compatible output."
+
+
+
+
+
+
+
+
+
+
 ---
 
 Diffusion MRI
