@@ -1,15 +1,14 @@
 # Configuration file for the Sphinx documentation builder.
 
-# -- Project information
+# -- Project information -----------------------------------------------------
 
 project = 'FEDI'
 copyright = '2024, Snoussi'
 author = 'Haykel Snoussi'
-
 release = '0.1'
 version = '0.1.0'
 
-# -- General configuration
+# -- General configuration ---------------------------------------------------
 
 extensions = [
     'sphinx.ext.duration',
@@ -26,10 +25,42 @@ intersphinx_mapping = {
 intersphinx_disabled_domains = ['std']
 
 templates_path = ['_templates']
+exclude_patterns = []
 
-# -- Options for HTML output
+# -- Options for HTML output -------------------------------------------------
 
 html_theme = 'sphinx_rtd_theme'
 
-# -- Options for EPUB output
+html_theme_options = {
+    'display_version': True,
+    'navigation_depth': 3,
+    'collapse_navigation': False,
+    'style_external_links': True,
+    'logo_only': True,
+    'prev_next_buttons_location': 'bottom',
+    'style_nav_header_background': '#2980B9',
+
+    # GitHub buttons
+    'display_github': True,
+    'github_user': 'FEDIToolbox',
+    'github_repo': 'FEDI',
+    'github_version': 'main',
+    'conf_py_path': '/documentation/source/',
+}
+
+# Logo and favicon
+html_logo = '_static/Focus_FEDI.png'
+html_favicon = '_static/favicon.ico'  # Add this if you have one
+html_static_path = ['_static']
+
+# -- Options for EPUB output -------------------------------------------------
+
 epub_show_urls = 'footnote'
+
+# -- LaTeX / PDF Output ------------------------------------------------------
+
+latex_elements = {
+    'papersize': 'a4paper',
+    'pointsize': '11pt',
+    'figure_align': 'H',
+}

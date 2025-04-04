@@ -33,6 +33,8 @@ This documentation covers many of **FEDI**'s functionalities. To get help with a
   Some familiarity with the Unix command line is recommended to get the most out of **FEDI**.
 
 
+
+
 Table of Contents
 ~~~~~~~~~~~~~~~~~
 
@@ -67,7 +69,5 @@ Table of Contents
    :caption: Developer Section
 
    developer_section/starts
-   developer_section/starts2
-
 
 

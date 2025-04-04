@@ -28,7 +28,7 @@ To manually install the FEDI toolbox and primarily access its workflows, clone t
    echo 'export PATH="${FEDI_SCRIPTS}:$PATH"' >> ~/.bashrc
    source ~/.bashrc
 
-🔗 `Workflows <https://github.com/FEDIToolbox/FEDI/tree/main/FEDI/pipelines>`__ such as HAITCH are available in:
+`Workflows <https://github.com/FEDIToolbox/FEDI/tree/main/FEDI/pipelines>`__ such as HAITCH are available in:
 
 .. code-block:: bash
 
@@ -62,4 +62,4 @@ We **strongly recommend** using the **Anaconda Python distribution** to manage d
 Getting Help
 ------------
 
-For questions, issues, or suggestions, please open an issue on 🔗 `our GitHub repository <https://github.com/FEDIToolbox/FEDI/issues>`__.
+For questions, issues, or suggestions, please open an issue on `our GitHub repository <https://github.com/FEDIToolbox/FEDI/issues>`__.
