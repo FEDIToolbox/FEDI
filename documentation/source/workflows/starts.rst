@@ -7,14 +7,7 @@ For full methodological and validation details, refer to the following publicati
 
 `Snoussi et al., 2025 – HAITCH: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI <https://direct.mit.edu/imag/article/doi/10.1162/imag_a_00490/127881>`__
 
-Workflow Overview
------------------
 
-.. figure:: haitch_workflow.png
-   :align: center
-   :width: 80%
-
-   **Figure:** Overview of the HAITCH workflow for motion and distortion correction.
 
 Results and Visualizations
 --------------------------
@@ -23,7 +16,7 @@ The following figures illustrate the effectiveness of HAITCH in real fetal diffu
 
 .. only:: html
 
-   .. image:: Figures/Figure5.png
+   .. image:: Figure5.png
       :width: 100%
       :align: center
 
@@ -39,7 +32,7 @@ The following figures illustrate the effectiveness of HAITCH in real fetal diffu
 
 .. only:: html
 
-   .. image:: Figures/Figure6.png
+   .. image:: Figure6.png
       :width: 80%
       :align: center
 
@@ -55,7 +48,7 @@ The following figures illustrate the effectiveness of HAITCH in real fetal diffu
 
 .. only:: html
 
-   .. image:: Figures/Figure9.png
+   .. image:: Figure9.png
       :width: 100%
       :align: center
 
