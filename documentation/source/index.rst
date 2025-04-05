@@ -61,7 +61,7 @@ Table of Contents
    :maxdepth: 1
    :caption: FEDI Workflows
 
-   workflows/starts
+   workflows/haitch_starts
 
 
 .. toctree::

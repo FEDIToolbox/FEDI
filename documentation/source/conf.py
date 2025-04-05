@@ -49,8 +49,8 @@ html_theme_options = {
 }
 
 # Logo and favicon
-html_logo = '_static/Focus_FEDI.png'
-html_favicon = '_static/favicon.ico'  # Add this if you have one
+# html_logo = '_static/Focus_FEDI.png'
+# html_favicon = '_static/favicon.ico'  # Add this if you have one
 html_static_path = ['_static']
 
 # -- Options for EPUB output -------------------------------------------------
