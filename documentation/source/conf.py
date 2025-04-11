@@ -36,7 +36,7 @@ html_theme_options = {
     'navigation_depth': 3,
     'collapse_navigation': False,
     'style_external_links': True,
-    'logo_only': True,
+    # 'logo_only': False, # this should be commented to have "FEDI" written in top left corner.
     'prev_next_buttons_location': 'bottom',
     'style_nav_header_background': '#2980B9',
 
@@ -49,6 +49,7 @@ html_theme_options = {
 }
 
 # Logo and favicon
+html_logo = "FEDI"
 # html_logo = '_static/Focus_FEDI.png'
 # html_favicon = '_static/favicon.ico'  # Add this if you have one
 html_static_path = ['_static']
