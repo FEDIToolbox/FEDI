@@ -4,3 +4,5 @@ nibabel
 matplotlib
 dipy
 cvxpy
+healpy
+huggingface_hub

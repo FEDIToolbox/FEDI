@@ -11,7 +11,8 @@ setup(
         'matplotlib',
         'dipy',
         'cvxpy',
-        # Add other dependencies here
+        'healpy',
+        'huggingface_hub'
     ],
     entry_points={
         'console_scripts': [
@@ -22,15 +23,18 @@ setup(
             'fedi_apply_transform=FEDI.scripts.fedi_apply_transform:main',
             'fedi_dmri_reg=FEDI.scripts.fedi_dmri_reg:main',
             'fedi_dmri_recon=FEDI.scripts.fedi_dmri_recon:main',
-            'fedi_dmri_moco=FEDI.scripts.fedi_dmri_moco:main'
+            'fedi_dmri_moco=FEDI.scripts.fedi_dmri_moco:main',
+            'fedi_dmri_fod=FEDI.scripts.fedi_dmri_fod:main'
+
         ],
     },
     python_requires='>=3.7',  # Adjust according to your requirements
     package_data={
         'FEDI': [
-            'Sampling_Scheme/*.dvs',  # Include non-Python files
-            'models/*.py',  # Include any other files you need
-            'pipelines/HAITCH/*.py',  # Include files in subdirectories
+            'Sampling_Scheme/*.dvs',
+            'models/pytorch/**/*.py',
+            'models/common/*.py',
+            'pipelines/HAITCH/*.py',
         ],
     },
     test_suite='tests',
@@ -39,4 +43,5 @@ setup(
     author_email='dr.haykel.snoussi@gmail.com',
     long_description=open('documentation/README.rst').read(),
     long_description_content_type='text/x-rst',
+    include_package_data=True
 )

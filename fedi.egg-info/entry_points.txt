@@ -1,5 +1,6 @@
 [console_scripts]
 fedi_apply_transform = FEDI.scripts.fedi_apply_transform:main
+fedi_dmri_fod = FEDI.scripts.fedi_dmri_fod:main
 fedi_dmri_moco = FEDI.scripts.fedi_dmri_moco:main
 fedi_dmri_outliers = FEDI.scripts.fedi_dmri_outliers:main
 fedi_dmri_qweights = FEDI.scripts.fedi_dmri_qweights:main
