@@ -6,3 +6,4 @@ dipy
 cvxpy
 healpy
 huggingface_hub
+torch

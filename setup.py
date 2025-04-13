@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='fedi',
-    version='0.1.23',
+    version='0.1.24',
     packages=find_packages(include=['FEDI', 'FEDI.*']),
     install_requires=[
         'numpy',
@@ -12,7 +12,8 @@ setup(
         'dipy',
         'cvxpy',
         'healpy',
-        'huggingface_hub'
+        'huggingface_hub',
+        'torch'
     ],
     entry_points={
         'console_scripts': [
