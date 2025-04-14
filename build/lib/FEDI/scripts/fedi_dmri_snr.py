@@ -1,80 +1,86 @@
-#!/usr/bin/env python3.10
-
 import nibabel as nib
 import numpy as np
-from scipy.ndimage import binary_erosion
 import argparse
-
+from scipy.ndimage import binary_erosion
 from FEDI.utils.common import FEDI_ArgumentParser, Metavar
 
 
-def compute_snr(dmri_file, bval_file, mask_file=None):
-    """
-    Compute the Signal-to-Noise Ratio (SNR) for diffusion MRI data.
+def compute_snr_diff_method(dmri_file, bval_file, mask_file, b0_threshold=50):
+    print(f"Loading dMRI: {dmri_file}")
+    img = nib.load(dmri_file)
+    data = img.get_fdata()
+    print(f"dMRI shape: {data.shape}")
 
-    Parameters:
-    - dmri_file: str, path to the dMRI NIfTI file
-    - bval_file: str, path to the bvals file
-    - mask_file: str, optional, path to the binary mask NIfTI file
-
-    Returns:
-    - SNR: float, the computed SNR value
-    - SNR_std: float, the standard deviation of the SNR
-    """
-    if mask_file:
-        mask = binary_erosion(nib.load(mask_file).get_fdata().astype(bool), iterations=3)
-    else:
-        raise ValueError("A binary mask file is required.")
-
+    print(f"Loading bvals: {bval_file}")
     bvals = np.loadtxt(bval_file)
-    dmri_data = nib.load(dmri_file).get_fdata()
+    print(f"bvals shape: {bvals.shape}, unique: {np.unique(bvals)}")
 
-    b0_indices = np.where(bvals == 0)[0]
-    b0_data = dmri_data[mask][:, b0_indices]
+    print(f"Loading mask: {mask_file}")
+    mask_img = nib.load(mask_file)
+    mask = binary_erosion(mask_img.get_fdata().astype(bool), iterations=1)
+    print(f"Mask shape: {mask.shape}, num True voxels: {np.sum(mask)}")
 
-    normalized_b0_data = b0_data / np.nanmean(b0_data, axis=1)[:, np.newaxis]
-    concatenated_b0_data = normalized_b0_data
+    b0_indices = np.where(bvals <= b0_threshold)[0]
+    print(f"b=0 indices: {b0_indices}")
+    if len(b0_indices) < 2:
+        raise ValueError("At least two b=0 volumes are required for SNR estimation.")
 
-    SNRs = 1 / np.nanstd(concatenated_b0_data, axis=1)
-    SNR_mean = np.round(SNRs.mean(), 1)
-    SNR_std = np.round(SNR_std := SNRs.std(), 1)
+    vol1 = data[..., b0_indices[0]]
+    vol2 = data[..., b0_indices[1]]
+    print(f"vol1/2 shape: {vol1.shape}, dtype: {vol1.dtype}")
 
-    return SNR_mean, SNR_std
+    mean_img = (vol1 + vol2) / 2.0
+    diff_img = (vol1 - vol2) / np.sqrt(2)
+
+    mean_vals = mean_img[mask]
+    noise_vals = diff_img[mask]
+    print(f"mean_vals.shape: {mean_vals.shape}, noise_vals.shape: {noise_vals.shape}")
+    print(f"mean_vals stats -> mean: {mean_vals.mean()}, std: {mean_vals.std()}")
+    print(f"noise_vals stats -> mean: {noise_vals.mean()}, std: {noise_vals.std()}")
+
+    if mean_vals.size == 0 or noise_vals.size == 0:
+        raise ValueError("No valid voxels found within mask.")
+
+    signal = np.mean(mean_vals)
+    noise_std = np.std(noise_vals, ddof=1)
+    print(f"Signal (mean of mean_vals): {signal}")
+    print(f"Noise std (std of diff_img): {noise_std}")
+
+    snr = signal / (noise_std + 1e-8)
+    print(f"Final SNR = {snr}")
+    return np.round(snr, 1), 0.0
+
+
+
+
 
 def main():
     parser = argparse.ArgumentParser(
         description=(
-            "\033[1mDESCRIPTION:\033[0m \n\n    "
-            "This function computes the Signal-to-Noise Ratio (SNR) for diffusion MRI.\n"
-            "\n"
+            "\033[1mDESCRIPTION:\033[0m\n\n    "
+            "Compute the Signal-to-Noise Ratio (SNR) for diffusion MRI using the subtraction-based method described in Dietrich et al., JMRI 2007. "
+            "Signal is estimated from the mean of two b=0 volumes and noise from their difference."
         ),
         epilog=(
             "\033[1mREFERENCES:\033[0m\n  "
-            "Snoussi, H., Karimi, D., Afacan, O., Utkur, M. and Gholipour, A., 2024. "
-            "Haitch: A framework for distortion and motion correction in fetal multi-shell "
-            "diffusion-weighted MRI. arXiv preprint arXiv:2406.20042."
+            "Dietrich, O., et al. Measurement of signal-to-noise ratios in MR images. JMRI 2007."
         ),
         formatter_class=FEDI_ArgumentParser
     )
 
-    # Mandatory arguments
     mandatory = parser.add_argument_group('\033[1mMANDATORY OPTIONS\033[0m')
-    mandatory.add_argument("-d", "--dmri", required=True, metavar=Metavar.file, help="Input dMRI NIfTI image. Example: dmri.nii.gz")
-    mandatory.add_argument("-a", "--bval", required=True, metavar=Metavar.file, help="Bvals file. Example: bvals.txt")
-    mandatory.add_argument("-m", "--mask", required=True, metavar=Metavar.file, help="Binary mask within which SNR will be averaged. Example: brain_mask.nii.gz")
-
-    # Optional arguments
-    optional = parser.add_argument_group('\033[1mOPTIONAL OPTIONS\033[0m')
-    optional.add_argument("-b", "--bvec", required=False,  metavar=Metavar.file, help="Bvecs file. Example: bvecs.txt")
-
+    mandatory.add_argument('-d', '--dmri', required=True, metavar=Metavar.file, help='4D dMRI file')
+    mandatory.add_argument('-a', '--bval', required=True, metavar=Metavar.file, help='bval file')
+    mandatory.add_argument('-m', '--mask', required=True, metavar=Metavar.file, help='Binary mask file')
 
     args = parser.parse_args()
 
     try:
-        snr_mean, snr_std = compute_snr(args.dmri, args.bval, args.mask)
-        print(f"SNR = {snr_mean.astype(int)} ± {snr_std.astype(int)}")
+        snr_mean, snr_std = compute_snr_diff_method(args.dmri, args.bval, args.mask)
+        print(f"SNR = {snr_mean} ± {snr_std}")
     except Exception as e:
         print(f"Error: {e}")
+
 
 if __name__ == "__main__":
     main()

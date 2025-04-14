@@ -15,7 +15,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser(
         description=(
             "\033[1mDESCRIPTION:\033[0m \n\n    "
-            "FOD estimation for neonatal data.\n"
+            "Fiber Orientation Distribution (FOD) estimation for neonatal dMRI using a pretrained Spherical CNN model.\n"
         ),
         epilog=(
             "\033[1mREFERENCES:\033[0m\n  "
@@ -34,12 +34,14 @@ def parse_arguments():
     return parser.parse_args()
 
 def compute_sh_basis(bvecs, l_max=8):
+    # Compute real symmetric SH basis with proper coefficient ordering
     thetas = np.arccos(np.clip(bvecs[:, 2], -1.0, 1.0))
     phis = np.mod(np.arctan2(bvecs[:, 1], bvecs[:, 0]) + 2 * np.pi, 2 * np.pi)
+    # calculate number of coefficinets per degree
     degrees = list(range(0, l_max + 1, 2))
     n_coeffs = sum(2 * l + 1 for l in degrees)
     basis = np.zeros((len(bvecs), n_coeffs), dtype=np.float32)
-
+    # create index mapping
     idx = 0
     for l in degrees:
         for m in range(-l, l + 1):
