@@ -3,22 +3,16 @@
 fedi_apply_transform
 ====================
 
-Synopsis
---------
-
+.. rubric:: Synopsis
 Apply affine or nonlinear transformations to dMRI data.
 
-Usage
------
-
+.. rubric:: Usage
 ::
 
     fedi_apply_transform [-h] -i INPUT -o OUTPUT -t TRANSFORM
                          [-r REFERENCE] [-m MASK] [-f]
 
-Options
--------
-
+.. rubric:: Options
 **Help**
 
 -  **-h, --help**  
@@ -46,9 +40,7 @@ Options
 -  **-f, --force**  
    Force overwrite of output files (default: False)
 
-References
-----------
-
+.. rubric:: References
 Snoussi, H., Karimi, D., Afacan, O., Utkur, M. and Gholipour, A., 2025.  
 *Haitch: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI.*  
 Imaging Neuroscience.

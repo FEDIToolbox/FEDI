@@ -31,10 +31,8 @@ The tools are categorized below for easier navigation.
     commands/fedi_dmri_reg.rst
     commands/fedi_dmri_fod.rst
 
----
 
-Diffusion MRI
--------------
+.. rubric:: Diffusion MRI
 
 - :ref:`fedi_dmri_moco`: Corrects motion artifacts in diffusion MRI.  
 - :ref:`fedi_dmri_reg`: Performs image registration on dMRI data.  
@@ -45,14 +43,11 @@ Diffusion MRI
 - :ref:`fedi_dmri_recon`: Reconstructs the diffusion signal using 3D-SHORE.
 - :ref:`fedi_dmri_fod`: estimates FODs for neonatal dMRI using a pretrained Spherical CNN model.
 
-Miscellaneous
--------------
+.. rubric:: Miscellaneous
 
 - :ref:`fedi_apply_transform`: Applies affine or nonlinear transformations to MRI data.  
 
----
 
-Segmentation and Others
------------------------
+.. rubric:: Segmentation and Others
 
 *(Coming Soon.)*

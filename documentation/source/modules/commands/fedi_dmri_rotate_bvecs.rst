@@ -3,22 +3,16 @@
 fedi_dmri_rotate_bvecs
 =======================
 
-Synopsis
---------
-
+.. rubric:: Synopsis
 Rotate the bvecs accordingly with a list of ANTs transformation matrices.
 
-Usage
------
-
+.. rubric:: Usage
 ::
 
     fedi_dmri_rotate_bvecs [-h] -e <file> -n <file> -m <folder>
                            [-s <str>] [-d <str>]
 
-Options
--------
-
+.. rubric:: Options
 **Help**
 
 -  **-h, --help**  
@@ -44,9 +38,7 @@ Options
    Suffix for transformation matrix files (default: `'_0GenericAffine.mat'`).  
    Each matrix file is expected to follow the naming: `prefix + volume_index + suffix`
 
-References
-----------
-
+.. rubric:: References
 Snoussi, H., Karimi, D., Afacan, O., Utkur, M. and Gholipour, A., 2025.  
 *Haitch: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI.*  
 Imaging Neuroscience.

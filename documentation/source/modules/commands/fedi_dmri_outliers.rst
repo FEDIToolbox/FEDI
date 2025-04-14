@@ -3,15 +3,11 @@
 fedi_dmri_outliers
 ==================
 
-Synopsis
---------
-
+.. rubric:: Synopsis
 Volume, slice and voxel weighting and outlier detection using multiple methods:  
 SOLID, Gaussian Mixture Model (GMM), SHORE-based, angular, and correlation with neighbors.
 
-Usage
------
-
+.. rubric:: Usage
 ::
 
     fedi_dmri_outliers [-h] -d <file> -b <file> -a <file> -e <file> -o <file>
@@ -19,9 +15,7 @@ Usage
                        [-t <list>] [-c <str>] [-l <str>] [-z <file>]
                        [-n <file>] [-y <file>] [-g <file>] [-r <file>]
 
-Options
--------
-
+.. rubric:: Options
 **Help**
 
 -  **-h, --help**  
@@ -82,9 +76,7 @@ Options
 -  **-r, --fvoxelweights_shorebased <file>**  
    Output 4D `.nii.gz` file of voxel weights using SHORE-based residuals
 
-References
-----------
-
+.. rubric:: References
 Snoussi, H., Karimi, D., Afacan, O., Utkur, M. and Gholipour, A., 2025.  
 *Haitch: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI.*  
 Imaging Neuroscience.

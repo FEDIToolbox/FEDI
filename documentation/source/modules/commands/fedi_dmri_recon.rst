@@ -3,22 +3,16 @@
 fedi_dmri_recon
 ===============
 
-Synopsis
---------
-
+.. rubric:: Synopsis
 Continuous and analytical diffusion signal reconstruction with 3D-SHORE.
 
-Usage
------
-
+.. rubric:: Usage
 ::
 
     fedi_dmri_recon [-h] -d <file> -a <file> -e <file> -u <file> -s <file>
                     [-m <file>] [--do_not_use_mask] [-w <file>]
 
-Options
--------
-
+.. rubric:: Options
 **Help**
 
 -  **-h, --help**  
@@ -52,9 +46,7 @@ Options
 -  **-w, --weights <file>**  
    Path to the weights file (TXT or NIfTI)
 
-References
-----------
-
+.. rubric:: References
 Snoussi, H., Karimi, D., Afacan, O., Utkur, M. and Gholipour, A., 2025.  
 *Haitch: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI.*  
 Imaging Neuroscience.

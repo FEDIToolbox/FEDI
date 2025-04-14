@@ -3,22 +3,16 @@
 fedi_dmri_reg
 =============
 
-Synopsis
---------
-
+.. rubric:: Synopsis
 Perform volume-by-volume registration of 4D diffusion MRI data using ANTs.
 
-Usage
------
-
+.. rubric:: Usage
 ::
 
     fedi_dmri_reg [-h] --input_dmri INPUT_DMRI --target_dmri TARGET_DMRI
                   --output_dir OUTPUT_DIR --output_dmri OUTPUT_DMRI
 
-Options
--------
-
+.. rubric:: Options
 -  **-h, --help**  
    Show this help message and exit
 
@@ -34,9 +28,7 @@ Options
 -  **--output_dmri OUTPUT_DMRI**  
    Filename for the registered diffusion MRI output
 
-References
-----------
-
+.. rubric:: References
 Snoussi, H., Karimi, D., Afacan, O., Utkur, M. and Gholipour, A., 2025.  
 *Haitch: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI.*  
 Imaging Neuroscience.

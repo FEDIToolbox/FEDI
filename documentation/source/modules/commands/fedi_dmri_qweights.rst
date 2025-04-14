@@ -3,22 +3,16 @@
 fedi_dmri_qweights
 ==================
 
-Synopsis
---------
-
+.. rubric:: Synopsis
 Process diffusion MRI scheme and generate Siemens scanner compatible output.
 
-Usage
------
-
+.. rubric:: Usage
 ::
 
     fedi_dmri_qweights [-h] -i <file> -o <file> -b <int> [<int> ...] -d <file>
                        [--interspersed] [-n <int>] [--b0_at_beginning] [--b0_at_end]
 
-Options
--------
-
+.. rubric:: Options
 **Help**
 
 -  **-h, --help**  
@@ -53,9 +47,7 @@ Options
 -  **--b0_at_end**  
    Include a b=0 volume at the end of the acquisition
 
-References
-----------
-
+.. rubric:: References
 Snoussi, H., Karimi, D., Afacan, O., Utkur, M. and Gholipour, A., 2025.  
 *Haitch: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI.*  
 Imaging Neuroscience.
