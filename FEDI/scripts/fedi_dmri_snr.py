@@ -30,7 +30,13 @@ def compute_snr(dmri_file, bval_file, mask_file=None):
     dmri_data = nib.load(dmri_file).get_fdata()
 
     b0_indices = np.where(bvals == 0)[0]
+    if len(b0_indices) < 2:
+        raise ValueError("Need at least two b=0 volumes for SNR estimation.")
+
     b0_data = dmri_data[mask][:, b0_indices]
+    if b0_data.size == 0:
+        raise ValueError("Empty masked b=0 data.")
+
 
     normalized_b0_data = b0_data / np.nanmean(b0_data, axis=1)[:, np.newaxis]
     concatenated_b0_data = normalized_b0_data
