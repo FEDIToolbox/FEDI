@@ -15,7 +15,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser(
         description=(
             "\033[1mDESCRIPTION:\033[0m \n\n    "
-            "FOD estimation for neonatal data.\n"
+            "Fiber Orientation Distribution (FOD) estimation for neonatal dMRI using a pretrained Spherical CNN model.\n"
         ),
         epilog=(
             "\033[1mREFERENCES:\033[0m\n  "

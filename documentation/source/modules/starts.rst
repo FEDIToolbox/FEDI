@@ -29,6 +29,7 @@ The tools are categorized below for easier navigation.
     commands/fedi_dmri_snr.rst
     commands/fedi_dmri_rotate_bvecs.rst
     commands/fedi_dmri_reg.rst
+    commands/fedi_dmri_fod.rst
 
 ---
 
@@ -37,11 +38,12 @@ Diffusion MRI
 
 - :ref:`fedi_dmri_moco`: Corrects motion artifacts in diffusion MRI.  
 - :ref:`fedi_dmri_reg`: Performs image registration on dMRI data.  
-- :ref:`fedi_dmri_qweights`: Converts a dMRI scheme into Siemens-compatible format.  
+- :ref:`fedi_dmri_qweights`: Converts diffusion gradient scheme into Siemens-compatible format.  
 - :ref:`fedi_dmri_rotate_bvecs`: Rotates b-vectors to match ANTs transformations.  
 - :ref:`fedi_dmri_outliers`: Identifies and weights outliers (volume, slice, voxel) in dMRI data.  
 - :ref:`fedi_dmri_snr`: Computes the signal-to-noise ratio (SNR) of dMRI data.  
-- :ref:`fedi_dmri_recon`: Reconstructs diffusion signal using 3D-SHORE.
+- :ref:`fedi_dmri_recon`: Reconstructs the diffusion signal using 3D-SHORE.
+- :ref:`fedi_dmri_fod`: estimates FODs for neonatal dMRI using a pretrained Spherical CNN model.
 
 Miscellaneous
 -------------

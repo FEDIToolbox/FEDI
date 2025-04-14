@@ -1,19 +1,20 @@
-.. _fedi_dmri_moco:
+.. _fedi_dmri_fod:
 
-fedi_dmri_moco
-==============
+fedi_dmri_fod
+=============
 
 Synopsis
 --------
 
-Motion correction of diffusion MRI data.
+FOD estimation for neonatal dMRI using a pretrained Spherical CNN model.
+
 
 Usage
 -----
 
 ::
 
-    fedi_dmri_moco [-h] -d <file> -a <file> -e <file> -o <file> [-m <file>]
+    fedi_dmri_fod [-h] -d <file> -a <file> -e <file> -o <file> [-m <file>]
 
 Options
 -------
@@ -26,7 +27,7 @@ Options
 **Mandatory**
 
 -  **-d, --dmri <file>**  
-   Path to the diffusion MRI file
+   Path to the input dMRI file
 
 -  **-a, --bval <file>**  
    Path to the b-values file
@@ -34,17 +35,17 @@ Options
 -  **-e, --bvec <file>**  
    Path to the b-vectors file
 
--  **-o, --output_dir <file>**  
-   Output directory path
+-  **-o, --out <file>**  
+   Output filename (NIfTI format)
 
 **Optional**
 
 -  **-m, --mask <file>**  
-   Path to the mask file (required for GMM weighting)
+   Path to brain mask file
 
 References
 ----------
 
-Snoussi, H., Karimi, D., Afacan, O., Utkur, M. and Gholipour, A., 2025.  
-*Haitch: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI.*  
-Imaging Neuroscience.
+Snoussi, H. and Karimi, D., 2025.  
+*Equivariant Spherical CNNs for Accurate Fiber Orientation Distribution Estimation in Neonatal Diffusion MRI with Reduced Acquisition Time.*  
+arXiv preprint [arXiv:2504.01925](https://arxiv.org/abs/2504.01925)
