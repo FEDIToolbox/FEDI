@@ -1,25 +1,21 @@
 .. _fedi_dmri_snr:
 
-fedi_dmri_snr
-=============
+.. rubric:: Synopsis
 
 Synopsis
 --------
 
 Compute the Signal-to-Noise Ratio (SNR) for diffusion MRI using the subtraction-based method described in Dietrich et al., JMRI 2007. Signal is estimated from the mean of two b=0 volumes and noise from their difference.
 
-Usage
------
+.. rubric:: Usage
 
 ::
 
     fedi_dmri_snr [-h] -d <file> -a <file> -m <file> [-b <file>]
 
-Description
------------
 
-Description
------------
+.. rubric:: Description
+
 
 This tool estimates the Signal-to-Noise Ratio (SNR) from two non-diffusion-weighted (b=0) volumes using the *difference method*,
 as described in Dietrich et al., JMRI 2007.
@@ -37,8 +33,8 @@ This method assumes that the two b=0 volumes are acquired independently and with
 It is appropriate when at least two distinct b=0 images are available.
 
 
-Options
--------
+.. rubric:: Options
+
 
 **Help**
 
@@ -57,8 +53,7 @@ Options
    Binary mask within which SNR will be averaged (e.g., `brain_mask.nii.gz`)
 
 
-References
-----------
+.. rubric:: References
 
 - Dietrich, O., Heiland, S., Sartor, K., 2007.  
   *Measurement of signal-to-noise ratios in MR images: Influence of multichannel coils, parallel imaging, and reconstruction filters.*  
