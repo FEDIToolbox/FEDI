@@ -1,9 +1,10 @@
 .. _fedi_dmri_snr:
 
+fedi_dmri_snr
+=============
+
 .. rubric:: Synopsis
 
-Synopsis
---------
 
 Compute the Signal-to-Noise Ratio (SNR) for diffusion MRI using the subtraction-based method described in Dietrich et al., JMRI 2007. Signal is estimated from the mean of two b=0 volumes and noise from their difference.
 
