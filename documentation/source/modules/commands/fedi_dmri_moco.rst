@@ -1,6 +1,6 @@
-.. _fedi_dmri_fod:
+.. _fedi_dmri_moco:
 
-fedi_dmri_fod
+fedi_dmri_moco
 =============
 
 .. rubric:: Synopsis
