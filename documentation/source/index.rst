@@ -50,14 +50,13 @@ Table of Contents
    :caption: Getting Started
 
    getting_started/starts
+   getting_started/assocc_diseases
 
 .. toctree::
    :maxdepth: 1
    :caption: FEDI Modules
 
    modules/starts
-   modules/starts2
-   modules/assocc_diseases
 
 .. toctree::
    :maxdepth: 1
