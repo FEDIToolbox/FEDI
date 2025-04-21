@@ -56,6 +56,7 @@ Table of Contents
    :caption: FEDI Modules
 
    modules/starts
+   modules/assocc_diseases
 
 .. toctree::
    :maxdepth: 1
