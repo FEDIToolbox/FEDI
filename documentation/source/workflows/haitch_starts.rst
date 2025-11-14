@@ -16,7 +16,7 @@ The following figures illustrate the effectiveness of HAITCH in real fetal diffu
 
 .. only:: html
 
-   .. image:: Figure5.png
+   .. image:: haitch_figures/Figure5.png
       :width: 100%
       :align: center
 
@@ -32,7 +32,7 @@ The following figures illustrate the effectiveness of HAITCH in real fetal diffu
 
 .. only:: html
 
-   .. image:: Figure6.png
+   .. image:: haitch_figures/Figure6.png
       :width: 80%
       :align: center
 
@@ -48,7 +48,7 @@ The following figures illustrate the effectiveness of HAITCH in real fetal diffu
 
 .. only:: html
 
-   .. image:: Figure9.png
+   .. image:: haitch_figures/Figure9.png
       :width: 100%
       :align: center
 
