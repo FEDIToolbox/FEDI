@@ -12,6 +12,20 @@ If you wish to include results generated using the *FEDI* package in a publicati
 
     Haykel Snoussi, Davood Karimi, Onur Afacan, Mustafa Utkur, Ali Gholipour; HAITCH: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI. Imaging Neuroscience 2025.
 
+For BibTeX citation, you can use:
+
+.. code-block:: bibtex
+
+   @article{snoussi2025haitch,
+     title={Haitch: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted mri},
+     author={Snoussi, Haykel and Karimi, Davood and Afacan, Onur and Utkur, Mustafa and Gholipour, Ali},
+     journal={Imaging Neuroscience},
+     volume={3},
+     pages={imag\_a\_00490},
+     year={2025},
+     publisher={MIT Press 255 Main Street, 9th Floor, Cambridge, Massachusetts 02142, USA~…}
+   }
+
 .. NOTE::
 
    Many individual methods included in the FEDI software have been published
