@@ -296,8 +296,9 @@ class FEDITestingCommands:
         -------
         bool : True if command succeeded and outputs exist
         """
-        # Convert FEDI commands to Python module calls if not in PATH
-        if cmd[0].startswith('fedi_') and not shutil.which(cmd[0]):
+        # Always use Python module calls for FEDI commands to test source code
+        # This ensures we're testing the current source, not the installed package
+        if cmd[0].startswith('fedi_'):
             # Convert 'fedi_dmri_snr' to 'python -m FEDI.scripts.fedi_dmri_snr'
             module_name = cmd[0].replace('fedi_', 'FEDI.scripts.fedi_')
             cmd = [sys.executable, '-m', module_name] + cmd[1:]
@@ -438,58 +439,73 @@ class FEDITestingCommands:
             return self.run_command(cmd, expected_exit_code=0, check_outputs=[spred_output])
     
     def test_fedi_dmri_rotate_bvecs(self):
-        """Test fedi_dmri_rotate_bvecs script."""
+        """Test fedi_dmri_rotate_bvecs script using provided .mat files."""
         self.log("\n" + "="*60)
         self.log("Testing: fedi_dmri_rotate_bvecs")
         self.log("="*60)
+        
+        # Path to testing directory with .mat files
+        testing_dir = '/home/ch244310/software/FEDI/testing'
+        
+        # Check if example .mat files exist
+        example_mat_files = [
+            'example_Transform_v1_0GenericAffine.mat',
+            'example_Transform_v2_0GenericAffine.mat',
+            'example_Transform_v3_0GenericAffine.mat'
+        ]
+        
+        for mat_file in example_mat_files:
+            mat_path = os.path.join(testing_dir, mat_file)
+            if not os.path.exists(mat_path):
+                self.log(f"⚠ Skipping test: Required .mat file not found: {mat_path}")
+                return None
         
         with tempfile.TemporaryDirectory() as tmpdir:
             # Create transformation matrices directory
             mat_dir = os.path.join(tmpdir, 'transforms')
             os.makedirs(mat_dir, exist_ok=True)
             
-            # Load bvecs to get number of volumes
+            # Load original bvecs
             bvecs = np.loadtxt(self.test_files['bvec'])
             if bvecs.shape[0] == 3:
-                # bvecs is in 3xN format (FSL format)
-                n_volumes = bvecs.shape[1]
+                # bvecs is in 3xN format (FSL format) - transpose to Nx3 for indexing
+                bvecs_T = bvecs.T
+                n_volumes_original = bvecs.shape[1]
             else:
                 # bvecs is in Nx3 format
-                n_volumes = bvecs.shape[0]
+                bvecs_T = bvecs
+                n_volumes_original = bvecs.shape[0]
             
-            self.log(f"  Creating {n_volumes} transformation matrices...")
+            # Extract volumes 1, 2, 3 (0-indexed: 1, 2, 3)
+            # The script expects Transform_v0, Transform_v1, Transform_v2 for 3 volumes
+            volume_indices = [1, 2, 3]
+            if any(idx >= n_volumes_original for idx in volume_indices):
+                self.log(f"⚠ Skipping test: Volume indices {volume_indices} exceed available volumes ({n_volumes_original})")
+                return None
             
-            # Create transformation matrix files for each volume
-            # Using scipy.io.savemat format (MATLAB .mat files)
-            # Format: prefix + volume_index + suffix
-            # Default: Transform_v{volume_index}_0GenericAffine.mat
+            # Create subset bvecs with only volumes 1, 2, 3
+            subset_bvecs = bvecs_T[volume_indices].T  # Back to 3xN format
+            subset_bvec_file = os.path.join(tmpdir, 'bvec_subset.bvec')
+            np.savetxt(subset_bvec_file, subset_bvecs, fmt='%.6f')
+            
+            self.log(f"  Using {len(volume_indices)} example transformation matrices from testing directory")
+            self.log(f"  Volumes: {volume_indices}")
+            
+            # Copy and rename example .mat files to match expected naming (Transform_v0, Transform_v1, Transform_v2)
             prefix = "Transform_v"
             suffix = "_0GenericAffine.mat"
             
-            for v in range(n_volumes):
-                # Create identity transform matrix (4x4 for ANTs format)
-                # The script expects 'AffineTransform_double_3_3' key
-                # Save as column vector (16, 1) so when loaded it's (16, 1)
-                # Script will flatten and take [:9] to get 3x3 rotation matrix
-                transform_matrix = np.eye(4, dtype=np.float64)
-                # Save as column vector - when loaded with loadmat, it will be (16, 1)
-                # Script handles this by flattening first
-                transform = {
-                    'AffineTransform_double_3_3': transform_matrix.flatten().reshape(-1, 1)
-                }
-                mat_file = os.path.join(mat_dir, f'{prefix}{v}{suffix}')
-                savemat(mat_file, transform)
-                # Only log first few and last few to avoid clutter
-                if v < 5 or v >= n_volumes - 5:
-                    self.log(f"    Created: {os.path.basename(mat_file)}")
-                elif v == 5:
-                    self.log(f"    ... (creating {n_volumes - 10} more matrices) ...")
+            for i, orig_vol_idx in enumerate([1, 2, 3], start=1):
+                orig_mat = os.path.join(testing_dir, f'example_Transform_v{orig_vol_idx}_0GenericAffine.mat')
+                new_mat = os.path.join(mat_dir, f'{prefix}{i-1}{suffix}')  # i-1 because we want 0, 1, 2
+                shutil.copy2(orig_mat, new_mat)
+                self.log(f"    Copied: example_Transform_v{orig_vol_idx} -> Transform_v{i-1}")
             
             output_bvec = os.path.join(tmpdir, 'bvec_rotated.bvec')
             
             cmd = [
                 'fedi_dmri_rotate_bvecs',
-                '-e', self.test_files['bvec'],
+                '-e', subset_bvec_file,  # Use subset bvecs
                 '-n', output_bvec,
                 '-m', mat_dir,
                 '-s', prefix,  # Specify prefix
@@ -497,6 +513,252 @@ class FEDITestingCommands:
             ]
             
             return self.run_command(cmd, expected_exit_code=0, check_outputs=[output_bvec])
+    
+    def test_fedi_dmri_qweights(self):
+        """Test fedi_dmri_qweights script."""
+        self.log("\n" + "="*60)
+        self.log("Testing: fedi_dmri_qweights")
+        self.log("="*60)
+        
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # Use the gradient table file from testing directory
+            gradient_file = '/home/ch244310/software/FEDI/testing/gradient_table_example.txt'
+            
+            if not os.path.exists(gradient_file):
+                self.log(f"⚠ Skipping test: Gradient table file not found: {gradient_file}")
+                return None
+            
+            # Output files
+            siemens_scheme = os.path.join(tmpdir, 'siemens_scheme.dvs')
+            debug_file = os.path.join(tmpdir, 'debug.txt')
+            
+            # b-values: 500 and 1000 (matching shells 1 and 2 in the gradient file)
+            cmd = [
+                'fedi_dmri_qweights',
+                '-i', gradient_file,
+                '-o', siemens_scheme,
+                '-b', '500', '1000',  # Two b-values for two shells
+                '-d', debug_file
+                # -n is optional with default=0, so we don't need to specify it
+            ]
+            
+            expected_outputs = [siemens_scheme, debug_file]
+            
+            return self.run_command(cmd, expected_exit_code=0, check_outputs=expected_outputs)
+    
+    def test_fedi_dmri_reg(self):
+        """Test fedi_dmri_reg script with a subset of volumes."""
+        self.log("\n" + "="*60)
+        self.log("Testing: fedi_dmri_reg")
+        self.log("="*60)
+        
+        # Check for required dependencies
+        required_tools = ['mrinfo', 'mrconvert', 'mrcat', 'antsRegistration']
+        missing_tools = []
+        for tool in required_tools:
+            if not shutil.which(tool):
+                missing_tools.append(tool)
+        
+        if missing_tools:
+            self.log(f"⚠ Skipping test: Required tools not found: {', '.join(missing_tools)}")
+            self.log("  This test requires MRtrix3 and ANTs to be installed and in PATH")
+            return None
+        
+        # Use ~/.fedi_test_data/ for test outputs
+        test_data_dir = os.path.expanduser('~/.fedi_test_data')
+        os.makedirs(test_data_dir, exist_ok=True)
+        
+        # Create subset with only 3 volumes (volumes 0, 1, 2) for faster testing
+        import nibabel as nib
+        self.log("  Creating subset with 3 volumes for faster testing...")
+        
+        # Load original data
+        dmri_img = nib.load(self.test_files['dmri'])
+        spred_img = nib.load(self.test_files['spred'])
+        
+        dmri_data = dmri_img.get_fdata()
+        spred_data = spred_img.get_fdata()
+        
+        # Extract first 3 volumes
+        n_volumes_subset = 3
+        dmri_subset = dmri_data[:, :, :, :n_volumes_subset]
+        spred_subset = spred_data[:, :, :, :n_volumes_subset]
+        
+        # Save subset files
+        dmri_subset_file = os.path.join(test_data_dir, 'dmri_subset.nii.gz')
+        spred_subset_file = os.path.join(test_data_dir, 'spred_subset.nii.gz')
+        
+        dmri_subset_img = nib.Nifti1Image(dmri_subset, dmri_img.affine, dmri_img.header)
+        spred_subset_img = nib.Nifti1Image(spred_subset, spred_img.affine, spred_img.header)
+        
+        nib.save(dmri_subset_img, dmri_subset_file)
+        nib.save(spred_subset_img, spred_subset_file)
+        
+        self.log(f"  Created subset files with {n_volumes_subset} volumes")
+        
+        # Use test_data_dir for outputs
+        output_dir = os.path.join(test_data_dir, 'reg_output')
+        output_dmri = os.path.join(test_data_dir, 'dmri_registered.nii.gz')
+        
+        # Remove existing output file if it exists (to avoid mrcat error)
+        if os.path.exists(output_dmri):
+            os.remove(output_dmri)
+            self.log("  Removed existing output file")
+        
+        cmd = [
+            'fedi_dmri_reg',
+            '--input_dmri', dmri_subset_file,
+            '--target_dmri', spred_subset_file,
+            '--output_dir', output_dir,
+            '--output_dmri', output_dmri
+        ]
+        
+        # Check that the output file is created
+        expected_outputs = [output_dmri]
+        
+        return self.run_command(cmd, expected_exit_code=0, check_outputs=expected_outputs)
+    
+    def test_fedi_apply_transform(self):
+        """Test fedi_apply_transform script."""
+        self.log("\n" + "="*60)
+        self.log("Testing: fedi_apply_transform")
+        self.log("="*60)
+        
+        # Check for required dependency
+        if not shutil.which('antsApplyTransforms'):
+            self.log("⚠ Skipping test: antsApplyTransforms not found")
+            self.log("  This test requires ANTs to be installed and in PATH")
+            return None
+        
+        # Use ~/.fedi_test_data/ for test files
+        test_data_dir = os.path.expanduser('~/.fedi_test_data')
+        os.makedirs(test_data_dir, exist_ok=True)
+        
+        # Use the subset files and transform from fedi_dmri_reg test
+        # If reg_output exists, use transforms from there, otherwise create a simple test
+        reg_output_dir = os.path.join(test_data_dir, 'reg_output')
+        dmri_subset = os.path.join(test_data_dir, 'dmri_subset.nii.gz')
+        
+        # Check if we have transform files from the reg test
+        transform_file = None
+        if os.path.exists(reg_output_dir):
+            # Look for a transform file (usually Transform_v0_0GenericAffine.mat or similar)
+            for vol_idx in range(3):  # We know we have 3 volumes
+                potential_transform = os.path.join(reg_output_dir, f'Transform_v{vol_idx}_0GenericAffine.mat')
+                if os.path.exists(potential_transform):
+                    transform_file = potential_transform
+                    self.log(f"  Using transform file from reg test: {os.path.basename(transform_file)}")
+                    break
+        
+        # If no transform from reg test, use example transform from testing directory
+        if not transform_file:
+            testing_dir = '/home/ch244310/software/FEDI/testing'
+            example_transform = os.path.join(testing_dir, 'example_Transform_v1_0GenericAffine.mat')
+            if os.path.exists(example_transform):
+                transform_file = example_transform
+                self.log(f"  Using example transform file: {os.path.basename(transform_file)}")
+            else:
+                self.log("⚠ Skipping test: No transform file found")
+                self.log("  Run fedi_dmri_reg test first, or ensure example transform files exist")
+                return None
+        
+        # antsApplyTransforms works on 3D volumes, so extract first volume from subset
+        # Use dmri_subset if it exists, otherwise use full dmri
+        if not os.path.exists(dmri_subset):
+            # Create subset if it doesn't exist
+            import nibabel as nib
+            dmri_img = nib.load(self.test_files['dmri'])
+            dmri_data = dmri_img.get_fdata()
+            dmri_subset_data = dmri_data[:, :, :, :3]  # First 3 volumes
+            dmri_subset_img = nib.Nifti1Image(dmri_subset_data, dmri_img.affine, dmri_img.header)
+            nib.save(dmri_subset_img, dmri_subset)
+            self.log("  Created dMRI subset file")
+        else:
+            self.log("  Using dMRI subset file")
+        
+        # Extract first volume (3D) for transformation
+        import nibabel as nib
+        dmri_subset_img = nib.load(dmri_subset)
+        dmri_subset_data = dmri_subset_img.get_fdata()
+        dmri_single_vol = dmri_subset_data[:, :, :, 0]  # First volume only
+        dmri_single_file = os.path.join(test_data_dir, 'dmri_single_vol.nii.gz')
+        dmri_single_img = nib.Nifti1Image(dmri_single_vol, dmri_subset_img.affine, dmri_subset_img.header)
+        nib.save(dmri_single_img, dmri_single_file)
+        self.log("  Extracted single volume for transformation")
+        
+        # Output file
+        output_file = os.path.join(test_data_dir, 'dmri_transformed.nii.gz')
+        
+        # Use the same file as reference (extract first volume from spred_subset)
+        reference_file = os.path.join(test_data_dir, 'spred_subset.nii.gz')
+        if not os.path.exists(reference_file):
+            reference_file = self.test_files['spred']
+        
+        # Extract first volume from reference as well
+        spred_img = nib.load(reference_file)
+        spred_data = spred_img.get_fdata()
+        if spred_data.ndim == 4:
+            spred_single_vol = spred_data[:, :, :, 0]
+            spred_single_file = os.path.join(test_data_dir, 'spred_single_vol.nii.gz')
+            spred_single_img = nib.Nifti1Image(spred_single_vol, spred_img.affine, spred_img.header)
+            nib.save(spred_single_img, spred_single_file)
+            reference_file = spred_single_file
+            self.log("  Extracted single volume from reference")
+        
+        cmd = [
+            'fedi_apply_transform',
+            '-i', dmri_single_file,  # Use single volume (3D)
+            '-o', output_file,
+            '-t', transform_file,
+            '-r', reference_file  # Use single volume reference (3D)
+        ]
+        
+        expected_outputs = [output_file]
+        
+        return self.run_command(cmd, expected_exit_code=0, check_outputs=expected_outputs)
+    
+    def test_fedi_dmri_fod(self):
+        """Test fedi_dmri_fod script."""
+        self.log("\n" + "="*60)
+        self.log("Testing: fedi_dmri_fod")
+        self.log("="*60)
+        
+        # Check for required dependencies
+        try:
+            import torch
+            from huggingface_hub import hf_hub_download
+        except ImportError as e:
+            self.log(f"⚠ Skipping test: Required dependency not found: {e}")
+            self.log("  This test requires PyTorch and huggingface_hub to be installed")
+            return None
+        
+        # Use ~/.fedi_test_data/ for test outputs
+        test_data_dir = os.path.expanduser('~/.fedi_test_data')
+        os.makedirs(test_data_dir, exist_ok=True)
+        
+        # Output file
+        output_fod = os.path.join(test_data_dir, 'fod.nii.gz')
+        
+        # Remove existing output if it exists
+        if os.path.exists(output_fod):
+            os.remove(output_fod)
+            self.log("  Removed existing output file")
+        
+        # The script expects b-values [400, 1000, 2600] which matches our test data!
+        cmd = [
+            'fedi_dmri_fod',
+            '-d', self.test_files['dmri'],
+            '-a', self.test_files['bval'],
+            '-e', self.test_files['bvec'],
+            '-o', output_fod,
+            '-m', self.test_files['mask']  # Use mask for faster processing
+        ]
+        
+        # Note: This test may take a while as it downloads a model from Hugging Face Hub
+        # and processes all voxels with a neural network
+        expected_outputs = [output_fod]
+        
+        return self.run_command(cmd, expected_exit_code=0, check_outputs=expected_outputs)
     
     def run_all_tests(self):
         """Run all available tests."""
@@ -510,6 +772,10 @@ class FEDITestingCommands:
             ('fedi_dmri_outliers', self.test_fedi_dmri_outliers),
             ('fedi_dmri_recon', self.test_fedi_dmri_recon),
             ('fedi_dmri_rotate_bvecs', self.test_fedi_dmri_rotate_bvecs),
+            ('fedi_dmri_qweights', self.test_fedi_dmri_qweights),
+            ('fedi_dmri_reg', self.test_fedi_dmri_reg),
+            ('fedi_apply_transform', self.test_fedi_apply_transform),
+            ('fedi_dmri_fod', self.test_fedi_dmri_fod),
         ]
         
         results = {}

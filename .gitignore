@@ -3,3 +3,9 @@ __pycache__/
 *.pyo
 *.pyd
 *.mat
+.vscode/
+
+# Allow tiny example .mat files
+!testing/example_Transform_v1_0GenericAffine.mat
+!testing/example_Transform_v2_0GenericAffine.mat
+!testing/example_Transform_v3_0GenericAffine.mat

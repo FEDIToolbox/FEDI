@@ -14,6 +14,7 @@ Rotates the input bvec file accordingly with a list of matrices.
 """
 
 import argparse
+import os
 from scipy.io import loadmat
 import numpy as np
 

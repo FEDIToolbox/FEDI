@@ -91,8 +91,7 @@ def parse_arguments():
         help="Path to the debug file where detailed information about the directions and weights will be logged."
     )
 
-    optional = parser.add_argument_group('\033[1mOPTINAL OPTIONS\033[0m')
-
+    optional = parser.add_argument_group('\033[1mOPTIONAL OPTIONS\033[0m')
 
     optional.add_argument(
         "--interspersed",
@@ -102,8 +101,10 @@ def parse_arguments():
     optional.add_argument(
         "-n", "--num_b0_volumes",
         required=False,
+        type=int,
         metavar=Metavar.int,
-        help="Number of b-value=0 volumes to include, if --interspersed was chosen."
+        default=0,
+        help="Number of b-value=0 volumes to include. Use 0 if no b=0 volumes are needed, or specify the number if --interspersed is used (default: 0)."
     )
     optional.add_argument(
         "--b0_at_beginning",
@@ -123,7 +124,7 @@ def main():
     args = parse_arguments()
 
     bvalues = np.array(args.bvalues, dtype=np.int64)
-    num_b0_volumes = int(args.num_b0_volumes) or 0
+    num_b0_volumes = args.num_b0_volumes
     interspersed = args.interspersed
     b0_at_beginning = args.b0_at_beginning
     b0_at_end = args.b0_at_end
