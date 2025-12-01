@@ -12,5 +12,5 @@ Development Team
 - **Clemente Velasco-Annis** - Boston Children's Hospital
 
 
-If you are interested in contributing to the FEDI toolbox, please contact the lead developer, H. Snoussi, for guidance on how to get involved.
+If you are interested in contributing to the FEDI toolbox, don't hesitate to get in touch with H. Snoussi for guidance on how to get involved.
 
