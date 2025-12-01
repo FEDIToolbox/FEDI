@@ -21,7 +21,7 @@ Key Challenges
 - **Neonatal MRI**: Sensitivity to patient motion, lower tissue contrast in immature organs, and the need for specialized neonatal-sized coils.
 
 Role of the FEDI Toolbox
-========================
+------------------------
 
 The FEDI toolbox streamlines the processing and analysis of fetal and neonatal MRI data, addressing challenges such as motion correction, segmentation, and brain tractography. FEDI supports researchers and clinicians in standardizing workflows, extracting quantitative biomarkers, and advancing precision medicine in perinatal care. 
 
