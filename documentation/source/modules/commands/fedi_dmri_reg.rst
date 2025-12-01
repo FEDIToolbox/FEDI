@@ -27,8 +27,3 @@ Perform volume-by-volume registration of 4D diffusion MRI data using ANTs.
 
 -  **--output_dmri OUTPUT_DMRI**  
    Filename for the registered diffusion MRI output
-
-.. rubric:: References
-Snoussi, Haykel, Davood Karimi, Onur Afacan, Mustafa Utkur, and Ali Gholipour.  
-*HAITCH: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI.*  
-Imaging Neuroscience 2025.
