@@ -54,13 +54,7 @@ This command will:
 1. **Generate synthetic test data**: Creates realistic 4D diffusion MRI data with fixed parameters in ``~/.fedi_test_data/``
 2. **Run automated tests**: Tests all FEDI command-line tools and verifies that they execute correctly and produce expected outputs
 
-The test suite will report which tools passed, failed, or were skipped (due to missing optional dependencies). This helps ensure that:
-
-- All FEDI commands are properly installed and accessible
-- Required dependencies are correctly configured
-- Optional dependencies (MRtrix3, ANTs, PyTorch) are available if you plan to use features that require them
-
-**Note**: Some tests may take several minutes to complete, especially ``fedi_dmri_moco`` which runs the full motion correction pipeline.
+The test suite will report which tools passed, failed, or were skipped (due to missing optional dependencies). Some tests may take several minutes to complete, especially ``fedi_dmri_moco`` and ``fedi_dmri_recon``.
 
 For more information about the testing command, see :ref:`fedi_testing`.
 
@@ -91,8 +85,6 @@ These packages are automatically installed when you install FEDI via pip:
 
 **Required External Tools:**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-These are command-line tools that must be installed separately and available in your PATH:
 
 - `MRtrix3 <https://www.mrtrix.org/>`__ 
 - `ANTs <https://github.com/ANTsX/ANTs>`__ 
