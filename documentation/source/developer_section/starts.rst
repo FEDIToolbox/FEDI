@@ -8,10 +8,7 @@ Development Team
 **Contributors:**  
 (Detailed list available `here <https://github.com/FEDIToolbox/FEDI/graphs/contributors/>`__)
 
-- **Simon K. Warfield, PhD** - Boston Children's Hospital - Harvard Medical School
-- **Davood Karimi, PhD** - Boston Children's Hospital - Harvard Medical School
-- **Ali Gholipour, PhD** - University of California Irvine - Harvard Medical School
-- **Mohamed Farghaly, MD** - Harvard Medical School
+- **Mohamed Farghaly, MD** - Brigham and Women's Hospital - Harvard Medical School
 - **Clemente Velasco-Annis** - Boston Children's Hospital
 
 
