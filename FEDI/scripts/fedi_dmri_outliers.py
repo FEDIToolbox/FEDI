@@ -40,9 +40,9 @@ parser = argparse.ArgumentParser(
     ),
     epilog=(
         "\033[1mREFERENCES:\033[0m\n  "
-        "Snoussi, H., Karimi, D., Afacan, O., Utkur, M. and Gholipour, A., 2024. "
-        "Haitch: A framework for distortion and motion correction in fetal multi-shell "
-        "diffusion-weighted MRI. arXiv preprint arXiv:2406.20042."
+        "Snoussi, Haykel, Davood Karimi, Onur Afacan, Mustafa Utkur, and Ali Gholipour. "
+        "HAITCH: A framework for distortion and motion correction in fetal multi-shell "
+        "diffusion-weighted MRI. Imaging Neuroscience 2025."
     ),
     formatter_class=FEDI_ArgumentParser
 )
@@ -299,7 +299,7 @@ def normalize_bvecs(bvecs):
 
 
 
-def neighbors_weighting(dmri, bvals, bvecs, b0_threshold, std_scale, filename_angle_neighbors, filename_correlation_neighbors):
+def neighbors_weighting(dmri, bvals, bvecs, b0_threshold, std_scale, filename_angle_neighbors, filename_correlation_neighbors, outpath):
 
     print("Calculate Neighbors Weights")
 
@@ -383,13 +383,14 @@ def neighbors_weighting(dmri, bvals, bvecs, b0_threshold, std_scale, filename_an
     return AngleMatrix, CorreMatrix
 
 
-def shorebased_zscore_residuals_voxelwise(dmri, spred):
+def shorebased_zscore_residuals_voxelwise(dmri, spred, bvals):
     """
     Calculate voxel-wise standardized residuals.
 
     Args:
         dmri (numpy.ndarray): Raw diffusion MRI data.
         spred (numpy.ndarray): Predicted data from a model (e.g., SHORE).
+        bvals (numpy.ndarray): B-values array.
 
     Returns:
         numpy.ndarray: Voxel-wise standardized residuals.
@@ -417,19 +418,23 @@ def shorebased_zscore_residuals_voxelwise(dmri, spred):
     return zscores
 
 
-def shorebased_weighting_voxelwise(dmri, affine, spred,outpath,filename):
+def shorebased_weighting_voxelwise(dmri, affine, spred, outpath, filename, bvals):
     """
     Calculate voxel-wise shore-based weights.
 
     Args:
         dmri (numpy.ndarray): Raw diffusion MRI data.
+        affine (numpy.ndarray): Affine transformation matrix.
         spred (numpy.ndarray): Predicted data from a model (e.g., SHORE).
+        outpath (str): Output directory path.
+        filename (str): Output filename.
+        bvals (numpy.ndarray): B-values array.
 
     Returns:
         numpy.ndarray: Voxel-wise SHORE-based weights.
     """
     # Calculate voxel-wise standardized residuals
-    zscores = shorebased_zscore_residuals_voxelwise(dmri, spred)
+    zscores = shorebased_zscore_residuals_voxelwise(dmri, spred, bvals)
 
     # Initialize array for weights
     weights_4D = np.zeros_like(zscores)
@@ -824,98 +829,89 @@ def gmm_weighting(fdmri, fspred, mask, bvals, bvecs, outpath, filename_gmm):
     return weights_raw
 
 
-# Parse the command-line arguments
-args = parser.parse_args()
+def main():
+    # Parse the command-line arguments
+    args = parser.parse_args()
 
-fdmri = args.dmri
-fspred= args.spred
-fdmrigmm = args.dmrigmm
-fspredgmm= args.spredgmm
+    fdmri = args.dmri
+    fspred = args.spred
+    fdmrigmm = args.dmrigmm
+    fspredgmm = args.spredgmm
 
-mask = args.mask
-maskgmm = args.maskgmm
+    mask = args.mask
+    maskgmm = args.maskgmm
 
-fbval = args.bval
-fbvec = args.bvec
+    fbval = args.bval
+    fbvec = args.bvec
 
+    outpath = args.outpath
 
-outpath = args.outpath
+    # Extract and split the thresholds from the parsed arguments
+    thresholds = args.thresholds.split(",")
+    lowerThreshold, upperThreshold = float(thresholds[0]), float(thresholds[1])
 
-# Extract and split the thresholds from the parsed arguments
-thresholds = args.thresholds.split(",")
-lowerThreshold, upperThreshold = float(thresholds[0]), float(thresholds[1])
+    zscoremetric = args.zscoremetric
+    weightscalingmethod = args.scalingmethod
 
-zscoremetric=args.zscoremetric
-weightscalingmethod = args.scalingmethod
+    # fsliceweights_mzscore = args.fsliceweights_mzscore
+    # fsliceweights_= args.fsliceweights_angle_neighbors
+    # fsliceweights_corre_neighbors = args.fsliceweights_corre_neighbors
+    # fsliceweights_gmmodel = args.fsliceweights_gmmodel
+    # fsliceweights_shore=args.fsliceweights_shore
 
+    dmri, affine = load_nifti(fdmri)
+    print("dmri.shape: ", dmri.shape)
 
-# fsliceweights_mzscore = args.fsliceweights_mzscore
-# fsliceweights_= args.fsliceweights_angle_neighbors
-# fsliceweights_corre_neighbors = args.fsliceweights_corre_neighbors
-# fsliceweights_gmmodel = args.fsliceweights_gmmodel
-# fsliceweights_shore=args.fsliceweights_shore
-
-
-
-dmri, affine = load_nifti(fdmri)
-print("dmri.shape: ", dmri.shape)
-
-
-if fspred is not None and os.path.isfile(fspred):
-    spred, saffine = load_nifti(fspred)
-    print("spred.shape:", spred.shape)
-else:
-    fspred = None
-
-    print("No spred given")
-
-bvals, bvecs = read_bvals_bvecs(fbval, fbvec)
-
-
-
-
-print("bvals.shape: ", bvals.shape)
-print("bvecs.shape: ", bvecs.shape)
-
-# Check if a mask filename was provided
-fmask = None  # Initialize the mask as None
-if mask is not None:
-    fmask, affinemask = load_nifti(mask)
-    print("fmask.shape: ", fmask.shape)
-
-# add if mask provided, it should be multiplied by the dmri and spred file.
-
-
-if args.fsliceweights_gmmodel is not None and fspred is not None:
-
-    gmm_weighting(fdmri=fdmrigmm, fspred=fspredgmm, mask=maskgmm, bvals=fbval, bvecs=fbvec, outpath=outpath, filename_gmm=args.fsliceweights_gmmodel)
-
-if args.fsliceweights_mzscore is not None:
-    if fspred is not None:
-        dmri_mzscore = spred
+    if fspred is not None and os.path.isfile(fspred):
+        spred, saffine = load_nifti(fspred)
+        print("spred.shape:", spred.shape)
     else:
-        dmri_mzscore = dmri
+        fspred = None
+        print("No spred given")
 
-    mzscore_weighting(dmri=dmri_mzscore, fmask=fmask, bvals=bvals,  \
-        outpath=outpath, \
-        metric=zscoremetric, \
-        lowerThreshold=lowerThreshold, \
-        upperThreshold=upperThreshold, \
-        weightscalingmethod=weightscalingmethod, \
-        fsliceweights_mzscore=args.fsliceweights_mzscore)
+    bvals, bvecs = read_bvals_bvecs(fbval, fbvec)
 
-if args.fsliceweights_angle_neighbors is not None:
-    if fspred is not None:
-        dmri_neighbors = spred
-    else:
-        dmri_neighbors = dmri
+    print("bvals.shape: ", bvals.shape)
+    print("bvecs.shape: ", bvecs.shape)
 
-    neighbors_weighting(dmri=dmri_neighbors, bvals=bvals, bvecs=bvecs, b0_threshold=0, 
-        std_scale=3, filename_angle_neighbors=args.fsliceweights_angle_neighbors, filename_correlation_neighbors=args.fsliceweights_corre_neighbors)
+    # Check if a mask filename was provided
+    fmask = None  # Initialize the mask as None
+    if mask is not None:
+        fmask, affinemask = load_nifti(mask)
+        print("fmask.shape: ", fmask.shape)
+
+    # add if mask provided, it should be multiplied by the dmri and spred file.
+
+    if args.fsliceweights_gmmodel is not None and fspred is not None:
+        gmm_weighting(fdmri=fdmrigmm, fspred=fspredgmm, mask=maskgmm, bvals=fbval, bvecs=fbvec, outpath=outpath, filename_gmm=args.fsliceweights_gmmodel)
+
+    if args.fsliceweights_mzscore is not None:
+        if fspred is not None:
+            dmri_mzscore = spred
+        else:
+            dmri_mzscore = dmri
+
+        mzscore_weighting(dmri=dmri_mzscore, fmask=fmask, bvals=bvals,
+            outpath=outpath,
+            metric=zscoremetric,
+            lowerThreshold=lowerThreshold,
+            upperThreshold=upperThreshold,
+            weightscalingmethod=weightscalingmethod,
+            fsliceweights_mzscore=args.fsliceweights_mzscore)
+
+    if args.fsliceweights_angle_neighbors is not None:
+        if fspred is not None:
+            dmri_neighbors = spred
+        else:
+            dmri_neighbors = dmri
+
+        neighbors_weighting(dmri=dmri_neighbors, bvals=bvals, bvecs=bvecs, b0_threshold=0,
+            std_scale=3, filename_angle_neighbors=args.fsliceweights_angle_neighbors, filename_correlation_neighbors=args.fsliceweights_corre_neighbors, outpath=outpath)
+
+    if args.fvoxelweights_shorebased is not None and fspred is not None:
+        shorebased_weighting_voxelwise(dmri=dmri, affine=affine, spred=spred, outpath=outpath, filename=args.fvoxelweights_shorebased, bvals=bvals)
+        # shore_weighting(dmri=dmri, spred=spred, fsliceweights_shore=args.fsliceweights_shore)
 
 
-
-
-if args.fvoxelweights_shorebased is not None and fspred is not None:
-    shorebased_weighting_voxelwise(dmri=dmri,affine=affine,spred=spred,outpath=outpath,filename=args.fvoxelweights_shorebased)
-    # shore_weighting(dmri=dmri, spred=spred, fsliceweights_shore=args.fsliceweights_shore)
+if __name__ == "__main__":
+    main()

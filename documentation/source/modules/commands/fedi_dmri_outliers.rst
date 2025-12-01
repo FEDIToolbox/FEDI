@@ -77,6 +77,6 @@ SOLID, Gaussian Mixture Model (GMM), SHORE-based, angular, and correlation with 
    Output 4D `.nii.gz` file of voxel weights using SHORE-based residuals
 
 .. rubric:: References
-Snoussi, H., Karimi, D., Afacan, O., Utkur, M. and Gholipour, A., 2025.  
-*Haitch: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI.*  
-Imaging Neuroscience.
+Snoussi, Haykel, Davood Karimi, Onur Afacan, Mustafa Utkur, and Ali Gholipour.  
+*HAITCH: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI.*  
+Imaging Neuroscience 2025.

@@ -39,6 +39,6 @@ Rotate the bvecs accordingly with a list of ANTs transformation matrices.
    Each matrix file is expected to follow the naming: `prefix + volume_index + suffix`
 
 .. rubric:: References
-Snoussi, H., Karimi, D., Afacan, O., Utkur, M. and Gholipour, A., 2025.  
-*Haitch: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI.*  
-Imaging Neuroscience.
+Snoussi, Haykel, Davood Karimi, Onur Afacan, Mustafa Utkur, and Ali Gholipour.  
+*HAITCH: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI.*  
+Imaging Neuroscience 2025.

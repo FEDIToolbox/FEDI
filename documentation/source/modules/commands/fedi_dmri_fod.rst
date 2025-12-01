@@ -38,6 +38,6 @@ FOD estimation for neonatal dMRI using a pretrained Spherical CNN model.
    Path to brain mask file
 
 .. rubric:: References
-Snoussi, H. and Karimi, D., 2025.  
+Snoussi, Haykel, and Davood Karimi.  
 *Equivariant Spherical CNNs for Accurate Fiber Orientation Distribution Estimation in Neonatal Diffusion MRI with Reduced Acquisition Time.*  
-arXiv preprint [arXiv:2504.01925](https://arxiv.org/abs/2504.01925)
+Frontiers in Neuroscience 2025.

@@ -1,16 +1,15 @@
 .. _fedi_dmri_moco:
 
 fedi_dmri_moco
-=============
+==============
 
 .. rubric:: Synopsis
-FOD estimation for neonatal dMRI using a pretrained Spherical CNN model.
-
+Motion correction of diffusion MRI data using an iterative pipeline with outlier detection, SHORE fitting, registration, and b-vector rotation.
 
 .. rubric:: Usage
 ::
 
-    fedi_dmri_fod [-h] -d <file> -a <file> -e <file> -o <file> [-m <file>]
+    fedi_dmri_moco [-h] -d <file> -a <file> -e <file> -o <file> [-m <file>]
 
 .. rubric:: Options
 **Help**
@@ -21,7 +20,7 @@ FOD estimation for neonatal dMRI using a pretrained Spherical CNN model.
 **Mandatory**
 
 -  **-d, --dmri <file>**  
-   Path to the input dMRI file
+   Path to the diffusion MRI file
 
 -  **-a, --bval <file>**  
    Path to the b-values file
@@ -29,15 +28,15 @@ FOD estimation for neonatal dMRI using a pretrained Spherical CNN model.
 -  **-e, --bvec <file>**  
    Path to the b-vectors file
 
--  **-o, --out <file>**  
-   Output filename (NIfTI format)
+-  **-o, --output_dir <file>**  
+   Output directory path
 
 **Optional**
 
 -  **-m, --mask <file>**  
-   Path to brain mask file
+   Path to the mask file (required for GMM weighting)
 
 .. rubric:: References
-Snoussi, H. and Karimi, D., 2025.  
-*Equivariant Spherical CNNs for Accurate Fiber Orientation Distribution Estimation in Neonatal Diffusion MRI with Reduced Acquisition Time.*  
-arXiv preprint [arXiv:2504.01925](https://arxiv.org/abs/2504.01925)
+Snoussi, Haykel, Davood Karimi, Onur Afacan, Mustafa Utkur, and Ali Gholipour.  
+*HAITCH: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI.*  
+Imaging Neuroscience 2025.

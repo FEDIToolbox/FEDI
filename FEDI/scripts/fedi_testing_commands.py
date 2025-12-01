@@ -9,7 +9,9 @@ This module:
 Test data is saved to ~/.fedi_test_data/ (user's home directory, not in repository)
 
 Usage:
-    python -m FEDI.utils.fedi_testing_commands
+    python -m FEDI.scripts.fedi_testing_commands
+    or
+    fedi_testing
 """
 
 import os
@@ -22,7 +24,7 @@ from pathlib import Path
 from scipy.io import savemat
 
 # Add parent directory to path to import FEDI modules
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 import nibabel as nib
 from scipy.ndimage import gaussian_filter
@@ -404,10 +406,11 @@ class FEDITestingCommands:
         
         # Check if required dependency is available
         try:
-            from dipy.reconst.brainsuite_shore import BrainSuiteShoreModel
-        except ImportError:
-            self.log("⚠ Skipping test: dipy.reconst.brainsuite_shore not available")
-            self.log("  This test requires a custom DIPY installation with BrainSuite SHORE support")
+            from FEDI.utils.FEDI_shore import BrainSuiteShoreModel
+        except ImportError as e:
+            self.log("⚠ Skipping test: FEDI.utils.FEDI_shore not available")
+            self.log(f"  Import error: {e}")
+            self.log("  This test requires FEDI_shore module in FEDI/utils/")
             return None  # Return None to indicate skipped test
         
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -717,6 +720,66 @@ class FEDITestingCommands:
         
         return self.run_command(cmd, expected_exit_code=0, check_outputs=expected_outputs)
     
+    def test_fedi_dmri_moco(self):
+        """Test fedi_dmri_moco script (motion correction pipeline)."""
+        self.log("\n" + "="*60)
+        self.log("Testing: fedi_dmri_moco")
+        self.log("="*60)
+        
+        # Check if required dependencies are available
+        try:
+            from FEDI.utils.FEDI_shore import BrainSuiteShoreModel
+        except ImportError as e:
+            self.log("⚠ Skipping test: FEDI.utils.FEDI_shore not available")
+            self.log(f"  Import error: {e}")
+            self.log("  This test requires FEDI_shore module")
+            return None
+        
+        # Check for required external tools
+        required_tools = ['mrinfo', 'mrconvert', 'mrcat', 'antsRegistration']
+        missing_tools = []
+        for tool in required_tools:
+            if shutil.which(tool) is None:
+                missing_tools.append(tool)
+        if missing_tools:
+            self.log(f"⚠ Skipping test: Required tools not available: {', '.join(missing_tools)}")
+            self.log("  This test requires MRtrix3 and ANTs to be installed")
+            return None
+        
+        with tempfile.TemporaryDirectory() as tmpdir:
+            output_dir = os.path.join(tmpdir, 'moco_output')
+            
+            self.log("  Note: This test runs the full motion correction pipeline (6 epochs) and may take several minutes")
+            
+            cmd = [
+                'fedi_dmri_moco',
+                '-d', self.test_files['dmri'],
+                '-a', self.test_files['bval'],
+                '-e', self.test_files['bvec'],
+                '-o', output_dir,
+                '-m', self.test_files['mask']
+            ]
+            
+            # Expected outputs after completion (after 6 epochs)
+            expected_outputs = [
+                os.path.join(output_dir, 'spred5.nii.gz'),  # Final spred after 6 iterations (0-5)
+                os.path.join(output_dir, 'fsliceweights_mzscore_0.txt'),  # Initial weights
+                os.path.join(output_dir, 'fsliceweights_gmmodel_1.txt'),  # GMM weights from iteration 1
+            ]
+            
+            # Run the command
+            result = self.run_command(cmd, expected_exit_code=0, check_outputs=expected_outputs)
+            
+            # Also check that working_updated files exist if registration ran
+            if result:
+                working_updated_0 = os.path.join(output_dir, 'working_updated0.nii.gz')
+                if os.path.exists(working_updated_0):
+                    self.log(f"  ✓ Registration output exists: working_updated0.nii.gz")
+                else:
+                    self.log(f"  ⚠ Registration output not found (this may be normal if registration didn't run)")
+            
+            return result
+    
     def test_fedi_dmri_fod(self):
         """Test fedi_dmri_fod script."""
         self.log("\n" + "="*60)
@@ -776,6 +839,7 @@ class FEDITestingCommands:
             ('fedi_dmri_reg', self.test_fedi_dmri_reg),
             ('fedi_apply_transform', self.test_fedi_apply_transform),
             ('fedi_dmri_fod', self.test_fedi_dmri_fod),
+            ('fedi_dmri_moco', self.test_fedi_dmri_moco),
         ]
         
         results = {}
