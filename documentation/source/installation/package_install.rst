@@ -40,24 +40,62 @@ To manually install the FEDI toolbox and primarily access its workflows, clone t
 
 We are currently working on providing an installation option via Conda for easier dependency management.
 
+Verifying Installation
+----------------------
+
+After installing FEDI, we recommend verifying that the installation is working correctly by running the automated test suite:
+
+.. code-block:: bash
+
+   fedi_testing
+
+This command will:
+
+1. **Generate synthetic test data**: Creates realistic 4D diffusion MRI data with fixed parameters in ``~/.fedi_test_data/``
+2. **Run automated tests**: Tests all FEDI command-line tools and verifies that they execute correctly and produce expected outputs
+
+The test suite will report which tools passed, failed, or were skipped (due to missing optional dependencies). This helps ensure that:
+
+- All FEDI commands are properly installed and accessible
+- Required dependencies are correctly configured
+- Optional dependencies (MRtrix3, ANTs, PyTorch) are available if you plan to use features that require them
+
+**Note**: Some tests may take several minutes to complete, especially ``fedi_dmri_moco`` which runs the full motion correction pipeline.
+
+For more information about the testing command, see :ref:`fedi_testing`.
+
 Dependencies
 ------------
 
 FEDI supports **DICOM, NIfTI, and MIF** image formats and relies on several external dependencies for full functionality.  
 We **strongly recommend** using the **Anaconda Python distribution** to manage dependencies efficiently.
 
-**Required Dependencies:**
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Required Python Packages:**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- `DIPY <https://dipy.org/>`__
-- `CVXPY <http://www.cvxpy.org/>`__
-- `MRtrix3 <https://www.mrtrix.org/>`__
-- `FSL <https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation>`__
-- `ANTs <https://github.com/ANTsX/ANTs>`__
-- `NumPy <https://numpy.org/>`__
-- `SciPy <https://scipy.org/>`__
-- `NiBabel <https://nipy.org/nibabel/>`__
-- `Matplotlib <https://matplotlib.org/>`__
+These packages are automatically installed when you install FEDI via pip:
+
+- `NumPy <https://numpy.org/>`__ - Numerical computing
+- `SciPy <https://scipy.org/>`__ - Scientific computing
+- `NiBabel <https://nipy.org/nibabel/>`__ - Neuroimaging file I/O
+- `Matplotlib <https://matplotlib.org/>`__ - Plotting and visualization
+- `DIPY <https://dipy.org/>`__ - Diffusion imaging in Python
+- `CVXPY <http://www.cvxpy.org/>`__ - Convex optimization
+- `Healpy <https://healpy.readthedocs.io/>`__ - Spherical harmonics and HEALPix
+
+**Required for Specific Features:**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- `PyTorch <https://pytorch.org/>`__ - Required for :ref:`fedi_dmri_fod` (FOD estimation)
+- `Hugging Face Hub <https://huggingface.co/docs/hub/>`__ - Required for :ref:`fedi_dmri_fod` (model downloads)
+
+**Required External Tools:**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+These are command-line tools that must be installed separately and available in your PATH:
+
+- `MRtrix3 <https://www.mrtrix.org/>`__ 
+- `ANTs <https://github.com/ANTsX/ANTs>`__ 
 
 Getting Help
 ------------
