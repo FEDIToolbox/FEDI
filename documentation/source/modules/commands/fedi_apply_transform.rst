@@ -39,8 +39,3 @@ Apply affine or nonlinear transformations to dMRI data.
 
 -  **-f, --force**  
    Force overwrite of output files (default: False)
-
-.. rubric:: References
-Snoussi, Haykel, Davood Karimi, Onur Afacan, Mustafa Utkur, and Ali Gholipour.  
-*HAITCH: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI.*  
-Imaging Neuroscience 2025.
