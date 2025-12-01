@@ -14,11 +14,18 @@ Key Features
 ~~~~~~~~~~~~
 While **FEDI** is primarily intended for the processing and analysis of fetal and neonatal MRI data, some tools can be used for any type of MRI data. In summary, **FEDI** features:
 
-- Multiple Q-Shell Sampling
-- Diffusion MRI Preprocessing
-- Distortion Correction for Diffusion MRI
-- Data Weighting and Outlier Detection
-- Motion Correction for diffusion MRI
+- **Gradient and b-vector tools:** Rotation of b-vectors, gradient-scheme conversion, and q-weight utilities.
+
+- **Diffusion MRI preprocessing:** Denoising, Gibbs removal, and bias-field correction.
+
+- **Outlier detection and weighting:** Identification and weighting of outlier volumes, slices, or voxels for robust diffusion MRI processing.
+
+- **Reconstruction:** Reconstruction of the diffusion signal with the integration of outlier weights.
+
+- **Motion correction for dMRI:**  Robust intra- and inter-volume motion correction designed for fetal and neonatal data, but compatible with any population.
+
+- **FOD estimation:** Fiber-orientation distribution estimation using a pretrained spherical CNN model optimized for neonatal dMRI.
+
 
 
 Getting Started
