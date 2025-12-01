@@ -32,11 +32,9 @@ While **FEDI** is primarily designed for fetal and neonatal MRI, several tools a
 Getting Started
 ~~~~~~~~~~~~~~~
 
-**FEDI** runs on GNU/Linux and macOS platforms. For most users, the easiest way to install **FEDI** is through the available pre-compiled packages. Refer to the installation section for detailed instructions. A Docker image for **FEDI** will also be available soon.
+**FEDI** runs on GNU/Linux and macOS. The easiest way to install it is via the pre-compiled packages (see the installation section). A Docker image will be available soon.
 
-**FEDI** provides a set of easy-to-use command-line tools for processing and analyzing MRI datasets. All tools follow a consistent command-line interface and are executed from a terminal window.
-
-This documentation covers many of **FEDI**'s core functionalities. To obtain help for a specific tool, type its name followed by the ``--help`` option in your terminal.
+All **FEDI** tools share a consistent command-line interface and are executed from a terminal. For help with any tool, type its name followed by ``--help``.
 
 
 .. TIP::
