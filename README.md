@@ -13,65 +13,121 @@
 
 
 
-
-
 ## ⚠️ Note: **FEDI** is under active development.
 
 
-
-
-
 ## Key Features
-- Outlier detection for dMRI
-- Motion Correction for dMRI
-- Segmentation tools
-- A complete pipeline for fetal dMRI
-- Many other features coming soon
-
-## Installation: Option 1
-To install the FEDI toolbox, open a terminal and type:
+~~~~~~~~~~~~
+While **FEDI** is primarily designed for fetal and neonatal MRI, several tools are applicable to general MRI processing. In summary, **FEDI** provides:
 
 
-```bash
-pip install fedi
-```
+- **Gradient and b-vector tools:** Rotation of b-vectors, gradient-scheme conversion, and q-weight utilities.
+
+- **Diffusion MRI preprocessing:** Denoising, Gibbs artifact removal, and bias-field correction.
+
+- **Outlier detection and weighting:** Identification and weighting of outlier volumes, slices, or voxels for robust diffusion MRI processing.
+
+- **Reconstruction:** Diffusion signal reconstruction with integrated outlier weighting.
+
+- **Motion correction for diffusion MRI:**  Robust intra- and inter-volume motion correction designed for fetal and neonatal data, but compatible with any population.
+
+- **FOD estimation:** Fiber-orientation distribution estimation using a pretrained spherical CNN model optimized for neonatal diffusion MRI.
 
 
-## Installation : Option 2
-To install the FEDI toolbox, clone the repository and add the necessary paths to your `.bashrc` file:
 
 
-```bash
-git clone https://github.com/FEDIToolbox/FEDI.git
-cd FEDI/FEDI/scripts
-FEDI_SCRIPTS=$(pwd)
-echo 'export PATH="${FEDI_SCRIPTS}:$PATH"' >> ~/.bashrc
-source ~/.bashrc
-```
+Installing FEDI
+===============
 
-Workflows such as HAITCH are available in:
+There are multiple ways to install the FEDI toolbox.
 
-```bash
-cd FEDI/FEDI/pipelines
-```
+Installation Methods
+--------------------
 
-## Installation : Option 3
+**Option 1: Install via pip**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The easiest way to install FEDI is through `pip`. Open a terminal and run:
+
+.. code-block:: bash
+
+   pip install fedi
+
+**Option 2: Clone the Repository**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To manually install the FEDI toolbox and primarily access its workflows, clone the repository and add the necessary paths to your `.bashrc` file:
+
+.. code-block:: bash
+
+   git clone https://github.com/FEDIToolbox/FEDI.git
+   cd FEDI/FEDI/scripts
+   FEDI_SCRIPTS=$(pwd)
+   echo 'export PATH="${FEDI_SCRIPTS}:$PATH"' >> ~/.bashrc
+   source ~/.bashrc
+
+`Workflows <https://github.com/FEDIToolbox/FEDI/tree/main/FEDI/pipelines>`__ such as HAITCH are available in:
+
+.. code-block:: bash
+
+   cd FEDI/FEDI/pipelines
+
+
+**Option 3: Conda Environment (Coming Soon)**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 We are currently working on providing an installation option via Conda for easier dependency management.
 
+Verifying Installation
+----------------------
 
-## Dependencies
-Recommended to use Anaconda Python distribution.
-- [DIPY](https://dipy.org/)
-- [CVXPY](http://www.cvxpy.org/)
-- [MRtrix3](https://www.mrtrix.org/)
-- [FSL](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation)
-- [ANTs](https://github.com/ANTsX/ANTs).
-- Numpy, Scipy, Nibabel, Matplotlib
+After installing FEDI, we recommend verifying that the installation is working correctly by running the automated test suite:
 
-## Documentation
-The full documentation is available at [FEDI](https://fedi.readthedocs.io).
+.. code-block:: bash
 
-For additional details, please visit the [main repository](https://github.com/FEDIToolbox/FEDI).
+   fedi_testing
 
-## Contact
-For questions, issues, or suggestions, please open an [issue](https://github.com/FEDIToolbox/FEDI/issues).
+This command will:
+
+1. **Generate synthetic test data**: Creates realistic 4D diffusion MRI data with fixed parameters in ``~/.fedi_test_data/``
+2. **Run automated tests**: Tests all FEDI command-line tools and verifies that they execute correctly and produce expected outputs
+
+The test suite will report which tools passed, failed, or were skipped (due to missing optional dependencies). Some tests may take several minutes to complete, especially ``fedi_dmri_moco`` and ``fedi_dmri_recon``.
+
+For more information about the testing command, see :ref:`fedi_testing`.
+
+Dependencies
+------------
+
+FEDI supports **DICOM, NIfTI, and MIF** image formats and relies on several external dependencies for full functionality.  
+We **strongly recommend** using the **Anaconda Python distribution** to manage dependencies efficiently.
+
+**Required Python Packages:**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+These packages are automatically installed when you install FEDI via pip:
+
+- `NumPy <https://numpy.org/>`__ - Numerical computing
+- `SciPy <https://scipy.org/>`__ - Scientific computing
+- `NiBabel <https://nipy.org/nibabel/>`__ - Neuroimaging file I/O
+- `Matplotlib <https://matplotlib.org/>`__ - Plotting and visualization
+- `DIPY <https://dipy.org/>`__ - Diffusion imaging in Python
+- `CVXPY <http://www.cvxpy.org/>`__ - Convex optimization
+- `Healpy <https://healpy.readthedocs.io/>`__ - Spherical harmonics and HEALPix
+
+**Required for Specific Features:**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- `PyTorch <https://pytorch.org/>`__ - Required for :ref:`fedi_dmri_fod` (FOD estimation)
+- `Hugging Face Hub <https://huggingface.co/docs/hub/>`__ - Required for :ref:`fedi_dmri_fod` (model downloads)
+
+**Required External Tools:**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- `MRtrix3 <https://www.mrtrix.org/>`__ 
+- `ANTs <https://github.com/ANTsX/ANTs>`__ 
+
+Getting Help
+------------
+
+For questions, issues, or suggestions, please open an issue on `our GitHub repository <https://github.com/FEDIToolbox/FEDI/issues>`__.
