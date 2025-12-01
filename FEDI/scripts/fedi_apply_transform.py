@@ -64,9 +64,9 @@ def main():
         ),
         epilog=(
             "\033[1mREFERENCES:\033[0m\n  "
-            "Snoussi, H., et al., 2024. Haitch: A framework for distortion and "
-            "motion correction in fetal multi-shell diffusion-weighted MRI. "
-            "arXiv preprint arXiv:2406.20042."
+            "Snoussi, Haykel, Davood Karimi, Onur Afacan, Mustafa Utkur, and Ali Gholipour. "
+            "HAITCH: A framework for distortion and motion correction in fetal multi-shell "
+            "diffusion-weighted MRI. Imaging Neuroscience 2025."
         ),
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )

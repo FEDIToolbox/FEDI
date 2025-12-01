@@ -25,8 +25,8 @@ setup(
             'fedi_dmri_reg=FEDI.scripts.fedi_dmri_reg:main',
             'fedi_dmri_recon=FEDI.scripts.fedi_dmri_recon:main',
             'fedi_dmri_moco=FEDI.scripts.fedi_dmri_moco:main',
-            'fedi_dmri_fod=FEDI.scripts.fedi_dmri_fod:main'
-
+            'fedi_dmri_fod=FEDI.scripts.fedi_dmri_fod:main',
+            'fedi_testing=FEDI.scripts.fedi_testing_commands:main'
         ],
     },
     python_requires='>=3.7',  # Adjust according to your requirements

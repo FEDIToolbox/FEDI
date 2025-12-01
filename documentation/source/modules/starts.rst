@@ -30,6 +30,7 @@ The tools are categorized below for easier navigation.
     commands/fedi_dmri_rotate_bvecs.rst
     commands/fedi_dmri_reg.rst
     commands/fedi_dmri_fod.rst
+    commands/fedi_testing.rst
 
 
 .. rubric:: Diffusion MRI
@@ -46,6 +47,7 @@ The tools are categorized below for easier navigation.
 .. rubric:: Miscellaneous
 
 - :ref:`fedi_apply_transform`: Applies affine or nonlinear transformations to MRI data.  
+- :ref:`fedi_testing`: Generates test data and runs automated tests for all FEDI command-line tools.  
 
 
 .. rubric:: Segmentation and Others

@@ -10,7 +10,7 @@ Continuous and analytical diffusion signal reconstruction with 3D-SHORE.
 ::
 
     fedi_dmri_recon [-h] -d <file> -a <file> -e <file> -u <file> -s <file>
-                    [-m <file>] [--do_not_use_mask] [-w <file>]
+                    [-m <file>] [-do_not_use_mask] [-w <file>]
 
 .. rubric:: Options
 **Help**
@@ -40,13 +40,13 @@ Continuous and analytical diffusion signal reconstruction with 3D-SHORE.
 -  **-m, --mask <file>**  
    Path to the mask file to reduce computation time
 
--  **--do_not_use_mask**  
-   Ignore the mask even if provided
+-  **-do_not_use_mask**  
+   Flag to indicate not to use the mask, even if provided
 
 -  **-w, --weights <file>**  
-   Path to the weights file (TXT or NIfTI)
+   Path to the weights file (TXT format)
 
 .. rubric:: References
-Snoussi, H., Karimi, D., Afacan, O., Utkur, M. and Gholipour, A., 2025.  
-*Haitch: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI.*  
-Imaging Neuroscience.
+Snoussi, Haykel, Davood Karimi, Onur Afacan, Mustafa Utkur, and Ali Gholipour.  
+*HAITCH: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI.*  
+Imaging Neuroscience 2025.

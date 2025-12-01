@@ -9,7 +9,7 @@ Compute the Signal-to-Noise Ratio (SNR) for diffusion MRI using the subtraction-
 .. rubric:: Usage
 ::
 
-    fedi_dmri_snr [-h] -d <file> -a <file> -m <file> [-b <file>]
+    fedi_dmri_snr [-h] -d <file> -a <file> -m <file>
 
 
 .. rubric:: Description
