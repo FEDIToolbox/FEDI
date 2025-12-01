@@ -47,8 +47,3 @@ Process diffusion MRI scheme and generate Siemens scanner compatible output.
 -  **--b0_at_end**  
    Include a b=0 volume at the end of the acquisition
 
-.. rubric:: References
-Snoussi, Haykel, Davood Karimi, Onur Afacan, Mustafa Utkur, and Ali Gholipour.  
-*HAITCH: A framework for distortion and motion correction in fetal multi-shell diffusion-weighted MRI.*  
-Imaging Neuroscience 2025.
-
