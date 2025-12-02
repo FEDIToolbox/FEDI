@@ -3,7 +3,7 @@ Fetal and Neonatal Development Imaging
 
 .. figure:: Focus_FEDI.png
 
-**Fetal and Neonatal Development Imaging (FEDI)** is a comprehensive, free, open-source toolbox that provides a suite of command-line tools dedicated to the processing and analysis of fetal and neonatal MRI data.
+**Fetal and Neonatal Development Imaging (FEDI)** is a comprehensive, free, open-source toolbox that provides a suite of command-line tools for analyzing fetal and neonatal MRI data.
 
 
 Key Features
@@ -11,11 +11,11 @@ Key Features
 While **FEDI** is primarily designed for fetal and neonatal MRI, several tools are applicable to general MRI processing. In summary, **FEDI** provides:
 
 
-- **Gradient and b-vector tools:** Rotation of b-vectors, gradient-scheme conversion, and q-weight utilities.
+- **Gradient and b-vector tools:** Rotation of b-vectors, and gradient-scheme conversion.
 
 - **Diffusion MRI preprocessing:** Denoising, Gibbs artifact removal, and bias-field correction.
 
-- **Outlier detection and weighting:** Identification and weighting of outlier volumes, slices, or voxels for robust diffusion MRI processing.
+- **Outlier detection:** Identification and weighting of outlier volumes, slices, or voxels.
 
 - **Reconstruction:** Diffusion signal reconstruction with integrated outlier weighting.
 
