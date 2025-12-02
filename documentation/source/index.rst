@@ -3,7 +3,7 @@ Fetal and Neonatal Development Imaging
 
 .. figure:: Focus_FEDI.png
 
-**Fetal and Neonatal Development Imaging (FEDI)** is a comprehensive, free, open-source toolbox that provides a suite of command-line tools for analyzing fetal and neonatal MRI data.
+**Fetal and Neonatal Development Imaging (FEDI)** is a comprehensive, free, open-source toolbox that provides a suite of command-line tools for processing and analyzing fetal and neonatal MRI data.
 
 
 Key Features
