@@ -4,12 +4,11 @@
 ##                                                                      ##
 ##  Part of Fetal and Neonatal Development Imaging Toolbox (FEDI)       ##
 ##                                                                      ##
-##                                                                      ##
 ##  Author:    Haykel Snoussi, PhD (dr.haykel.snoussi@gmail.com)        ##
-##             IMAGINE Group | Computational Radiology Laboratory       ##
-##             Boston Children's Hospital | Harvard Medical School      ##
 ##                                                                      ##
 ##########################################################################
+
+
 
 import argparse
 import numpy as np
@@ -40,9 +39,9 @@ parser = argparse.ArgumentParser(
     ),
     epilog=(
         "\033[1mREFERENCES:\033[0m\n  "
-        "Snoussi, H., Karimi, D., Afacan, O., Utkur, M. and Gholipour, A., 2024. "
-        "Haitch: A framework for distortion and motion correction in fetal multi-shell "
-        "diffusion-weighted MRI. arXiv preprint arXiv:2406.20042."
+        "Snoussi, Haykel, Davood Karimi, Onur Afacan, Mustafa Utkur, and Ali Gholipour. "
+        "HAITCH: A framework for distortion and motion correction in fetal multi-shell "
+        "diffusion-weighted MRI. Imaging Neuroscience 2025."
     ),
     formatter_class=FEDI_ArgumentParser
 )
@@ -258,7 +257,7 @@ def mzscore_weighting(dmri, fmask, bvals, outpath, metric, lowerThreshold, upper
     # np.savetxt(outpath + "/fslicemodified_zscore.txt", ModZscore, delimiter=',', fmt='%.6f')
 
     # Save Weights as a text file
-    np.savetxt(outpath + "/" + fsliceweights_mzscore, ModZscore_weights, delimiter=',', fmt='%.6f')
+    np.savetxt(os.path.join(outpath, fsliceweights_mzscore), ModZscore_weights, delimiter=',', fmt='%.6f')
 
 
     ModZscore_data = ModZscore
@@ -299,7 +298,7 @@ def normalize_bvecs(bvecs):
 
 
 
-def neighbors_weighting(dmri, bvals, bvecs, b0_threshold, std_scale, filename_angle_neighbors, filename_correlation_neighbors):
+def neighbors_weighting(dmri, bvals, bvecs, b0_threshold, std_scale, filename_angle_neighbors, filename_correlation_neighbors, outpath):
 
     print("Calculate Neighbors Weights")
 
@@ -383,13 +382,14 @@ def neighbors_weighting(dmri, bvals, bvecs, b0_threshold, std_scale, filename_an
     return AngleMatrix, CorreMatrix
 
 
-def shorebased_zscore_residuals_voxelwise(dmri, spred):
+def shorebased_zscore_residuals_voxelwise(dmri, spred, bvals):
     """
     Calculate voxel-wise standardized residuals.
 
     Args:
         dmri (numpy.ndarray): Raw diffusion MRI data.
         spred (numpy.ndarray): Predicted data from a model (e.g., SHORE).
+        bvals (numpy.ndarray): B-values array.
 
     Returns:
         numpy.ndarray: Voxel-wise standardized residuals.
@@ -417,19 +417,23 @@ def shorebased_zscore_residuals_voxelwise(dmri, spred):
     return zscores
 
 
-def shorebased_weighting_voxelwise(dmri, affine, spred,outpath,filename):
+def shorebased_weighting_voxelwise(dmri, affine, spred, outpath, filename, bvals):
     """
     Calculate voxel-wise shore-based weights.
 
     Args:
         dmri (numpy.ndarray): Raw diffusion MRI data.
+        affine (numpy.ndarray): Affine transformation matrix.
         spred (numpy.ndarray): Predicted data from a model (e.g., SHORE).
+        outpath (str): Output directory path.
+        filename (str): Output filename.
+        bvals (numpy.ndarray): B-values array.
 
     Returns:
         numpy.ndarray: Voxel-wise SHORE-based weights.
     """
     # Calculate voxel-wise standardized residuals
-    zscores = shorebased_zscore_residuals_voxelwise(dmri, spred)
+    zscores = shorebased_zscore_residuals_voxelwise(dmri, spred, bvals)
 
     # Initialize array for weights
     weights_4D = np.zeros_like(zscores)
@@ -522,45 +526,295 @@ def shorebased_weighting_voxelwise(dmri, affine, spred,outpath,filename):
 
 
 
+class GMModel:
+    """
+    2-component Gaussian Mixture Model for outlier detection
+    Based on the C++ implementation in dwisliceoutliergmm.cpp
+    """
+    
+    def __init__(self, max_iters=50, eps=1e-3, reg_covar=1e-6):
+        self.niter = max_iters
+        self.tol = eps
+        self.reg = reg_covar
+        
+    def fit(self, x):
+        """Fit GMM to vector x using Expectation-Maximization"""
+        x = np.asarray(x).flatten()
+        
+        # Initialize
+        self._init(x)
+        
+        ll0 = -np.inf
+        
+        # EM algorithm
+        for n in range(self.niter):
+            ll = self._e_step(x)
+            self._m_step(x)
+            
+            # Check convergence
+            if np.abs(ll - ll0) < self.tol:
+                break
+            ll0 = ll
+            
+    def posterior(self):
+        """Get posterior probability of inlier class"""
+        return np.exp(self.Rin)
+    
+    def _init(self, x):
+        """Initialize inlier and outlier classes"""
+        med = np.median(x)
+        mad = np.median(np.abs(x - med)) * 1.4826
+        
+        # Initialize means (shift +1 for log-Gaussians)
+        self.Min = med
+        self.Mout = med + 1.0
+        
+        # Initialize standard deviations
+        self.Sin = mad
+        self.Sout = mad + 1.0
+        
+        # Initialize mixing proportions
+        self.Pin = 0.9
+        self.Pout = 0.1
+        
+    def _e_step(self, x):
+        """E-step: update sample log-responsibilities and return log-likelihood"""
+        # Compute log responsibilities
+        self.Rin = self._log_gaussian(x, self.Min, self.Sin) + np.log(self.Pin)
+        self.Rout = self._log_gaussian(x, self.Mout, self.Sout) + np.log(self.Pout)
+        
+        # Normalize
+        log_prob_norm = np.logaddexp(self.Rin, self.Rout)
+        self.Rin -= log_prob_norm
+        self.Rout -= log_prob_norm
+        
+        return np.mean(log_prob_norm)
+    
+    def _m_step(self, x):
+        """M-step: update component mean and variance"""
+        eps = np.finfo(float).eps
+        
+        # Compute weights
+        w1 = np.exp(self.Rin) + eps
+        w2 = np.exp(self.Rout) + eps
+        
+        # Update mixing proportions
+        self.Pin = np.mean(w1)
+        self.Pout = np.mean(w2)
+        
+        # Update means
+        self.Min = self._average(x, w1)
+        self.Mout = self._average(x, w2)
+        
+        # Update standard deviations
+        self.Sin = np.sqrt(self._average((x - self.Min)**2, w1) + self.reg)
+        self.Sout = np.sqrt(self._average((x - self.Mout)**2, w2) + self.reg)
+    
+    def _log_gaussian(self, x, mu, sigma):
+        """Compute log probability under Gaussian"""
+        resp = (x - mu) / sigma
+        resp = -(resp**2 + np.log(2 * np.pi)) / 2 - np.log(sigma)
+        return resp
+    
+    def _average(self, x, w):
+        """Weighted average"""
+        return np.dot(x, w) / np.sum(w)
+
+
+def organize_shells(bvals, threshold=50):
+    """
+    Organize gradient directions into shells
+    
+    Parameters:
+    -----------
+    bvals : ndarray
+        B-values
+    threshold : float
+        Threshold for grouping b-values into shells
+        
+    Returns:
+    --------
+    shells : list of lists
+        Each shell contains volume indices
+    """
+    unique_bvals = []
+    shells = []
+    
+    for i, bval in enumerate(bvals):
+        # Find matching shell
+        matched = False
+        for j, ubval in enumerate(unique_bvals):
+            if np.abs(bval - ubval) < threshold:
+                shells[j].append(i)
+                matched = True
+                break
+        
+        if not matched:
+            unique_bvals.append(bval)
+            shells.append([i])
+    
+    return shells
+
+
+def compute_rmse_slicewise(data, pred, mask, mb=1):
+    """
+    Compute root mean squared error for each slice
+    
+    Parameters:
+    -----------
+    data : ndarray (nx, ny, nz, nv)
+        DWI data
+    pred : ndarray (nx, ny, nz, nv)
+        Signal prediction
+    mask : ndarray (nx, ny, nz)
+        Brain mask
+    mb : int
+        Multiband factor
+        
+    Returns:
+    --------
+    E : ndarray (ne, nv)
+        RMSE matrix (ne = nz/mb excitations, nv = volumes)
+    """
+    nx, ny, nz, nv = data.shape
+    ne = nz // mb  # Number of excitations
+    
+    # Initialize error and count matrices
+    E_full = np.zeros((nz, nv))
+    N_full = np.zeros((nz, nv), dtype=int)
+    
+    # For each volume and slice
+    for v in range(nv):
+        for z in range(nz):
+            # Compute error for this slice
+            data_slice = data[:, :, z, v]
+            pred_slice = pred[:, :, z, v]
+            mask_slice = mask[:, :, z]
+            
+            # Apply mask
+            valid = mask_slice > 0
+            
+            if np.any(valid):
+                diff = data_slice[valid] - pred_slice[valid]
+                E_full[z, v] = np.sum(diff**2)
+                N_full[z, v] = np.sum(valid)
+    
+    # Combine multiband slices
+    E_mb = np.zeros((ne, nv))
+    N_mb = np.zeros((ne, nv), dtype=int)
+    
+    for b in range(nz // ne):
+        E_mb += E_full[b*ne:(b+1)*ne, :]
+        N_mb += N_full[b*ne:(b+1)*ne, :]
+    
+    # Compute RMSE
+    E = np.zeros((ne, nv))
+    valid_mask = N_mb > 0
+    E[valid_mask] = np.sqrt(E_mb[valid_mask] / N_mb[valid_mask])
+    
+    return E
+
+
+def fedi_dmri_outliersgmm(data, pred, mask, bvals, mb=1):
+    """
+    Detect and reweigh outlier slices using Bayesian GMM modeling
+    
+    Parameters:
+    -----------
+    data : ndarray (nx, ny, nz, nv)
+        DWI data
+    pred : ndarray (nx, ny, nz, nv)
+        Signal prediction
+    mask : ndarray (nx, ny, nz)
+        Brain mask
+    bvals : ndarray (nv,)
+        B-values
+    mb : int
+        Multiband factor
+        
+    Returns:
+    --------
+    W : ndarray (nz, nv)
+        Slice weights
+    """
+    nx, ny, nz, nv = data.shape
+    ne = nz // mb
+    
+    # Organize into shells
+    shells = organize_shells(bvals)
+    
+    # Compute RMSE
+    E = compute_rmse_slicewise(data, pred, mask, mb)
+    
+    # Compute weights using GMM
+    W = np.ones_like(E)
+    gmm = GMModel()
+    
+    for s, shell in enumerate(shells):
+        # Collect residuals for this shell
+        res = []
+        for v in shell:
+            res.extend(E[:, v])
+        res = np.array(res)
+        
+        # Clip at non-zero minimum
+        nzmin = np.min(res[res > 0]) if np.any(res > 0) else 1e-10
+        logres = np.log(np.maximum(res, nzmin))
+        
+        # Fit GMM
+        gmm.fit(logres)
+        
+        # Get posterior probabilities
+        p = gmm.posterior()
+        
+        # Assign to weight matrix
+        k = 0
+        for v in shell:
+            W[:, v] = p[k*ne:(k+1)*ne]
+            k += 1
+    
+    # Replicate for multiband and round to 6 decimals
+    W_full = W.repeat(mb, axis=0)
+    W_full = np.round(W_full * 1e6) * 1e-6
+    
+    return W_full
+
+
 def gmm_weighting(fdmri, fspred, mask, bvals, bvecs, outpath, filename_gmm):
-    # it would be better if we use grad instead if fsl bval bvec
+    """
+    Calculate GMM weights using integrated Python implementation.
+    """
     print("Calculate GMM Weights")
-    command = [
-        'dwisliceoutliergmm',
-        '-fslgrad', bvecs, bvals,
-        '-mask', mask,
-        fdmri,
-        fspred,
-        os.path.join(outpath, filename_gmm),
-        '-force', 
-        '-quiet'
-    ]
-
-    # Execute the command
-    #  print("GMM command: ",command)
-    try:
-        subprocess.run(command, check=True)
-        print("Command executed successfully.")
-    except subprocess.CalledProcessError as e:
-        print(f"Command failed with error: {e.returncode}")
-
-        # Load weights from the file
-    try:
-        weights_raw = np.loadtxt(os.path.join(outpath, filename_gmm), delimiter=',')
-    except ValueError:
-        weights_raw = np.loadtxt(os.path.join(outpath, filename_gmm), delimiter=' ')
-
-        weights_raw = np.sqrt(weights_raw)
-    np.savetxt(os.path.join(outpath, filename_gmm), weights_raw, delimiter=',', fmt='%.6f')
+    
+    # Load data
+    dmri, affine = load_nifti(fdmri)
+    spred, _ = load_nifti(fspred)
+    mask_data, _ = load_nifti(mask)
+    
+    # Load bvals
+    if isinstance(bvals, str):
+        bvals_array = np.loadtxt(bvals)
+    else:
+        bvals_array = bvals
+    
+    # Ensure mask is binary
+    mask_data = (mask_data > 0).astype(float)
+    
+    # Compute weights using integrated GMM function
+    weights_raw = fedi_dmri_outliersgmm(dmri, spred, mask_data, bvals_array, mb=1)
+    
+    # Take square root (as in original implementation)
+    weights_raw = np.sqrt(weights_raw)
+    
+    # Save weights
+    output_path = os.path.join(outpath, filename_gmm)
+    np.savetxt(output_path, weights_raw, delimiter=',', fmt='%.6f')
 
     # Call the function to save the figure
     filename_gmm_png = filename_gmm.replace(".txt", ".png")
     save_figure_onebox(weights=weights_raw, clim_min=0, clim_max=1, title="Gaussian Mixture Model", outpath=outpath,fignamepng=filename_gmm_png)
 
-
-
     # save weights as a 4D-volume
-    dmri, affine = load_nifti(fdmri)
     weights_4D=np.zeros_like(dmri)
 
     # weights 2D --> 4D
@@ -574,98 +828,89 @@ def gmm_weighting(fdmri, fspred, mask, bvals, bvecs, outpath, filename_gmm):
     return weights_raw
 
 
-# Parse the command-line arguments
-args = parser.parse_args()
+def main():
+    # Parse the command-line arguments
+    args = parser.parse_args()
 
-fdmri = args.dmri
-fspred= args.spred
-fdmrigmm = args.dmrigmm
-fspredgmm= args.spredgmm
+    fdmri = args.dmri
+    fspred = args.spred
+    fdmrigmm = args.dmrigmm
+    fspredgmm = args.spredgmm
 
-mask = args.mask
-maskgmm = args.maskgmm
+    mask = args.mask
+    maskgmm = args.maskgmm
 
-fbval = args.bval
-fbvec = args.bvec
+    fbval = args.bval
+    fbvec = args.bvec
 
+    outpath = args.outpath
 
-outpath = args.outpath
+    # Extract and split the thresholds from the parsed arguments
+    thresholds = args.thresholds.split(",")
+    lowerThreshold, upperThreshold = float(thresholds[0]), float(thresholds[1])
 
-# Extract and split the thresholds from the parsed arguments
-thresholds = args.thresholds.split(",")
-lowerThreshold, upperThreshold = float(thresholds[0]), float(thresholds[1])
+    zscoremetric = args.zscoremetric
+    weightscalingmethod = args.scalingmethod
 
-zscoremetric=args.zscoremetric
-weightscalingmethod = args.scalingmethod
+    # fsliceweights_mzscore = args.fsliceweights_mzscore
+    # fsliceweights_= args.fsliceweights_angle_neighbors
+    # fsliceweights_corre_neighbors = args.fsliceweights_corre_neighbors
+    # fsliceweights_gmmodel = args.fsliceweights_gmmodel
+    # fsliceweights_shore=args.fsliceweights_shore
 
+    dmri, affine = load_nifti(fdmri)
+    print("dmri.shape: ", dmri.shape)
 
-# fsliceweights_mzscore = args.fsliceweights_mzscore
-# fsliceweights_= args.fsliceweights_angle_neighbors
-# fsliceweights_corre_neighbors = args.fsliceweights_corre_neighbors
-# fsliceweights_gmmodel = args.fsliceweights_gmmodel
-# fsliceweights_shore=args.fsliceweights_shore
-
-
-
-dmri, affine = load_nifti(fdmri)
-print("dmri.shape: ", dmri.shape)
-
-
-if fspred is not None and os.path.isfile(fspred):
-    spred, saffine = load_nifti(fspred)
-    print("spred.shape:", spred.shape)
-else:
-    fspred = None
-
-    print("No spred given")
-
-bvals, bvecs = read_bvals_bvecs(fbval, fbvec)
-
-
-
-
-print("bvals.shape: ", bvals.shape)
-print("bvecs.shape: ", bvecs.shape)
-
-# Check if a mask filename was provided
-fmask = None  # Initialize the mask as None
-if mask is not None:
-    fmask, affinemask = load_nifti(mask)
-    print("fmask.shape: ", fmask.shape)
-
-# add if mask provided, it should be multiplied by the dmri and spred file.
-
-
-if args.fsliceweights_gmmodel is not None and fspred is not None:
-
-    gmm_weighting(fdmri=fdmrigmm, fspred=fspredgmm, mask=maskgmm, bvals=fbval, bvecs=fbvec, outpath=outpath, filename_gmm=args.fsliceweights_gmmodel)
-
-if args.fsliceweights_mzscore is not None:
-    if fspred is not None:
-        dmri_mzscore = spred
+    if fspred is not None and os.path.isfile(fspred):
+        spred, saffine = load_nifti(fspred)
+        print("spred.shape:", spred.shape)
     else:
-        dmri_mzscore = dmri
+        fspred = None
+        print("No spred given")
 
-    mzscore_weighting(dmri=dmri_mzscore, fmask=fmask, bvals=bvals,  \
-        outpath=outpath, \
-        metric=zscoremetric, \
-        lowerThreshold=lowerThreshold, \
-        upperThreshold=upperThreshold, \
-        weightscalingmethod=weightscalingmethod, \
-        fsliceweights_mzscore=args.fsliceweights_mzscore)
+    bvals, bvecs = read_bvals_bvecs(fbval, fbvec)
 
-if args.fsliceweights_angle_neighbors is not None:
-    if fspred is not None:
-        dmri_neighbors = spred
-    else:
-        dmri_neighbors = dmri
+    print("bvals.shape: ", bvals.shape)
+    print("bvecs.shape: ", bvecs.shape)
 
-    neighbors_weighting(dmri=dmri_neighbors, bvals=bvals, bvecs=bvecs, b0_threshold=0, 
-        std_scale=3, filename_angle_neighbors=args.fsliceweights_angle_neighbors, filename_correlation_neighbors=args.fsliceweights_corre_neighbors)
+    # Check if a mask filename was provided
+    fmask = None  # Initialize the mask as None
+    if mask is not None:
+        fmask, affinemask = load_nifti(mask)
+        print("fmask.shape: ", fmask.shape)
+
+    # add if mask provided, it should be multiplied by the dmri and spred file.
+
+    if args.fsliceweights_gmmodel is not None and fspred is not None:
+        gmm_weighting(fdmri=fdmrigmm, fspred=fspredgmm, mask=maskgmm, bvals=fbval, bvecs=fbvec, outpath=outpath, filename_gmm=args.fsliceweights_gmmodel)
+
+    if args.fsliceweights_mzscore is not None:
+        if fspred is not None:
+            dmri_mzscore = spred
+        else:
+            dmri_mzscore = dmri
+
+        mzscore_weighting(dmri=dmri_mzscore, fmask=fmask, bvals=bvals,
+            outpath=outpath,
+            metric=zscoremetric,
+            lowerThreshold=lowerThreshold,
+            upperThreshold=upperThreshold,
+            weightscalingmethod=weightscalingmethod,
+            fsliceweights_mzscore=args.fsliceweights_mzscore)
+
+    if args.fsliceweights_angle_neighbors is not None:
+        if fspred is not None:
+            dmri_neighbors = spred
+        else:
+            dmri_neighbors = dmri
+
+        neighbors_weighting(dmri=dmri_neighbors, bvals=bvals, bvecs=bvecs, b0_threshold=0,
+            std_scale=3, filename_angle_neighbors=args.fsliceweights_angle_neighbors, filename_correlation_neighbors=args.fsliceweights_corre_neighbors, outpath=outpath)
+
+    if args.fvoxelweights_shorebased is not None and fspred is not None:
+        shorebased_weighting_voxelwise(dmri=dmri, affine=affine, spred=spred, outpath=outpath, filename=args.fvoxelweights_shorebased, bvals=bvals)
+        # shore_weighting(dmri=dmri, spred=spred, fsliceweights_shore=args.fsliceweights_shore)
 
 
-
-
-if args.fvoxelweights_shorebased is not None and fspred is not None:
-    shorebased_weighting_voxelwise(dmri=dmri,affine=affine,spred=spred,outpath=outpath,filename=args.fvoxelweights_shorebased)
-    # shore_weighting(dmri=dmri, spred=spred, fsliceweights_shore=args.fsliceweights_shore)
+if __name__ == "__main__":
+    main()

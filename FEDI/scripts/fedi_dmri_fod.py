@@ -1,3 +1,13 @@
+#!/usr/bin/env python3.10
+
+##########################################################################
+##                                                                      ##
+##  Part of Fetal and Neonatal Development Imaging Toolbox (FEDI)       ##
+##                                                                      ##
+##  Author:    Haykel Snoussi, PhD (dr.haykel.snoussi@gmail.com)        ##
+##                                                                      ##
+##########################################################################
+
 import argparse
 import os
 import numpy as np

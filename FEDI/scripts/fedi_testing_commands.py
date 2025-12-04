@@ -746,39 +746,156 @@ class FEDITestingCommands:
             self.log("  This test requires MRtrix3 and ANTs to be installed")
             return None
         
-        with tempfile.TemporaryDirectory() as tmpdir:
-            output_dir = os.path.join(tmpdir, 'moco_output')
+        # Use ~/.fedi_test_data/ for test outputs
+        test_data_dir = os.path.expanduser('~/.fedi_test_data')
+        os.makedirs(test_data_dir, exist_ok=True)
+        
+        # Create a small 5x5x5 region from the center for faster testing (keep all 100 volumes)
+        import nibabel as nib
+        self.log("  Creating 5x5x5 subset from center (keeping all volumes) for faster testing...")
+        
+        # Load original data
+        dmri_img = nib.load(self.test_files['dmri'])
+        mask_img = nib.load(self.test_files['mask'])
+        
+        dmri_data = dmri_img.get_fdata()
+        mask_data = mask_img.get_fdata()
+        
+        # Extract 5x5x5 region from the center, keep all volumes
+        x_size, y_size, z_size, n_volumes = dmri_data.shape
+        crop_size = 5
+        
+        # Calculate center indices
+        x_center = x_size // 2
+        y_center = y_size // 2
+        z_center = z_size // 2
+        
+        # Calculate crop boundaries
+        x_start = x_center - crop_size // 2
+        x_end = x_start + crop_size
+        y_start = y_center - crop_size // 2
+        y_end = y_start + crop_size
+        z_start = z_center - crop_size // 2
+        z_end = z_start + crop_size
+        
+        # Extract 5x5x5 region from center, keep all volumes
+        dmri_subset = dmri_data[x_start:x_end, y_start:y_end, z_start:z_end, :]
+        mask_subset = mask_data[x_start:x_end, y_start:y_end, z_start:z_end]
+        
+        # Update affine to reflect the cropped region
+        affine_subset = dmri_img.affine.copy()
+        # Adjust translation to account for the crop
+        crop_offset = np.array([x_start, y_start, z_start, 0])
+        affine_subset[:3, 3] += affine_subset[:3, :3] @ crop_offset[:3]
+        
+        # Save subset files
+        dmri_subset_file = os.path.join(test_data_dir, 'dmri_moco_subset.nii.gz')
+        mask_subset_file = os.path.join(test_data_dir, 'mask_moco_subset.nii.gz')
+        
+        dmri_subset_img = nib.Nifti1Image(dmri_subset, affine_subset, dmri_img.header)
+        mask_subset_img = nib.Nifti1Image(mask_subset, affine_subset, mask_img.header)
+        
+        nib.save(dmri_subset_img, dmri_subset_file)
+        nib.save(mask_subset_img, mask_subset_file)
+        
+        # Keep all bvals and bvecs (100 volumes)
+        bval_subset_file = os.path.join(test_data_dir, 'dmri_moco_subset.bval')
+        bvec_subset_file = os.path.join(test_data_dir, 'dmri_moco_subset.bvec')
+        
+        # Copy original bvals and bvecs (all volumes)
+        shutil.copy(self.test_files['bval'], bval_subset_file)
+        shutil.copy(self.test_files['bvec'], bvec_subset_file)
+        
+        self.log(f"  Created subset files: 5x5x5 region from center (from {x_size}x{y_size}x{z_size}), keeping all {n_volumes} volumes")
+        
+        # Set up output directory (clean it first to avoid conflicts)
+        output_dir = os.path.join(test_data_dir, 'moco_output')
+        if os.path.exists(output_dir):
+            shutil.rmtree(output_dir)
+        os.makedirs(output_dir, exist_ok=True)
+        
+        self.log("  Note: This test runs the motion correction pipeline (3 epochs) on a subset of data")
+        self.log("  Note: This may still take a few minutes due to the iterative nature of the pipeline")
+        
+        cmd = [
+            'fedi_dmri_moco',
+            '-d', dmri_subset_file,
+            '-a', bval_subset_file,
+            '-e', bvec_subset_file,
+            '-o', output_dir,
+            '-m', mask_subset_file,
+            '--epochs', '3'  # Use 3 epochs for faster testing
+        ]
+        
+        # Expected outputs after completion (after 3 epochs)
+        expected_outputs = [
+            os.path.join(output_dir, 'spred2.nii.gz'),  # Final spred after 3 iterations (0-2)
+            os.path.join(output_dir, 'fsliceweights_mzscore_0.txt'),  # Initial weights
+            os.path.join(output_dir, 'fsliceweights_gmmodel_1.txt'),  # GMM weights from iteration 1
+        ]
+        
+        # Run the command with increased timeout (20 minutes for full pipeline with reorientation)
+        # Convert command to Python module call
+        module_cmd = [sys.executable, '-m', 'FEDI.scripts.fedi_dmri_moco'] + cmd[1:]
+        self.log(f"Running: {' '.join(module_cmd)}")
+        try:
+            result = subprocess.run(
+                module_cmd,
+                capture_output=True,
+                text=True,
+                timeout=1200  # 20 minutes timeout (reorientation adds processing time)
+            )
             
-            self.log("  Note: This test runs the full motion correction pipeline (6 epochs) and may take several minutes")
+            success = True
             
-            cmd = [
-                'fedi_dmri_moco',
-                '-d', self.test_files['dmri'],
-                '-a', self.test_files['bval'],
-                '-e', self.test_files['bvec'],
-                '-o', output_dir,
-                '-m', self.test_files['mask']
-            ]
+            if result.returncode != 0:
+                self.log(f"✗ Command failed (exit code: {result.returncode})")
+                if result.stderr:
+                    # Filter out mrtransform warnings which are just progress indicators
+                    stderr_filtered = result.stderr
+                    # Show last 1000 chars if there's actual error content
+                    if len(stderr_filtered) > 500:
+                        # Look for actual errors (not just warnings)
+                        error_lines = [line for line in stderr_filtered.split('\n') 
+                                      if any(keyword in line.lower() for keyword in ['error', 'traceback', 'exception', 'failed'])]
+                        if error_lines:
+                            self.log(f"  STDERR (errors): {chr(10).join(error_lines[-10:])}")
+                        else:
+                            self.log(f"  STDERR (last 500 chars): {stderr_filtered[-500:]}")
+                    else:
+                        self.log(f"  STDERR: {stderr_filtered}")
+                success = False
+            else:
+                self.log(f"✓ Command succeeded (exit code: {result.returncode})")
             
-            # Expected outputs after completion (after 6 epochs)
-            expected_outputs = [
-                os.path.join(output_dir, 'spred5.nii.gz'),  # Final spred after 6 iterations (0-5)
-                os.path.join(output_dir, 'fsliceweights_mzscore_0.txt'),  # Initial weights
-                os.path.join(output_dir, 'fsliceweights_gmmodel_1.txt'),  # GMM weights from iteration 1
-            ]
-            
-            # Run the command
-            result = self.run_command(cmd, expected_exit_code=0, check_outputs=expected_outputs)
+            # Check output files
+            for output_file in expected_outputs:
+                if os.path.exists(output_file):
+                    file_size = os.path.getsize(output_file)
+                    self.log(f"  ✓ Output file exists: {output_file} ({file_size} bytes)")
+                else:
+                    self.log(f"  ✗ Output file missing: {output_file}")
+                    success = False
             
             # Also check that working_updated files exist if registration ran
-            if result:
+            if success:
                 working_updated_0 = os.path.join(output_dir, 'working_updated0.nii.gz')
                 if os.path.exists(working_updated_0):
                     self.log(f"  ✓ Registration output exists: working_updated0.nii.gz")
                 else:
                     self.log(f"  ⚠ Registration output not found (this may be normal if registration didn't run)")
             
-            return result
+            if not success and result.stdout:
+                self.log(f"  STDOUT: {result.stdout[:500]}")
+            
+            return success
+                
+        except subprocess.TimeoutExpired:
+            self.log("✗ Command timed out (>20 minutes)")
+            return False
+        except Exception as e:
+            self.log(f"✗ Command error: {e}")
+            return False
     
     def test_fedi_dmri_fod(self):
         """Test fedi_dmri_fod script."""

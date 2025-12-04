@@ -71,6 +71,7 @@ Table of Contents
    :caption: FEDI Workflows
 
    workflows/haitch_starts
+   workflows/fod_starts
 
 
 .. toctree::

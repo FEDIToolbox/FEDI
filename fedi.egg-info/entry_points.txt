@@ -8,3 +8,4 @@ fedi_dmri_recon = FEDI.scripts.fedi_dmri_recon:main
 fedi_dmri_reg = FEDI.scripts.fedi_dmri_reg:main
 fedi_dmri_rotate_bvecs = FEDI.scripts.fedi_dmri_rotate_bvecs:main
 fedi_dmri_snr = FEDI.scripts.fedi_dmri_snr:main
+fedi_testing = FEDI.scripts.fedi_testing_commands:main

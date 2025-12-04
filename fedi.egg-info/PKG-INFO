@@ -1,11 +1,28 @@
-Metadata-Version: 2.1
+Metadata-Version: 2.4
 Name: fedi
-Version: 0.1.33
+Version: 1.0.0
 Author: Haykel Snoussi
 Author-email: dr.haykel.snoussi@gmail.com
 License: MIT
 Requires-Python: >=3.7
 Description-Content-Type: text/x-rst
 License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: nibabel
+Requires-Dist: matplotlib
+Requires-Dist: dipy
+Requires-Dist: cvxpy
+Requires-Dist: healpy
+Requires-Dist: huggingface_hub
+Requires-Dist: torch
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
 
 Read the Docs

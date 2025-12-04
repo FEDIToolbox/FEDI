@@ -4,10 +4,7 @@
 ##                                                                      ##
 ##  Part of Fetal and Neonatal Development Imaging Toolbox (FEDI)       ##
 ##                                                                      ##
-##                                                                      ##
 ##  Author:    Haykel Snoussi, PhD (dr.haykel.snoussi@gmail.com)        ##
-##             IMAGINE Group | Computational Radiology Laboratory       ##
-##             Boston Children's Hospital | Harvard Medical School      ##
 ##                                                                      ##
 ##########################################################################
 

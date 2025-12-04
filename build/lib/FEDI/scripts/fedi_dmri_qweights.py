@@ -1,4 +1,12 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3.10
+
+##########################################################################
+##                                                                      ##
+##  Part of Fetal and Neonatal Development Imaging Toolbox (FEDI)       ##
+##                                                                      ##
+##  Author:    Haykel Snoussi, PhD (dr.haykel.snoussi@gmail.com)        ##
+##                                                                      ##
+##########################################################################
 
 # inspired from https://github.com/mandorra/multishell-qspace-gradients
 
@@ -56,9 +64,9 @@ def parse_arguments():
         ),
         epilog=(
             "\033[1mREFERENCES:\033[0m\n  "
-            "Snoussi, H., Karimi, D., Afacan, O., Utkur, M. and Gholipour, A., 2024. "
-            "Haitch: A framework for distortion and motion correction in fetal multi-shell "
-            "diffusion-weighted MRI. arXiv preprint arXiv:2406.20042."
+            "Snoussi, Haykel, Davood Karimi, Onur Afacan, Mustafa Utkur, and Ali Gholipour. "
+            "HAITCH: A framework for distortion and motion correction in fetal multi-shell "
+            "diffusion-weighted MRI. Imaging Neuroscience 2025."
         ),
         formatter_class=FEDI_ArgumentParser
     )
@@ -91,8 +99,7 @@ def parse_arguments():
         help="Path to the debug file where detailed information about the directions and weights will be logged."
     )
 
-    optional = parser.add_argument_group('\033[1mOPTINAL OPTIONS\033[0m')
-
+    optional = parser.add_argument_group('\033[1mOPTIONAL OPTIONS\033[0m')
 
     optional.add_argument(
         "--interspersed",
@@ -102,8 +109,10 @@ def parse_arguments():
     optional.add_argument(
         "-n", "--num_b0_volumes",
         required=False,
+        type=int,
         metavar=Metavar.int,
-        help="Number of b-value=0 volumes to include, if --interspersed was chosen."
+        default=0,
+        help="Number of b-value=0 volumes to include. Use 0 if no b=0 volumes are needed, or specify the number if --interspersed is used (default: 0)."
     )
     optional.add_argument(
         "--b0_at_beginning",
@@ -123,7 +132,7 @@ def main():
     args = parse_arguments()
 
     bvalues = np.array(args.bvalues, dtype=np.int64)
-    num_b0_volumes = int(args.num_b0_volumes) or 0
+    num_b0_volumes = args.num_b0_volumes
     interspersed = args.interspersed
     b0_at_beginning = args.b0_at_beginning
     b0_at_end = args.b0_at_end
