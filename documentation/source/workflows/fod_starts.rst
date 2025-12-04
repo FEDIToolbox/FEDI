@@ -1,6 +1,6 @@
 .. _fod_estimation:
 
-FOD Estimation with Spherical CNNs
+Fiber Orientation Estimation with sCNN
 ===================================
 
 **Fiber Orientation Distribution (FOD) Estimation** enables accurate white matter tractography and microstructural characterization. The ``fedi_dmri_fod`` tool implements a rotationally equivariant Spherical Convolutional Neural Network (sCNN) framework optimized for neonatal dMRI data.
@@ -19,15 +19,6 @@ Key Features
 - **Pretrained Model**: Automatically downloaded from Hugging Face Hub
 - **Multi-Shell Support**: Works with multi-shell dMRI data (b-values: 400, 1000, 2600 s/mm²)
 
-Methodology
------------
-
-The tool converts multi-shell dMRI signals to spherical harmonic (SH) coefficients, applies rotationally equivariant convolutions, and outputs SH coefficients representing the FOD.
-
-Performance and Validation
----------------------------
-
-The sCNN significantly outperforms Multi-Layer Perceptron (MLP) and produces FODs and tractography that are quantitatively comparable and qualitatively highly similar to Hybrid-CSD ground truth, despite using only 30% of the full acquisition data.
 
 Results and Visualizations
 ---------------------------
@@ -72,4 +63,4 @@ The FOD estimation functionality is implemented in ``fedi_dmri_fod`` (see :ref:`
 Integration with HAITCH Pipeline
 ----------------------------------
 
-The ``fedi_dmri_fod`` tool can be used as part of the HAITCH pipeline (STEP 10) for FOD estimation after motion and distortion correction. For more information, see :ref:`haitch_starts`.
+The ``fedi_dmri_fod`` tool can be used as part of the HAITCH pipeline (STEP 10) to estimate FOD after motion and distortion correction. For more information, see :ref:`haitch_starts`.
