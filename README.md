@@ -4,10 +4,7 @@
 [![Documentation Status](https://readthedocs.org/projects/fedi/badge/?version=latest)](https://fedi.readthedocs.io/en/latest/)
 [![GitHub license](https://img.shields.io/github/license/FEDIToolbox/FEDI)](https://github.com/FEDIToolbox/FEDI/blob/main/LICENSE)
 
-**Fetal and Neonatal Development Imaging (FEDI)** toolbox is a comprehensive, free, open-source toolbox that provides a suite of command-line tools dedicated to the processing and analysis of fetal and neonatal MRI data.
-
-![FEDI_Dreaming](https://github.com/FEDIToolbox/FEDI/assets/20087558/754a9d42-858f-4445-b25c-98354903f34a)
-
+**Fetal and Neonatal Development Imaging (FEDI)** is a free and open-source software that provides a suite of command-line tools for processing and analyzing fetal and neonatal MRI data.
 
 <img width="1436" height="574" alt="Focus_FEDI" src="https://github.com/user-attachments/assets/01f6a507-c5d8-483a-92c2-ffa9f4540765" />
 
