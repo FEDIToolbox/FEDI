@@ -1,5 +1,12 @@
 #!/usr/bin/env python3.10
 
+##########################################################################
+##                                                                      ##
+##  Part of Fetal and Neonatal Development Imaging Toolbox (FEDI)       ##
+##                                                                      ##
+##  Author:    Haykel Snoussi, PhD (dr.haykel.snoussi@gmail.com)        ##
+##                                                                      ##
+##########################################################################
 
 # See https://github.com/nipy/nipype/blob/f2bbcc917899c98102bdeb84db61ea4b84cbf2f5/nipype/workflows/dmri/fsl/utils.py#L516
 
@@ -14,6 +21,7 @@ Rotates the input bvec file accordingly with a list of matrices.
 """
 
 import argparse
+import os
 from scipy.io import loadmat
 import numpy as np
 
@@ -28,9 +36,9 @@ def parse_arguments():
         ),
         epilog=(
             "\033[1mREFERENCES:\033[0m\n  "
-            "Snoussi, H., Karimi, D., Afacan, O., Utkur, M. and Gholipour, A., 2024. "
-            "Haitch: A framework for distortion and motion correction in fetal multi-shell "
-            "diffusion-weighted MRI. arXiv preprint arXiv:2406.20042."
+            "Snoussi, Haykel, Davood Karimi, Onur Afacan, Mustafa Utkur, and Ali Gholipour. "
+            "HAITCH: A framework for distortion and motion correction in fetal multi-shell "
+            "diffusion-weighted MRI. Imaging Neuroscience 2025."
         ),
         formatter_class=FEDI_ArgumentParser
     )

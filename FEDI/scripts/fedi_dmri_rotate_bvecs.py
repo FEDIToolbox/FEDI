@@ -1,5 +1,12 @@
 #!/usr/bin/env python3.10
 
+##########################################################################
+##                                                                      ##
+##  Part of Fetal and Neonatal Development Imaging Toolbox (FEDI)       ##
+##                                                                      ##
+##  Author:    Haykel Snoussi, PhD (dr.haykel.snoussi@gmail.com)        ##
+##                                                                      ##
+##########################################################################
 
 # See https://github.com/nipy/nipype/blob/f2bbcc917899c98102bdeb84db61ea4b84cbf2f5/nipype/workflows/dmri/fsl/utils.py#L516
 

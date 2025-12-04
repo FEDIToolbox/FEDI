@@ -1,4 +1,12 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3.10
+
+##########################################################################
+##                                                                      ##
+##  Part of Fetal and Neonatal Development Imaging Toolbox (FEDI)       ##
+##                                                                      ##
+##  Author:    Haykel Snoussi, PhD (dr.haykel.snoussi@gmail.com)        ##
+##                                                                      ##
+##########################################################################
 
 # inspired from https://github.com/mandorra/multishell-qspace-gradients
 

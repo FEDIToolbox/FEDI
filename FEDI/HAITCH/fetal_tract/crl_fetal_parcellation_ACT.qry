@@ -1,0 +1,942 @@
+Hippocampus.left |= 37
+Hippocampus.right |= 38
+Amygdala.left |= 41
+Amygdala.right |= 42
+Caudate.left |= 71
+Caudate.right |= 72
+Lentiform.left |= 73
+Lentiform.right |= 74
+Thalamus.left |= 77
+Thalamus.right |= 78
+CorpusCallosum |= 91
+Lateral_Ventricle.left |= 92
+Lateral_Ventricle.right |= 93
+Brainstem |= 94
+Pons.left |= 96
+Pons.right |= 97
+Medulla.left |= 98
+Medulla.right |= 99
+Cerebellum.left |= 100
+Cerebellum.right |= 101
+Vermis_Ant.left |= 102
+Vermis_Ant.right |= 103
+Vermis_Post.left |= 104
+Vermis_Post.right |= 105
+Vermis_Cent.left |= 106
+Vermis_Cent.right |= 107
+Subthalamic_Nuc.left |= 108
+Subthalamic_Nuc.right |= 109
+Hippocampal_Comm |= 110
+Fornix |= 111
+Cortical_Plate.left |= 112
+Cortical_Plate.right |= 113
+Subplate.left |= 114
+Subplate.right |= 115
+Inter_Zone.left |= 116
+Inter_Zone.right |= 117
+Vent_Zone.left |= 118
+Vent_Zone.right |= 119
+White_Matter.left |= 120
+White_Matter.right |= 121
+Internal_Capsule.left |= 122
+Internal_Capsule.right |= 123
+misc |= 125
+Gang_Em.left |= 126
+Gang_Em.right |= 127
+External_Capsule.left |= 128
+External_Capsule.right |= 129
+Spine |= 160
+xtra |= 199
+
+ctx_Precentral.left |= 1001
+ctx_Precentral.right |= 1002
+ctx_Frontal_Sup.left |= 1003
+ctx_Frontal_Sup.right |= 1004
+ctx_Frontal_Sup_Orb.left |= 1005
+ctx_Frontal_Sup_Orb.right |= 1006
+ctx_Frontal_Mid.left |= 1007
+ctx_Frontal_Mid.right |= 1008
+ctx_Frontal_Mid_Orb.left |= 1009
+ctx_Frontal_Mid_Orb.right |= 1010
+ctx_Frontal_Inf_Oper.left |= 1011
+ctx_Frontal_Inf_Oper.right |= 1012
+ctx_Frontal_Inf_Tri.left |= 1013
+ctx_Frontal_Inf_Tri.right |= 1014
+ctx_Frontal_Inf_Orb.left |= 1015
+ctx_Frontal_Inf_Orb.right |= 1016
+ctx_Rolandic_Oper.left |= 1017
+ctx_Rolandic_Oper.right |= 1018
+ctx_Supp_Motor_Area.left |= 1019
+ctx_Supp_Motor_Area.right |= 1020
+ctx_Olfactory.left |= 1021
+ctx_Olfactory.right |= 1022
+ctx_Frontal_Sup_Medial.left |= 1023
+ctx_Frontal_Sup_Medial.right |= 1024
+ctx_Frontal_Med_Orb.left |= 1025
+ctx_Frontal_Med_Orb.right |= 1026
+ctx_Rectus.left |= 1027
+ctx_Rectus.right |= 1028
+ctx_Insula.left |= 1029
+ctx_Insula.right |= 1030
+ctx_Cingulum_Ant.left |= 1031
+ctx_Cingulum_Ant.right |= 1032
+ctx_Cingulum_Mid.left |= 1033
+ctx_Cingulum_Mid.right |= 1034
+ctx_Cingulum_Post.left |= 1035
+ctx_Cingulum_Post.right |= 1036
+ctx_ParaHippocampal.left |= 1039
+ctx_ParaHippocampal.right |= 1040
+ctx_Calcarine.left |= 1043
+ctx_Calcarine.right |= 1044
+ctx_Cuneus.left |= 1045
+ctx_Cuneus.right |= 1046
+ctx_Lingual.left |= 1047
+ctx_Lingual.right |= 1048
+ctx_Occipital_Sup.left |= 1049
+ctx_Occipital_Sup.right |= 1050
+ctx_Occipital_Mid.left |= 1051
+ctx_Occipital_Mid.right |= 1052
+ctx_Occipital_Inf.left |= 1053
+ctx_Occipital_Inf.right |= 1054
+ctx_Fusiform.left |= 1055
+ctx_Fusiform.right |= 1056
+ctx_Postcentral.left |= 1057
+ctx_Postcentral.right |= 1058
+ctx_Parietal_Sup.left |= 1059
+ctx_Parietal_Sup.right |= 1060
+ctx_Parietal_Inf.left |= 1061
+ctx_Parietal_Inf.right |= 1062
+ctx_SupraMarginal.left |= 1063
+ctx_SupraMarginal.right |= 1064
+ctx_Angular.left |= 1065
+ctx_Angular.right |= 1066
+ctx_Precuneus.left |= 1067
+ctx_Precuneus.right |= 1068
+ctx_Paracentral_Lobule.left |= 1069
+ctx_Paracentral_Lobule.right |= 1070
+ctx_Heschl.left |= 1079
+ctx_Heschl.right |= 1080
+ctx_Temporal_Sup.left |= 1081
+ctx_Temporal_Sup.right |= 1082
+ctx_Temporal_Pole_Sup.left |= 1083
+ctx_Temporal_Pole_Sup.right |= 1084
+ctx_Temporal_Mid.left |= 1085
+ctx_Temporal_Mid.right |= 1086
+ctx_Temporal_Pole_Mid.left |= 1087
+ctx_Temporal_Pole_Mid.right |= 1088
+ctx_Temporal_Inf.left |= 1089
+ctx_Temporal_Inf.right |= 1090
+ctx_Frontal_Mid_Caud.left |= 1131
+ctx_Frontal_Mid_Caud.right |= 1132
+ctx_Frontal_Mid_Rost.left |= 1133
+ctx_Frontal_Mid_Rost.right |= 1134
+
+
+wm_Precentral.left |= 2001
+wm_Precentral.right |= 2002
+wm_Frontal_Sup.left |= 2003
+wm_Frontal_Sup.right |= 2004
+wm_Frontal_Sup_Orb.left |= 2005
+wm_Frontal_Sup_Orb.right |= 2006
+wm_Frontal_Mid.left |= 2007
+wm_Frontal_Mid.right |= 2008
+wm_Frontal_Mid_Orb.left |= 2009
+wm_Frontal_Mid_Orb.right |= 2010
+wm_Frontal_Inf_Oper.left |= 2011
+wm_Frontal_Inf_Oper.right |= 2012
+wm_Frontal_Inf_Tri.left |= 2013
+wm_Frontal_Inf_Tri.right |= 2014
+wm_Frontal_Inf_Orb.left |= 2015
+wm_Frontal_Inf_Orb.right |= 2016
+wm_Rolandic_Oper.left |= 2017
+wm_Rolandic_Oper.right |= 2018
+wm_Supp_Motor_Area.left |= 2019
+wm_Supp_Motor_Area.right |= 2020
+wm_Olfactory.left |= 2021
+wm_Olfactory.right |= 2022
+wm_Frontal_Sup_Medial.left |= 2023
+wm_Frontal_Sup_Medial.right |= 2024
+wm_Frontal_Med_Orb.left |= 2025
+wm_Frontal_Med_Orb.right |= 2026
+wm_Rectus.left |= 2027
+wm_Rectus.right |= 2028
+wm_Insula.left |= 2029
+wm_Insula.right |= 2030
+wm_Cingulum_Ant.left |= 2031
+wm_Cingulum_Ant.right |= 2032
+wm_Cingulum_Mid.left |= 2033
+wm_Cingulum_Mid.right |= 2034
+wm_Cingulum_Post.left |= 2035
+wm_Cingulum_Post.right |= 2036
+wm_ParaHippocampal.left |= 2039
+wm_ParaHippocampal.right |= 2040
+wm_Calcarine.left |= 2043
+wm_Calcarine.right |= 2044
+wm_Cuneus.left |= 2045
+wm_Cuneus.right |= 2046
+wm_Lingual.left |= 2047
+wm_Lingual.right |= 2048
+wm_Occipital_Sup.left |= 2049
+wm_Occipital_Sup.right |= 2050
+wm_Occipital_Mid.left |= 2051
+wm_Occipital_Mid.right |= 2052
+wm_Occipital_Inf.left |= 2053
+wm_Occipital_Inf.right |= 2054
+wm_Fusiform.left |= 2055
+wm_Fusiform.right |= 2056
+wm_Postcentral.left |= 2057
+wm_Postcentral.right |= 2058
+wm_Parietal_Sup.left |= 2059
+wm_Parietal_Sup.right |= 2060
+wm_Parietal_Inf.left |= 2061
+wm_Parietal_Inf.right |= 2062
+wm_SupraMarginal.left |= 2063
+wm_SupraMarginal.right |= 2064
+wm_Angular.left |= 2065
+wm_Angular.right |= 2066
+wm_Precuneus.left |= 2067
+wm_Precuneus.right |= 2068
+wm_Paracentral_Lobule.left |= 2069
+wm_Paracentral_Lobule.right |= 2070
+wm_Heschl.left |= 2079
+wm_Heschl.right |= 2080
+wm_Temporal_Sup.left |= 2081
+wm_Temporal_Sup.right |= 2082
+wm_Temporal_Pole_Sup.left |= 2083
+wm_Temporal_Pole_Sup.right |= 2084
+wm_Temporal_Mid.left |= 2085
+wm_Temporal_Mid.right |= 2086
+wm_Temporal_Pole_Mid.left |= 2087
+wm_Temporal_Pole_Mid.right |= 2088
+wm_Temporal_Inf.left |= 2089
+wm_Temporal_Inf.right |= 2090
+wm_Frontal_Mid_Caud.left |= 2131
+wm_Frontal_Mid_Caud.right |= 2132
+wm_Frontal_Mid_Rost.left |= 2133
+wm_Frontal_Mid_Rost.right |= 2134
+
+
+##################################################################################################
+# Definition of regions equivalent to Free Surfer parcellation
+##################################################################################################
+
+ctx_SupraMarginal_FS.side |= (
+    ctx_SupraMarginal.side or
+    ctx_Parietal_Inf.side
+)
+
+wm_SupraMarginal_FS.side |= (
+    wm_SupraMarginal.side or
+    wm_Parietal_Inf.side
+)
+
+ctx_Frontal_Sup_FS.side |= (
+    ctx_Frontal_Sup.side or
+    ctx_Supp_Motor_Area.side or
+    ctx_Frontal_Sup_Medial.side
+)
+
+wm_Frontal_Sup_FS.side |= (
+    wm_Frontal_Sup.side or
+    wm_Supp_Motor_Area.side or
+    wm_Frontal_Sup_Medial.side
+)
+
+ctx_Parietal_Inf_FS.side |= ctx_Angular.side
+
+wm_Parietal_Inf_FS.side |= wm_Angular.side
+
+ctx_medialorbitofrontal_FS.side |= (
+    ctx_Frontal_Med_Orb.side or
+    ctx_Rectus.side
+)
+
+wm_medialorbitofrontal_FS.side |= (
+    wm_Frontal_Med_Orb.side or
+    wm_Rectus.side
+)
+
+ctx_lateralorbitofrontal_FS.side |= (
+    ctx_Frontal_Mid_Orb.side or
+    ctx_Frontal_Sup_Orb.side
+)
+
+wm_lateralorbitofrontal_FS.side |= (
+    wm_Frontal_Mid_Orb.side or
+    wm_Frontal_Sup_Orb.side
+)
+
+ctx_lateraloccipital_FS.side |= (
+    ctx_Occipital_Sup.side or
+    ctx_Occipital_Mid.side or
+    ctx_Occipital_Inf.side
+)
+
+wm_lateraloccipital_FS.side |= (
+    wm_Occipital_Sup.side or
+    wm_Occipital_Mid.side or
+    wm_Occipital_Inf.side
+)
+
+
+##################################################################################################
+# Definition of bigger regions that combine smaller regions (makes it easier to define queries later on)
+##################################################################################################
+
+hemisphere.left |= '*.left'
+hemisphere.right |= '*.right'
+
+ctx.right |= 'ctx_*.right'
+ctx.left |= 'ctx_*.left'
+
+cingular.left |= 'wm_Cingulum_*.left'
+cingular.right |= 'wm_Cingulum_*.right'
+
+middlefrontalgyrus.side |= (
+    ctx_Frontal_Mid_Caud.side or
+    ctx_Frontal_Mid_Rost.side
+)
+
+inferiorfrontalgyrus.side |= (
+    ctx_Frontal_Inf_Oper.side or
+    ctx_Frontal_Inf_Tri.side or
+    ctx_Frontal_Inf_Orb.side
+)
+
+orbitofrontalgyrus.side |= (
+    ctx_lateralorbitofrontal_FS.side or
+    ctx_medialorbitofrontal_FS.side
+)
+
+superior_parietal_lobule.side |= (
+    ctx_Precuneus.side or
+    ctx_Parietal_Sup.side
+)
+
+inferior_parietal_lobule.side  |= (
+    ctx_SupraMarginal_FS.side or
+    ctx_Parietal_Inf_FS.side
+)
+posterior_parietal_lobule.side |= (
+    ctx_SupraMarginal_FS.side or
+    ctx_Parietal_Inf_FS.side
+)
+
+superior_temporal_lobule.side |= (
+    ctx_Temporal_Sup.side or
+    ctx_Temporal_Pole_Sup.side or
+    ctx_Temporal_Mid.side or
+    ctx_Temporal_Pole_Mid.side or
+    ctx_Heschl.side
+)
+
+inferior_temporal_lobule.side |= (
+    ctx_Fusiform.side or
+    ctx_Lingual.side or
+    ctx_Temporal_Inf.side
+)
+
+occipital.side |= (
+    ctx_Lingual.side or
+    ctx_Calcarine.side or
+    ctx_Cuneus.side or
+    ctx_lateraloccipital_FS.side
+)
+
+parietal.side |= (
+    ctx_Postcentral.side or
+    ctx_Precuneus.side or
+    ctx_SupraMarginal_FS.side or
+    ctx_Parietal_Sup.side or
+    ctx_Parietal_Inf_FS.side
+)
+
+temporal.side |= (
+    ctx_ParaHippocampal.side or
+    ctx_Fusiform.side or
+    ctx_Temporal_Inf.side or
+    ctx_Temporal_Sup.side or
+    ctx_Temporal_Pole_Sup.side or
+    ctx_Temporal_Mid.side or
+    ctx_Temporal_Pole_Mid.side or
+    ctx_Heschl.side
+)
+
+frontal.side |= (
+    ctx_Frontal_Sup_FS.side or
+    middlefrontalgyrus.side or
+    inferiorfrontalgyrus.side or
+    orbitofrontalgyrus.side or
+    ctx_Precentral.side or
+    ctx_Paracentral_Lobule.side
+)
+
+prefrontal.side |= (
+    ctx_Frontal_Inf_Tri.side or
+    ctx_Frontal_Inf_Orb.side or
+    ctx_Frontal_Sup_FS.side or
+    ctx_Frontal_Mid_Rost.side or
+    ctx_lateralorbitofrontal_FS.side
+)
+
+motor.side |= ctx_Precentral.side
+
+premotor.side |= ctx_Frontal_Mid_Caud.side or ctx_Frontal_Inf_Oper.side
+
+striatum.side |= Lentiform.side or Caudate.side or Gang_Em.side
+
+
+subcortical_structures.side |= (
+    Thalamus.side or
+    striatum.side or
+    Hippocampus.side
+)
+
+Cerebellum_whole |= (Cerebellum.left or
+                    Cerebellum.right)
+
+centrum_semiovale.side |= White_Matter.side
+
+ctx_frontal.side |= (
+    frontal.side or
+    prefrontal.side
+)
+
+ctx_postal.side |= (
+    occipital.side or
+    parietal.side or
+    temporal.side
+)
+
+wm_occipital.side |= (
+    wm_Lingual.side or
+    wm_Calcarine.side or
+    wm_Cuneus.side or
+    wm_lateraloccipital_FS.side
+)
+
+wm_parietal.side |= (
+    wm_Postcentral.side or
+    wm_Precuneus.side or
+    wm_SupraMarginal_FS.side or
+    wm_Parietal_Sup.side or
+    wm_Parietal_Inf_FS.side
+)
+
+wm_temporal.side |= (
+    wm_ParaHippocampal.side or
+    wm_Fusiform.side or
+    wm_Temporal_Inf.side or
+    wm_Temporal_Sup.side or
+    wm_Temporal_Pole_Sup.side or
+    wm_Temporal_Mid.side or
+    wm_Temporal_Pole_Mid.side or
+    wm_Heschl.side
+)
+
+wm_frontal.side |= (
+    wm_Frontal_Sup_FS.side or
+    wm_Frontal_Mid_Caud.side or
+    wm_Frontal_Mid_Rost.side or
+    wm_Frontal_Inf_Oper.side or
+    wm_Frontal_Inf_Tri.side or
+    wm_Frontal_Inf_Orb.side or
+    wm_lateralorbitofrontal_FS.side or
+    wm_medialorbitofrontal_FS.side or
+    wm_Precentral.side or
+    wm_Paracentral_Lobule.side
+)
+
+##################################################################################################
+# Queries for different tracts
+##################################################################################################
+
+#Cingulum bundle
+CG.side = (
+    wm_Cingulum_Mid.side and
+    endpoints_in(ctx_Frontal_Sup_FS.side or 
+                ctx_Frontal_Sup_Orb.side or 
+                ctx_Paracentral_Lobule.side or
+                ctx_Precuneus.side)
+    not in hemisphere.opposite
+    not in medial_of(Thalamus.side)
+    not in lateral_of(Thalamus.side)
+    not in Brainstem
+    not in (Lentiform.side or Caudate.side or Thalamus.side)
+    )
+
+#Middle longitudinal fascicle
+MLF.side = (
+    endpoints_in(
+        (temporal.side and anterior_of(Amygdala.side)) or
+        ctx_Temporal_Sup.side or
+        ctx_Temporal_Pole_Sup.side
+    )
+    and endpoints_in(inferior_parietal_lobule.side or superior_parietal_lobule.side)
+    not in wm_occipital.side
+    not in hemisphere.opposite
+    not in subcortical_structures.side
+    not in Hippocampus.side
+    not in Internal_Capsule.side # Added 01/26/2024
+)
+
+#Inferior longitudinal fascicle
+ILF.side = (
+    endpoints_in(temporal.side and anterior_of(Hippocampus.side))
+    and endpoints_in(occipital.side)
+    not in (wm_parietal.side or wm_frontal.side)
+    not in (ctx_Cuneus.side or ctx_Occipital_Sup.side) # Added 02/09/2024
+    and only(superior_of(ctx_Temporal_Sup.side)) # Added 02/09/2024
+    not in ctx_ParaHippocampal.side
+    not in hemisphere.opposite
+    not in subcortical_structures.side
+    not in Hippocampus.side
+)
+
+#Inferior occipito-frontal fascicle for NoACT Tracking
+IFO.side = (
+    endpoints_in (
+        inferiorfrontalgyrus.side or
+        ctx_Frontal_Mid_Rost.side or
+        orbitofrontalgyrus.side    
+    )
+    and endpoints_in(occipital.side)
+    not in subcortical_structures.side
+    not in hemisphere.opposite
+    not in wm_medialorbitofrontal_FS.side
+    not in ctx_medialorbitofrontal_FS.side
+    not in wm_SupraMarginal_FS.side # Added 01/26/2024
+    not in wm_Precentral.side # Added 01/26/2024
+    not in wm_Postcentral.side # Added 01/26/2024
+)
+
+#Uncinate fascicle for Tracking without anatomical constraints
+UF.side = (
+    (
+    endpoints_in (
+        ctx_Frontal_Inf_Orb.side or
+        orbitofrontalgyrus.side
+    )
+    and
+    endpoints_in (
+        temporal.side and anterior_of(Amygdala.side))
+    )
+    not in subcortical_structures.side
+    not in hemisphere.opposite
+    not in posterior_of(Lentiform.side) # Added 01/29/2024
+)
+
+#Cortico-spinal tract
+CST.side = (
+    (endpoints_in(Spine)
+    and
+    endpoints_in(ctx_Precentral.side)
+    )
+    and Internal_Capsule.side
+    not in subcortical_structures.side
+    not in hemisphere.opposite
+)
+
+
+#Superior cerebellar peduncle
+SCP.side = (
+    endpoints_in(Thalamus.side)
+    and
+    endpoints_in(Cerebellum.side)
+    and only(inferior_of(Cerebellum.side)) # Added 01/31/2024
+    and only(superior_of(Thalamus.side)) # Added 01/31/2024
+    not in Internal_Capsule.side
+    not in hemisphere.opposite
+    not in medial_of(Thalamus.side)
+)
+
+#Middle cerebellar peduncle
+MCP = (
+    endpoints_in(Cerebellum.right)
+    and 
+    endpoints_in(Cerebellum.left)
+    and Brainstem             # should be pons/Pontine_nuclei, but freesurfer has only Brain_stem and not more fine grained parcellation
+    and only(superior_of(Cerebellum_whole)) # Added 01/30/2024 Only superior is equivalent to only inferior to the top margin
+    and only(inferior_of(Cerebellum_whole)) # Added 01/30/2024 Only inferior is equivalent to only superior to the bottom margin
+)
+
+#Inferior cerebellar peduncle
+ICP.side = (
+    endpoints_in(Cerebellum.side)
+    and 
+    endpoints_in(Spine)
+    and only(superior_of(Cerebellum.side)) # Added 01/30/2024
+    not in hemisphere.opposite
+)
+
+#Fronto-pontine tract
+FPT.side = (
+    (
+    endpoints_in(Spine)
+    and
+    endpoints_in(ctx_Frontal_Sup_FS.side)
+    )
+    and Internal_Capsule.side
+    not in subcortical_structures.side
+    not in hemisphere.opposite
+)
+
+#Parieto‐occipital pontine tract:
+POPT.side = (
+    (
+    endpoints_in(Spine)
+    and
+    endpoints_in(ctx_Parietal_Sup.side or ctx_Postcentral.side)
+    )
+    and Internal_Capsule.side
+    not in subcortical_structures.side
+    not in hemisphere.opposite
+)
+
+#Optic radiation
+OR.side = (
+    endpoints_in(Thalamus.side)
+    and
+    endpoints_in(ctx_Lingual.side or ctx_Calcarine.side or ctx_Cuneus.side)
+    not in striatum.side
+    not in hemisphere.opposite
+    not in anterior_of(Thalamus.side)
+)
+
+#Anterior Thalamic Radiation
+prefrontal_sm.side |= (
+    ctx_Frontal_Inf_Tri.side or
+    ctx_Frontal_Inf_Orb.side or
+    ctx_Frontal_Mid_Rost.side or
+    ctx_lateralorbitofrontal_FS.side
+)
+
+#Anterior Thalamic Radiation
+ATR.side = (
+    endpoints_in(thalamus.side)
+    and
+    endpoints_in(prefrontal_sm.side)
+    and Internal_Capsule.side
+    not in hemisphere.opposite
+    not in striatum.side
+    not in External_Capsule.side
+)
+
+#Superior Thalamic Radiation
+STR.side = (
+    endpoints_in(Thalamus.side)
+    and
+    endpoints_in(ctx_Paracentral_Lobule.side)
+    and only(inferior_of(Thalamus.side)) # Added 02/06/2024
+    not in anterior_of(Lentiform.side) # Added 02/06/2024
+    not in hemisphere.opposite
+    not in striatum.side
+)
+
+#Corpus Callosum (CC) in one big part
+CC = (
+    endpoints_in(ctx.left) and
+    endpoints_in(ctx.right) and
+    CorpusCallosum and
+    #Removes majority of diagonal fibers
+    (
+        (
+            endpoints_in(ctx_frontal.left)
+            and
+            endpoints_in(ctx_frontal.right)
+        )
+        or
+        (
+            endpoints_in(ctx_postal.left)
+            and
+            endpoints_in(ctx_postal.right)
+        )
+    )
+    not in subcortical_structures.right
+    not in subcortical_structures.left
+)
+
+#Rostrum
+CC_1 = (
+    endpoints_in(orbitofrontalgyrus.left)
+    and endpoints_in(orbitofrontalgyrus.right)
+    and CorpusCallosum
+    not in subcortical_structures.right
+    not in subcortical_structures.left
+)
+
+#Genu
+CC_2 = (
+    endpoints_in(prefrontal.left) 
+    and endpoints_in(prefrontal.right)
+    and CorpusCallosum
+    not in subcortical_structures.right
+    not in subcortical_structures.left
+)
+
+#Rostral body (Premotor)
+CC_3 = (
+    endpoints_in(premotor.left)
+    and endpoints_in(premotor.right)
+    and CorpusCallosum
+    not in subcortical_structures.right
+    not in subcortical_structures.left
+)
+
+#Anterior midbody (Primary Motor)
+CC_4 = (
+    endpoints_in(motor.left) 
+    and endpoints_in(motor.right)
+    and CorpusCallosum
+    not in subcortical_structures.right
+    not in subcortical_structures.left
+)
+
+#Posterior midbody (Primary Somatosensory)
+CC_5 = (
+    endpoints_in(
+        ctx_Postcentral.left or
+        ctx_Cingulum_Post.left or
+        ctx_Paracentral_Lobule.left
+    )
+    and endpoints_in(
+        ctx_Postcentral.right or
+        ctx_Cingulum_Post.right or
+        ctx_Paracentral_Lobule.right
+    )
+    and CorpusCallosum
+    not in subcortical_structures.right
+    not in subcortical_structures.left
+)
+
+#Isthmus NEW (more complete)
+CC_6 = (
+    endpoints_in(
+        superior_temporal_lobule.left or
+        posterior_parietal_lobule.left or
+        superior_parietal_lobule.left or
+        inferior_parietal_lobule.left
+    )
+    and endpoints_in(
+        superior_temporal_lobule.right or
+        posterior_parietal_lobule.right or
+        superior_parietal_lobule.right or
+        inferior_parietal_lobule.right
+    )
+    and (CorpusCallosum and posterior_of(Amygdala.right))
+    not in subcortical_structures.right
+    not in subcortical_structures.left
+)
+
+#Splenium (Occipital)
+CC_7 = (
+    endpoints_in(
+        occipital.left or
+        (inferior_temporal_lobule.left and posterior_of(ctx_Precuneus.left))
+    )
+    and endpoints_in(
+        occipital.right or
+        (inferior_temporal_lobule.right and posterior_of(ctx_Precuneus.right))
+    )
+    and CorpusCallosum
+    not in subcortical_structures.right
+    not in subcortical_structures.left
+)
+
+#Superior longitudinal fascicle I
+SLF_I.side = (
+    endpoints_in(ctx_Parietal_Sup.side)
+    and
+    endpoints_in(
+        middlefrontalgyrus.side or
+        ctx_Frontal_Sup_FS.side
+    )
+    not in subcortical_structures.right
+    not in hemisphere.opposite
+)
+
+#Superior longitudinal fascicle II
+SLF_II.side = (
+    endpoints_in(
+        ctx_Parietal_Inf_FS.side or
+        ctx_lateraloccipital_FS.side
+    )
+    and
+    endpoints_in(
+        middlefrontalgyrus.side or
+        ctx_Frontal_Sup_FS.side
+    )
+    not in subcortical_structures.right
+    not in hemisphere.opposite
+)
+
+#Superior longitudinal fascicle III
+SLF_III.side = (
+    endpoints_in(ctx_SupraMarginal_FS.side)
+    and endpoints_in(inferiorfrontalgyrus.side)
+    not in subcortical_structures.right
+    not in hemisphere.opposite
+    )
+
+#Arcuate fascicle
+AF.side = (
+    endpoints_in(
+        inferiorfrontalgyrus.side or
+        middlefrontalgyrus.side or
+        ctx_Precentral.side
+    )
+    and endpoints_in(temporal.side)
+    not in subcortical_structures.right
+    not in hemisphere.opposite
+)
+
+#Thalamo-prefrontal
+T_PREF.side = (
+    endpoints_in(Thalamus.side) and endpoints_in(prefrontal.side)
+    not in hemisphere.opposite
+    not in striatum.side
+    and Internal_Capsule.side
+    not in External_Capsule.side
+
+)
+
+#Thalamo-premotor
+T_PREM.side = (
+    endpoints_in(Thalamus.side) and endpoints_in(premotor.side)
+    not in hemisphere.opposite
+    not in striatum.side
+    and only(inferior_of(Thalamus.side)) # Added 01/30/2024
+)
+
+#Thalamo-precentral
+T_PREC.side = (
+    endpoints_in(Thalamus.side) and endpoints_in(ctx_Precentral.side)
+    not in hemisphere.opposite
+    not in striatum.side
+    and only(inferior_of(Thalamus.side)) # Added 01/30/2024
+)
+
+#Thalamo-postcentral
+T_POSTC.side = (
+    endpoints_in(Thalamus.side) and endpoints_in(ctx_Postcentral.side)
+    not in hemisphere.opposite
+    not in striatum.side
+    and only(inferior_of(Thalamus.side)) # Added 01/30/2024
+    not in posterior_of(ctx_Postcentral.side) # Added 02/06/2024
+    not in anterior_of(Thalamus.side) # Added 02/06/2024
+)
+
+#Thalamo-parietal
+T_PAR.side = (
+    endpoints_in(Thalamus.side) 
+    and endpoints_in(
+        ctx_Precuneus.side or
+        ctx_SupraMarginal_FS.side or
+        ctx_Parietal_Sup.side or
+        ctx_Parietal_Inf_FS.side
+    )
+    not in hemisphere.opposite
+    not in striatum.side
+    and only(inferior_of(Thalamus.side)) # Added 01/30/2024
+    not in anterior_of(Thalamus.side) # Added 02/05/2024
+)
+
+#Thalamo-occipital
+T_OCC.side = (
+    endpoints_in(Thalamus.side) and endpoints_in(occipital.side)
+    not in hemisphere.opposite
+    not in striatum.side
+    not in anterior_of(Thalamus.side) # Added 02/05/2024
+)
+
+#Striato-fronto-orbital
+ST_FO.side = (
+    endpoints_in(Lentiform.side) and endpoints_in(orbitofrontalgyrus.side)
+    not in hemisphere.opposite
+    not in Thalamus.side # Added 01/26/2024
+    not in Brainstem # Added 01/26/2024
+    not in posterior_of(Lentiform.side) # Added 01/26/2024
+    and only(superior_of(Lentiform.side)) # Added 01/30/2024
+)
+
+#Striato-prefrontal
+ST_PREF.side = (
+    endpoints_in(Lentiform.side) and endpoints_in(prefrontal.side)
+    not in hemisphere.opposite
+    not in Thalamus.side # Added 01/26/2024
+    not in Brainstem # Added 01/26/2024
+    not in posterior_of(Lentiform.side) # Added 01/26/2024
+)
+
+#Striato-premotor
+ST_PREM.side = (
+    endpoints_in(Lentiform.side) and endpoints_in(premotor.side)
+    not in hemisphere.opposite
+    not in Thalamus.side # Added 01/26/2024
+    not in Brainstem # Added 01/26/2024
+    not in posterior_of(Lentiform.side) # Added 01/26/2024
+    not in (Caudate.side or Gang_Em.side) # Added 01/29/2024
+    and only(inferior_of(Lentiform.side)) # Added 01/30/2024
+)
+
+#Striato-precentral
+ST_PREC.side = (
+    endpoints_in(Lentiform.side) and endpoints_in(ctx_Precentral.side)
+    not in hemisphere.opposite    
+    not in Thalamus.side # Added 01/26/2024
+    not in Brainstem # Added 01/26/2024
+    not in (Caudate.side or Gang_Em.side) # Added 01/29/2024
+    and only(inferior_of(Lentiform.side)) # Added 01/30/2024
+    not in (wm_Postcentral.side or wm_Frontal_Mid_Caud.side) # Added 02/06/2024
+    not in posterior_of(ctx_Precentral.side) # Added 02/06/2024
+    not in anterior_of(Lentiform.side) # Added 02/06/2024
+)
+
+#Striato-postcentral
+ST_POSTC.side = (
+    endpoints_in(Lentiform.side) and endpoints_in(ctx_Postcentral.side)
+    not in hemisphere.opposite
+    not in Thalamus.side # Added 01/26/2024
+    not in Brainstem # Added 01/26/2024
+    not in anterior_of(Lentiform.side) # Added 01/26/2024
+    not in posterior_of(ctx_Postcentral.side) # Added 01/26/2024
+    not in (Caudate.side or Gang_Em.side) # Added 01/29/2024
+    and only(inferior_of(Lentiform.side)) # Added 01/30/2024
+)
+
+#Striato-parietal
+ST_PAR.side = (
+    endpoints_in(Lentiform.side)
+    and endpoints_in(
+        ctx_Precuneus.side or
+        ctx_SupraMarginal_FS.side or
+        ctx_Parietal_Sup.side or
+        ctx_Parietal_Inf_FS.side
+    )
+    not in hemisphere.opposite
+    not in Thalamus.side # Added 01/26/2024
+    not in Brainstem # Added 01/26/2024
+    not in Hippocampus.side # Added 01/26/2024
+    not in anterior_of(Lentiform.side) # Added 01/26/2024
+    not in (Caudate.side or Gang_Em.side) # Added 01/29/2024
+)
+
+#Striato-occipital
+ST_OCC.side = (
+    endpoints_in(Lentiform.side) and endpoints_in(occipital.side)
+    not in hemisphere.opposite
+    not in Thalamus.side # Added 01/26/2024
+    not in Brainstem # Added 01/26/2024
+    not in Hippocampus.side # Added 01/26/2024
+    not in anterior_of(Lentiform.side) # Added 01/26/2024
+    not in (Caudate.side or Gang_Em.side) # Added 01/29/2024
+)
+
+#Frontal Aslant Tract
+FAT.side = (
+    endpoints_in(ctx_Supp_Motor_Area.side)
+    and 
+    endpoints_in(ctx_Frontal_Inf_Oper.side)
+    not in striatum.side
+    not in Internal_Capsule.side
+)

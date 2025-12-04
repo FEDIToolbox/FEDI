@@ -1,3 +1,13 @@
+#!/usr/bin/env python3.10
+
+##########################################################################
+##                                                                      ##
+##  Part of Fetal and Neonatal Development Imaging Toolbox (FEDI)       ##
+##                                                                      ##
+##  Author:    Haykel Snoussi, PhD (dr.haykel.snoussi@gmail.com)        ##
+##                                                                      ##
+##########################################################################
+
 import argparse
 import os
 import numpy as np
@@ -19,7 +29,7 @@ def parse_arguments():
         ),
         epilog=(
             "\033[1mREFERENCES:\033[0m\n  "
-            "Snoussi, H. and Karimi, D., 2025. Equivariant Spherical CNNs for Accurate Fiber Orientation Distribution Estimation in Neonatal Diffusion MRI with Reduced Acquisition Time. arXiv preprint arXiv:2504.01925."
+            "Snoussi, Haykel, and Davood Karimi. Equivariant Spherical CNNs for Accurate Fiber Orientation Distribution Estimation in Neonatal Diffusion MRI with Reduced Acquisition Time. Frontiers in Neuroscience 2025."
         ),
         formatter_class=FEDI_ArgumentParser
     )
