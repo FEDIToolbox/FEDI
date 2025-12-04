@@ -1,4 +1,4 @@
-HAITCH
+HAITCH: Motion Correction
 ======
 
 **HAITCH** is a robust framework for **distortion and motion correction** in fetal multi-shell diffusion-weighted MRI. It is an integral part of the **FEDI** toolbox, enabling high-quality preprocessing of challenging fetal dMRI datasets, and facilitating accurate downstream analyses such as tractography and microstructural modeling.
