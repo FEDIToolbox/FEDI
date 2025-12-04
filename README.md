@@ -3,7 +3,6 @@
 ![GitHub issues](https://img.shields.io/github/issues/FEDIToolbox/FEDI)
 [![Documentation Status](https://readthedocs.org/projects/fedi/badge/?version=latest)](https://fedi.readthedocs.io/en/latest/)
 [![GitHub license](https://img.shields.io/github/license/FEDIToolbox/FEDI)](https://github.com/FEDIToolbox/FEDI/blob/main/LICENSE)
-![GitHub release](https://img.shields.io/github/v/release/FEDIToolbox/FEDI)
 ![Downloads](https://img.shields.io/pypi/dm/fedi)
 
 **Fetal and Neonatal Development Imaging (FEDI)** is a free and open-source software that provides a suite of command-line tools for processing and analyzing fetal and neonatal MRI data.
