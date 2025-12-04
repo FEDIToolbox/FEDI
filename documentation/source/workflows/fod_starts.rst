@@ -9,10 +9,6 @@ For full methodological and validation details, refer to:
 
 `Snoussi and Karimi, 2025 – Equivariant spherical CNNs for accurate fiber orientation distribution estimation in neonatal diffusion MRI with reduced acquisition time <https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2025.1604545/full>`__
 
-Overview
---------
-
-The ``fedi_dmri_fod`` tool accurately estimates FODs from data acquired with reduced gradient directions (30% of full protocol), enabling faster acquisitions while maintaining high-quality results.
 
 Key Features
 ------------
