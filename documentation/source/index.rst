@@ -4,11 +4,10 @@ Fetal and Neonatal Development Imaging
 .. raw:: html
 
    <p>
-   <img src="https://img.shields.io/github/issues/FEDIToolbox/FEDI" alt="GitHub issues">
+   <img src="https://img.shields.io/github/v/release/FEDIToolbox/FEDI" alt="GitHub release">
    <a href="https://fedi.readthedocs.io/en/latest/"><img src="https://readthedocs.org/projects/fedi/badge/?version=latest" alt="Documentation Status"></a>
    <a href="https://github.com/FEDIToolbox/FEDI/blob/main/LICENSE"><img src="https://img.shields.io/github/license/FEDIToolbox/FEDI" alt="GitHub license"></a>
-   <img src="https://img.shields.io/github/v/release/FEDIToolbox/FEDI" alt="GitHub release">
-   <img src="https://img.shields.io/pypi/dm/fedi" alt="Downloads">
+   <img src="https://img.shields.io/github/issues/FEDIToolbox/FEDI" alt="GitHub issues">  
    </p>
 
 .. figure:: Focus_FEDI.png
